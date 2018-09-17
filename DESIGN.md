@@ -33,7 +33,7 @@ Here is a picture of the layout of GUI.
 
 ### Design Details
 
-Model will contain four classes: Grid, Cell, Simulation. Cell is going to be an abstract class that represents individual cells in. It’s going to have several methods that are reusable for all kinds of simulation, eg. setCurrentState(), updateCurrentState(), getNextState(). Grid is a class that contains 
+Model will contain four classes: Grid, Cell, Simulation. Cell is going to be an abstract class that represents individual cells in. It’s going to have several methods that are reusable for all kinds of simulation, eg. setCurrentState(), updateCurrentState(), getNextState().
 
 Simulation is also an abstract class that represents the generic simulation process. For example, to implement Spreading of Fire, we can create a SpreadingOfFireSimulation class that inherits from Simulation.
 
