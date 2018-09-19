@@ -1,5 +1,7 @@
 package View;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
@@ -17,7 +19,8 @@ public class UIManager {
 
     // this method will be called automatically by the FXML loader
     public void initialize(){
-
+        forceInputToBeNumeric(widthTextField);
+        forceInputToBeNumeric(heightTextField);
     }
 
     // you can get the updated value from the user input fields from this method
@@ -25,6 +28,16 @@ public class UIManager {
         System.out.println(widthTextField.getText());
         System.out.println(heightTextField.getText());
         System.out.println(slider.getValue());
+    }
+
+
+    // restrict the textfield to contain only numbers
+    private void forceInputToBeNumeric(TextField tf) {
+        tf.textProperty().addListener((observable, oldValue, newValue) -> {
+                    if (!newValue.matches("\\d*")) {
+                        tf.setText(newValue.replaceAll("[^\\d]", ""));
+                    }
+        });
     }
 
     public void handleStartButtonAction(){
