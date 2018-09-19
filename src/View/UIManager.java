@@ -30,7 +30,6 @@ public class UIManager {
         System.out.println(slider.getValue());
     }
 
-
     // restrict the textfield to contain only numbers
     private void forceInputToBeNumeric(TextField tf) {
         tf.textProperty().addListener((observable, oldValue, newValue) -> {
