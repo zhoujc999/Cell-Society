@@ -1,9 +1,7 @@
-package Cell;
+package Models;
 
 import javafx.geometry.Point2D;
 import java.util.ArrayList;
-
-import java.lang.Object;
 
 
 /**
@@ -13,12 +11,12 @@ import java.lang.Object;
  */
 
 public abstract class Cell {
-    Point2D position;
-    ArrayList<Cell> neighbors;
-    Enum state;
+    private Point2D position;
+    private ArrayList<Cell> neighbors;
+    private Enum state;
 
     /**
-     * Constructor for Cell
+     * Constructor for Models
      * @param position of the cell on the grid
      */
     public Cell(Point2D position, Enum state) {
