@@ -44,7 +44,8 @@
         <Button text="Stop"/>
         <Button text="Reset"/>
         <Button text="Step"/>
-        <Button text="Choose a file..."/>
+        <Button text="Choose a file..."
+        onAction="#handleChooseAFileAction"/>
     </HBox>
 
 

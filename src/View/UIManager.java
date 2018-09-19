@@ -5,6 +5,9 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
+
+import java.io.File;
 
 public class UIManager {
 
@@ -28,6 +31,26 @@ public class UIManager {
         System.out.println(widthTextField.getText());
         System.out.println(heightTextField.getText());
         System.out.println(slider.getValue());
+    }
+
+    // you can get the file chosen from this method
+    public void handleChooseAFileAction(){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File("."));
+        File selectedFile = fileChooser.showOpenDialog(null);
+
+        if (selectedFile == null) { return; }
+
+        try {
+            // we obtain the path to the selected file
+            System.out.println(selectedFile.getName());
+            System.out.println(selectedFile.getAbsolutePath());
+            // we can now do whatever we need with this file
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     // restrict the textfield to contain only numbers
