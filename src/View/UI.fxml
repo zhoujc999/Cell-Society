@@ -9,27 +9,30 @@
 <?import javafx.scene.control.Slider?>
 
 <GridPane fx:controller="View.UIManager"
-          xmlns:fx="http://javafx.com/fxml" alignment="CENTER_RIGHT" hgap="10" vgap="10" >
+          xmlns:fx="http://javafx.com/fxml" alignment="CENTER_RIGHT" hgap="10" vgap="10"
+          gridLinesVisible="false" maxWidth="400">
     <padding><Insets left="150" right="40"/></padding>
 
-    <Label text="Width:"
+    <Label text="Width:" minWidth="40"
            GridPane.columnIndex="0" GridPane.rowIndex="0"/>
 
-    <TextField maxWidth="50" fx:id="widthTextField"
+    <TextField fx:id="widthTextField" maxWidth="50"
                GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 
     <Label text="Height:"
-           GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+           GridPane.columnIndex="2" GridPane.rowIndex="0"/>
 
-    <TextField fx:id="heightTextField"
-                   GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+    <TextField fx:id="heightTextField" maxWidth="50"
+                   GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+
+    <Label text="Speed:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+    <Slider fx:id="slider" GridPane.columnIndex="1" GridPane.rowIndex="1"
+            GridPane.columnSpan="2" maxWidth="110"/>
 
     <HBox spacing="10" alignment="bottom_right"
-          GridPane.columnIndex="1" GridPane.rowIndex="3">
-        <Button text="Sign In"
-                onAction="#handleSubmitButtonAction"/>
+          GridPane.columnIndex="3" GridPane.rowIndex="1">
+        <Button text="Apply"
+                onAction="#handleApplyButtonAction"/>
     </HBox>
-
-    <Slider GridPane.columnIndex="0" GridPane.rowIndex="3"></Slider>
 
 </GridPane>
