@@ -27,4 +27,20 @@ public class UIManager {
         System.out.println(slider.getValue());
     }
 
+    public void handleStartButtonAction(){
+
+    }
+
+    public void handleStopButtonAction(){
+
+    }
+
+    public void handleResetButtonAction(){
+
+    }
+
+    public void handleStepButtonAction(){
+
+    }
+
 }
