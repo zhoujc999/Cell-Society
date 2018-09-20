@@ -1,4 +1,4 @@
-Cell Society Group 14
+Models Society Group 14
 =====================
 
 * Pu Xi
@@ -33,7 +33,7 @@ Here is a picture of the layout of GUI.
 
 ### Design Details
 
-Model will contain four classes: Grid, Cell, Simulation. Cell is going to be an abstract class that represents individual cells in. It’s going to have several methods that are reusable for all kinds of simulation, eg. setCurrentState(), updateCurrentState(), getNextState().
+Model will contain four classes: Grid, Models, Simulation. Models is going to be an abstract class that represents individual cells in. It’s going to have several methods that are reusable for all kinds of simulation, eg. setCurrentState(), updateCurrentState(), getNextState().
 
 Simulation is also an abstract class that represents the generic simulation process. For example, to implement Spreading of Fire, we can create a SpreadingOfFireSimulation class that inherits from Simulation.
 
@@ -47,7 +47,7 @@ View will contain 3 primary classes: SceneManager, GridView and SettingsView. Sc
 
 * To switch simulation, choose a simulation name that you want to switch to. Call the method renderView() in the Controller class to render the new simulation on the screen.
 
-The inheritance structure for Simulation and Cell is desirable here because it makes the program more flexible. Whenever we need to add new simulation behaviors, we can just create a new class that inherits from Simulation and implement its specific behavior. The MVC model is also effective, especially in this team project. Team members can easily divide responsibility and code each individual component without worrying about the detailed implementation of other parts.
+The inheritance structure for Simulation and Models is desirable here because it makes the program more flexible. Whenever we need to add new simulation behaviors, we can just create a new class that inherits from Simulation and implement its specific behavior. The MVC model is also effective, especially in this team project. Team members can easily divide responsibility and code each individual component without worrying about the detailed implementation of other parts.
 
 ### Design Considerations
 

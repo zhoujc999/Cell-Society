@@ -1,0 +1,87 @@
+package Models;
+
+import javafx.geometry.Point2D;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+
+
+/**
+ * Abstract representation of a cell. Includes the minimum methods a cell has to implement.
+ *
+ * @author jz192
+ */
+
+public abstract class Cell {
+    protected Point position;
+    protected Grid grid;
+    protected HashSet<Cell> neighbors;
+    protected Enum currentState;
+    protected Enum nextState;
+
+//    /**
+//     * Constructor for Models
+//     * @param position of the cell on the grid
+//     */
+
+
+    /**
+     *
+     * @return returns array of adjacent cells
+     */
+    public HashSet<Cell> getNeighbors() {
+        return this.neighbors;
+    }
+
+    public void setNeighbors(HashSet<Cell> neighbors) {
+        this.neighbors = neighbors;
+    }
+
+    public abstract void buildNeighbors();
+
+//    /**
+//     *
+//     * adds adjacent cells to neighbors
+//     */
+//    public abstract void addNeighbors();
+
+    public void clearNeighors() {
+        neighbors.clear();
+    }
+
+    public Point getPosition() {
+        return position;
+    }
+
+    public void setPosition(Point position) {
+        this.position = position;
+    }
+
+    /**
+     *
+     * @param state sets the state of the cell (e.g. Burning, Tree, Empty)
+     */
+    public void setCurrentState(Enum state) {
+        this.currentState = state;
+    }
+
+    public Enum getCurrentState() {
+        return currentState;
+    }
+
+    public void setNextState(Enum state) {
+        this.nextState = state;
+    }
+
+    public Enum getNextState() {
+        return nextState;
+    }
+
+    public abstract void calculateNextState();
+
+    public void updateState() {
+        currentState = nextState;
+    }
+
+}
