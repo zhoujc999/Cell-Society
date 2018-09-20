@@ -19,6 +19,7 @@ public abstract class Cell {
     protected HashSet<Cell> neighbors;
     protected Enum currentState;
     protected Enum nextState;
+    protected boolean stateChanged;
 
     /**
      * Constructor for Models
@@ -32,6 +33,7 @@ public abstract class Cell {
         this.neighbors = new HashSet<>();
         this.currentState = state;
         this.nextState = state;
+        this.stateChanged = true;
     }
 
 
@@ -90,7 +92,14 @@ public abstract class Cell {
      * update currentState variable
      */
     public void updateState() {
-        currentState = nextState;
+        if (nextState != currentState) {
+            currentState = nextState;
+            stateChanged = true;
+        }
+        else {
+            stateChanged = false;
+        }
+
     }
 
 }

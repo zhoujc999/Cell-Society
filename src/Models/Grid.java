@@ -91,6 +91,13 @@ public abstract class Grid {
         return false;
     }
 
+    public boolean outOfBounds(Point position) {
+        int x = position.getX();
+        int y = position.getY();
+        return outOfBounds(x, y);
+    }
+
+
     /**
      * get Cell with coordinate
      * @param x x-coordinate
