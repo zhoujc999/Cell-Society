@@ -18,7 +18,7 @@ public class SegregationCell extends Cell{
 
     @Override
     public void calculateNextState() {
-//        TODO
+//
 
 
     }
