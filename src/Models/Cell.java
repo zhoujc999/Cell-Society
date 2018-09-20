@@ -6,8 +6,10 @@ import java.util.HashSet;
 
 
 /**
- * Abstract representation of a cell. Includes the minimum methods a cell has to implement.
- *
+ * Abstract representation of a Cell. Includes the minimum methods a Cell has to implement.
+ * position is where the cell is located in the grid.
+ * neighbors are the adjacent (as defined in problem) Cells
+ * currentState and nextState are wrapped in enum classes
  * @author jz192
  */
 
@@ -18,10 +20,12 @@ public abstract class Cell {
     protected Enum currentState;
     protected Enum nextState;
 
-//    /**
-//     * Constructor for Models
-//     * @param position of the cell on the grid
-//     */
+    /**
+     * Constructor for Models
+     * @param position
+     * @param grid
+     * @param state
+     */
     protected Cell(Point position, Grid grid, Enum state) {
         this.position = position;
         this.grid = grid;
@@ -33,7 +37,7 @@ public abstract class Cell {
 
     /**
      *
-     * @return returns array of adjacent cells
+     * @return the cell's neighbours
      */
     public HashSet<Cell> getNeighbors() {
         return this.neighbors;
@@ -45,11 +49,6 @@ public abstract class Cell {
 
     public abstract void initializeNeighbors();
 
-//    /**
-//     *
-//     * adds adjacent cells to neighbors
-//     */
-//    public abstract void addNeighbors();
 
     public void clearNeighors() {
         this.neighbors.clear();
@@ -64,8 +63,7 @@ public abstract class Cell {
     }
 
     /**
-     *
-     * @param state sets the state of the cell (e.g. Burning, Tree, Empty)
+     * @param state sets the state of the cell
      */
     public void setCurrentState(Enum state) {
         this.currentState = state;
@@ -83,8 +81,14 @@ public abstract class Cell {
         return this.nextState;
     }
 
+    /**
+     * calculate and update nextState variable
+     */
     public abstract void calculateNextState();
 
+    /**
+     * update currentState variable
+     */
     public void updateState() {
         currentState = nextState;
     }
