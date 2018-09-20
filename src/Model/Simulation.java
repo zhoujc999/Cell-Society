@@ -1,4 +1,4 @@
-package Models;
+package Model;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,7 +54,10 @@ public abstract class Simulation {
         return stateToNumCells;
     }
 
-
+    /**
+     * call this method to get view of current cell states
+     * @return map mapping enum states to ints
+     */
     public Map renderView() {
         Map view = new HashMap();
         for (Map.Entry<Point, Cell> entry: grid.getMatrix().entrySet()) {

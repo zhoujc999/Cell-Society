@@ -1,4 +1,4 @@
-package Models;
+package Model;
 
 public class Directions {
     public enum EightDirections {

@@ -2,9 +2,7 @@ package Controller;
 import Models;
 import javafx.animation.Timeline;
 import javafx.stage.Stage;
-import Models.*;
-import View.*;
-
+import Model.*;
 
 
 public class Controller_API {
