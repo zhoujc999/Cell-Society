@@ -2,6 +2,9 @@ package Models;
 
 import javafx.geometry.Point2D;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 
 
 /**
@@ -11,31 +14,31 @@ import java.util.ArrayList;
  */
 
 public abstract class Cell {
-    private Point2D position;
-    private ArrayList<Cell> neighbors;
-    private Enum state;
+    protected Point position;
+    protected Grid grid;
+    protected HashSet<Cell> neighbors;
+    protected Enum currentState;
+    protected Enum nextState;
 
-    /**
-     * Constructor for Models
-     * @param position of the cell on the grid
-     */
-    public Cell(Point2D position, Enum state) {
-        this.position = position;
-        neighbors = new ArrayList<Cell>();
-        this.state = state;
-    }
+//    /**
+//     * Constructor for Models
+//     * @param position of the cell on the grid
+//     */
+
 
     /**
      *
      * @return returns array of adjacent cells
      */
-    public ArrayList getNeighbors() {
+    public HashSet<Cell> getNeighbors() {
         return this.neighbors;
     }
 
-    public void setNeighbors(ArrayList neighbors) {
+    public void setNeighbors(HashSet<Cell> neighbors) {
         this.neighbors = neighbors;
     }
+
+    public abstract void buildNeighbors();
 
 //    /**
 //     *
@@ -47,11 +50,11 @@ public abstract class Cell {
         neighbors.clear();
     }
 
-    public Point2D getPosition() {
+    public Point getPosition() {
         return position;
     }
 
-    public void setPosition(Point2D position) {
+    public void setPosition(Point position) {
         this.position = position;
     }
 
@@ -59,15 +62,26 @@ public abstract class Cell {
      *
      * @param state sets the state of the cell (e.g. Burning, Tree, Empty)
      */
-    public void setState(Enum state) {
-        this.state = state;
+    public void setCurrentState(Enum state) {
+        this.currentState = state;
     }
 
-    public Enum getState() {
-        return state;
+    public Enum getCurrentState() {
+        return currentState;
     }
 
-    public abstract void updateState();
+    public void setNextState(Enum state) {
+        this.nextState = state;
+    }
 
+    public Enum getNextState() {
+        return nextState;
+    }
+
+    public abstract void calculateNextState();
+
+    public void updateState() {
+        currentState = nextState;
+    }
 
 }
