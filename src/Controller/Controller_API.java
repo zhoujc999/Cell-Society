@@ -1,31 +1,37 @@
 package Controller;
-import Models;
 import javafx.animation.Timeline;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import View.*;
+import java.io.File;
 import Model.*;
-
 
 public class Controller_API {
     public static final String DATA_FILE_EXTENSION= "*.xml";
+    private FileChooser myChooser = makeChooser(DATA_FILE_EXTENSION);
 
-    private FREAMES_PER_SECOND = 20;
-
+    private int frames_per_sec;
     private Timeline myTime;
     private View myView;
     private Simulation mySimulation;
     private Stage myStage;
 
-
     public void start(Stage mainStage){
-        //parse XML to get default values
+        var dataFile = myChooser.showOpenDialog(mainStage);
+        while(dataFile!=null){
+            try{
+
+            }
+            catch {
+                var
+            }
+        }
         Stage myStage = mainStage;
         var xmlObj = parse_XML(XMLDIR);
-        //set the values on mainStage
 
-        //call setUp
+
         setUp(Stage, xmlObj);
 
-        //set up animation
     }
 
     private void setUp(Stage mainStage, var xmlObj){
@@ -72,6 +78,13 @@ public class Controller_API {
         myStage.close();
     }
 
+    private FileChooser makeChooser(String extension){
+        var result = new FileChooser();
+        result.setTitle("choose data file");
+        result.setInitialDirectory(new File(System.getProperty("user.dir")));
+        result.getExtensionFilters().setAll(new FileChooser.ExtensionFilter("Text files",extension));
+        return result;
+    }
 
     private XMLOBJ parse_XML(String directory){
         //return an XMLOBJ
