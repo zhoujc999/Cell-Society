@@ -7,7 +7,7 @@ Models Society Group 14
 
 ### Introduction
 
-The first objective of this project is to develop a program that simulates Cellular Automata. Using the program, the user will be able to choose the model they want to simulate, set up parameters and run and stop the simulations at their own wills. 
+The primary objective of this project is to develop a program that simulates Cellular Automata. Using the program, the user will be able to choose the model they want to simulate, set up parameters and run and stop the simulations at their own wills. 
 
 From the developer perspective, this program should also be extendable in the sense that it is easy to add a new model or to add a new parameter into a current model. The rules governing the models should also be easily modified. 
 
