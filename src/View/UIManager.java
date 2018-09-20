@@ -1,13 +1,15 @@
 package View;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
-
 import java.io.File;
+
+/*
+    UIManager is a class that keeps track of all UI elements and handle their actions
+    @author xp19
+ */
 
 public class UIManager {
 
@@ -33,6 +35,15 @@ public class UIManager {
         System.out.println(slider.getValue());
     }
 
+    // restrict the textfield to contain only numbers
+    private void forceInputToBeNumeric(TextField tf) {
+        tf.textProperty().addListener((observable, oldValue, newValue) -> {
+                    if (!newValue.matches("\\d*")) {
+                        tf.setText(newValue.replaceAll("[^\\d]", ""));
+                    }
+        });
+    }
+
     // you can get the file chosen from this method
     public void handleChooseAFileAction(){
         FileChooser fileChooser = new FileChooser();
@@ -51,15 +62,6 @@ public class UIManager {
             e.printStackTrace();
         }
 
-    }
-
-    // restrict the textfield to contain only numbers
-    private void forceInputToBeNumeric(TextField tf) {
-        tf.textProperty().addListener((observable, oldValue, newValue) -> {
-                    if (!newValue.matches("\\d*")) {
-                        tf.setText(newValue.replaceAll("[^\\d]", ""));
-                    }
-        });
     }
 
     public void handleStartButtonAction(){
