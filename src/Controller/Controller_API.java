@@ -2,11 +2,15 @@ package Controller;
 import Models;
 import javafx.animation.Timeline;
 import javafx.stage.Stage;
+import Models.*;
+import View.*;
+
 
 
 public class Controller_API {
-    public static final String XMLDIR = "";
-    public static final int FREAMES_PER_SECOND = 20;
+    public static final String DATA_FILE_EXTENSION= "*.xml";
+
+    private FREAMES_PER_SECOND = 20;
 
     private Timeline myTime;
     private View myView;
