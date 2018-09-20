@@ -13,8 +13,13 @@ public class CellStates {
     }
 
     public enum SegregrationStates {
-        SATISFIED,
-        DISSATISFIED,
-        EMPTY;
+        EMPTY,
+        RED_SATISFIED,
+        BLUE_SATISFIED,
+        RED_DISSATISFIED,
+        BLUE_DISSATISFIED;
+
     }
+
+
 }

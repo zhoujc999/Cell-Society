@@ -4,6 +4,7 @@ import java.util.Map;
 
 /**
  * Abstract representation of the Game of Life Simulation
+ * After
  *
  * @author jz192
  */
@@ -25,7 +26,11 @@ public class GameOfLifeSimulation extends Simulation {
         this.numCells = numRows * numColumns;
         initializeGrid();
         initializeCells(initialState);
+        initializeNeighbors();
     }
+
+
+
 
     protected void initializeGrid() {
         this.grid = new GameOfLifeGrid(numRows, numColumns, ROW_WRAP, COLUMN_WRAP);
@@ -44,6 +49,8 @@ public class GameOfLifeSimulation extends Simulation {
             grid.getMatrix().put(position, cell);
         }
     }
+
+
 
     /**
      * @return the number of live Cells/ total number of Cells

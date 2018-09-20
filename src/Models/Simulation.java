@@ -16,8 +16,14 @@ public abstract class Simulation {
 
 
 
+
     protected abstract void initializeGrid();
 
+    protected void initializeNeighbors(){
+        for (Cell cell: grid.getMatrix().values()) {
+            cell.initializeNeighbors();
+        }
+    }
 
     /**
      * call this method at every time-step to update and evolve the model
@@ -49,6 +55,15 @@ public abstract class Simulation {
     }
 
 
+    public Map renderView() {
+        Map view = new HashMap();
+        for (Map.Entry<Point, Cell> entry: grid.getMatrix().entrySet()) {
+            if (entry.getValue().stateChanged) {
+                view.put(entry.getKey(), entry.getValue().currentState);
+            }
+        }
+        return view;
+    }
 
     public abstract String toString();
 }

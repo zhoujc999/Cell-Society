@@ -6,15 +6,17 @@ import java.util.HashSet;
 public class GameOfLifeCell extends Cell {
     public GameOfLifeCell(Point position, Grid grid, CellStates.GameOfLifeStates state) {
         super (position, grid, state);
+
     }
 
 
     public void initializeNeighbors() {
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-                if (!grid.outOfBounds(i, j) && grid.getCell(i, j) != this) {
-                    this.neighbors.add(grid.getCell(i, j));
-                }
+        neighbors.clear();
+        Point neighborPosition;
+        for (Directions.EightDirections direction : Directions.EightDirections.values()) {
+            neighborPosition = position.add(direction.getDirection());
+            if (!grid.outOfBounds(neighborPosition)) {
+                neighbors.add(grid.getCell(neighborPosition));
             }
         }
     }
