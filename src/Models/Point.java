@@ -1,5 +1,11 @@
 package Models;
 
+/**
+ * Abstract representation of a cell. Includes the minimum methods a cell has to implement.
+ *
+ * @author jz192
+ */
+
 import java.util.Objects;
 
 public class Point {
