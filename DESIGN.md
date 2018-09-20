@@ -1,4 +1,4 @@
-Models Society Group 14
+Model Society Group 14
 =====================
 
 * Pu Xi
@@ -7,11 +7,11 @@ Models Society Group 14
 
 ### Introduction
 
-The first objective of this project is to develop a program that simulates Cellular Automata. Using the program, the user will be able to choose the model they want to simulate, set up parameters and run and stop the simulations at their own wills. 
+The primary objective of this project is to develop a program that simulates Cellular Automata. Using the program, the user will be able to choose the model they want to simulate, set up parameters and run and stop the simulations at their own wills. 
 
 From the developer perspective, this program should also be extendable in the sense that it is easy to add a new model or to add a new parameter into a current model. The rules governing the models should also be easily modified. 
 
-In terms of architecture, this project will adopt the MVC (Model, View, Controller) model as the overarching structure of the program. View renders the Model and passes raw user inputs to the controller. Controller, then interprets the inputs and passes the commands to the Models according to different user actions, The model respond to the commands and produces an output.
+In terms of architecture, this project will adopt the MVC (Model, View, Controller) model as the overarching structure of the program. View renders the Model and passes raw user inputs to the controller. Controller, then interprets the inputs and passes the commands to the Model according to different user actions, The model respond to the commands and produces an output.
 
 ### Overview
 
@@ -33,7 +33,7 @@ Here is a picture of the layout of GUI.
 
 ### Design Details
 
-Model will contain four classes: Grid, Models, Simulation. Models is going to be an abstract class that represents individual cells in. It’s going to have several methods that are reusable for all kinds of simulation, eg. setCurrentState(), updateCurrentState(), getNextState().
+Model will contain four classes: Grid, Model, Simulation. Model is going to be an abstract class that represents individual cells in. It’s going to have several methods that are reusable for all kinds of simulation, eg. setCurrentState(), updateCurrentState(), getNextState().
 
 Simulation is also an abstract class that represents the generic simulation process. For example, to implement Spreading of Fire, we can create a SpreadingOfFireSimulation class that inherits from Simulation.
 
@@ -47,7 +47,7 @@ View will contain 3 primary classes: SceneManager, GridView and SettingsView. Sc
 
 * To switch simulation, choose a simulation name that you want to switch to. Call the method renderView() in the Controller class to render the new simulation on the screen.
 
-The inheritance structure for Simulation and Models is desirable here because it makes the program more flexible. Whenever we need to add new simulation behaviors, we can just create a new class that inherits from Simulation and implement its specific behavior. The MVC model is also effective, especially in this team project. Team members can easily divide responsibility and code each individual component without worrying about the detailed implementation of other parts.
+The inheritance structure for Simulation and Model is desirable here because it makes the program more flexible. Whenever we need to add new simulation behaviors, we can just create a new class that inherits from Simulation and implement its specific behavior. The MVC model is also effective, especially in this team project. Team members can easily divide responsibility and code each individual component without worrying about the detailed implementation of other parts.
 
 ### Design Considerations
 
@@ -68,6 +68,6 @@ The inheritance structure for Simulation and Models is desirable here because it
 
 Since this project adopts an MVC framework, the pipeline of the project is naturally divided into three parts: Model design, Controller design, and Viewer design. According to individual interests and strengths, Jingchao will be responsible for Model, Arthur will take charge of the Controller, and Xi will be in charge of the Viewer.
 
-The members, though, are well aware of the complexity of the project logic and that Models, Viewer and Controllers interact with each other in a complicated way. Each member, therefore, will be primarily responsible for implementing the structure of our respective class, while all team members will work on convoluted methods and details together to ensure the flow of the project.
+The members, though, are well aware of the complexity of the project logic and that Model, Viewer and Controllers interact with each other in a complicated way. Each member, therefore, will be primarily responsible for implementing the structure of our respective class, while all team members will work on convoluted methods and details together to ensure the flow of the project.
 
 The team also noticed that in Basic Implementation, it needs to implement four different simulations. The secondary responsibility of the team members, therefore, is to design the algorithms for one to two simulations. Then the team members will have discussions to evaluate the algorithms and determine how to incorporate the algorithms into the models in a clean and extendible manner.

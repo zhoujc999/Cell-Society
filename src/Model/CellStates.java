@@ -1,4 +1,4 @@
-package Models;
+package Model;
 
 /**
  * Abstract representation of a cell. Includes the minimum methods a cell has to implement.

@@ -1,12 +1,10 @@
 package Controller;
-import Models.*;
 import javafx.animation.Timeline;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import View.*;
-
 import java.io.File;
-
+import Model.*;
 
 public class Controller_API {
     public static final String DATA_FILE_EXTENSION= "*.xml";
@@ -18,7 +16,6 @@ public class Controller_API {
     private Simulation mySimulation;
     private Stage myStage;
 
-
     public void start(Stage mainStage){
         var dataFile = myChooser.showOpenDialog(mainStage);
         while(dataFile!=null){
@@ -27,7 +24,6 @@ public class Controller_API {
             }
             catch {
                 var
-
             }
         }
         Stage myStage = mainStage;
