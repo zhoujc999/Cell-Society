@@ -4,8 +4,8 @@ import java.util.HashSet;
 import java.util.Map;
 
 public class GameOfLifeSimulation extends Simulation {
-    private static final boolean ROWWRAP = false;
-    private static final boolean COLUMNWRAP = false;
+    private static final boolean ROW_WRAP = false;
+    private static final boolean COLUMN_WRAP = false;
 
     public GameOfLifeSimulation(int numRows, int numColumns, Map<Point, CellStates.GameOfLifeStates> initialState) {
         if (initialState.size() != numRows * numColumns) {
@@ -18,7 +18,7 @@ public class GameOfLifeSimulation extends Simulation {
     }
 
     protected void initializeGrid() {
-        this.grid = new GameOfLifeGrid(numRows, numColumns, ROWWRAP, COLUMNWRAP);
+        this.grid = new GameOfLifeGrid(numRows, numColumns, ROW_WRAP, COLUMN_WRAP);
     }
 
 
