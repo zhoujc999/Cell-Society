@@ -1,5 +1,5 @@
 package Controller;
-
+import Models;
 import javafx.animation.Timeline;
 import javafx.stage.Stage;
 
