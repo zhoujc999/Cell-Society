@@ -24,6 +24,13 @@ public abstract class Cell {
 //     * Constructor for Models
 //     * @param position of the cell on the grid
 //     */
+    protected Cell(Point position, Grid grid, Enum state) {
+        this.position = position;
+        this.grid = grid;
+        this.neighbors = new HashSet<>();
+        this.currentState = state;
+        this.nextState = state;
+    }
 
 
     /**
@@ -38,7 +45,7 @@ public abstract class Cell {
         this.neighbors = neighbors;
     }
 
-    public abstract void buildNeighbors();
+    public abstract void initializeNeighbors();
 
 //    /**
 //     *
@@ -47,11 +54,11 @@ public abstract class Cell {
 //    public abstract void addNeighbors();
 
     public void clearNeighors() {
-        neighbors.clear();
+        this.neighbors.clear();
     }
 
     public Point getPosition() {
-        return position;
+        return this.position;
     }
 
     public void setPosition(Point position) {
@@ -67,7 +74,7 @@ public abstract class Cell {
     }
 
     public Enum getCurrentState() {
-        return currentState;
+        return this.currentState;
     }
 
     public void setNextState(Enum state) {
@@ -75,7 +82,7 @@ public abstract class Cell {
     }
 
     public Enum getNextState() {
-        return nextState;
+        return this.nextState;
     }
 
     public abstract void calculateNextState();

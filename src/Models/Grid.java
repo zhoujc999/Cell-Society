@@ -1,27 +1,31 @@
 package Models;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
-public class Grid {
-    private List<List<Cell>> grid;
-    private int numRows;
-    private int numColumns;
-    private boolean rowWrap;
-    private boolean columnWrap;
+public abstract class Grid {
+    protected Map<Point, Cell> matrix;
+    protected int numRows;
+    protected int numColumns;
+    protected boolean rowWrap;
+    protected boolean columnWrap;
 
-
-    public Grid(List<List<Cell>> grid, boolean rowWrap, boolean columnWrap) {
-        this.grid = grid;
-        this.numRows = grid.size();
-        this.numColumns = grid.get(0).size();
+    protected Grid(int numRows, int numColumns, boolean rowWrap, boolean columnWrap) {
+        this.matrix = new HashMap<>();
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numColumns; j++) {
+                matrix.put(new Point(j, i), null);
+            }
+        }
+        this.numRows = numRows;
+        this.numColumns = numColumns;
         this.rowWrap = rowWrap;
         this.columnWrap = columnWrap;
     }
 
-
-    public List<List<Cell>> getGrid() {
-        return grid;
+    public Map<Point, Cell> getMatrix() {
+        return matrix;
     }
 
     public int getNumRows() {
@@ -32,19 +36,6 @@ public class Grid {
         return numColumns;
     }
 
-    public Map<Enum, Integer> getNumCellsForEachCurrentState() {
-        Map<Enum, Integer> stateToNumCells = new HashMap<Enum, Integer>();
-        for (List<Cell> row : grid) {
-            for (Cell cell : row) {
-                if (stateToNumCells.containsKey(cell.getCurrentState())) {
-                    stateToNumCells.put(cell.getCurrentState(), stateToNumCells.get(cell.getCurrentState()) + 1);
-                } else {
-                    stateToNumCells.put(cell.getCurrentState(), 1);
-                }
-            }
-        }
-        return stateToNumCells;
-    }
 
     private int gridRowWrap(int row) {
         int wrapRow;
@@ -80,7 +71,12 @@ public class Grid {
 
     public Cell getCell(int x, int y) {
 
-        return grid.get(y).get(x);
+        return matrix.get(new Point(x, y));
+    }
+
+    public Cell getCell(Point position) {
+
+        return matrix.get(position);
     }
 
 
