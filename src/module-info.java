@@ -4,6 +4,9 @@ module lab_bounce {
     requires javafx.graphics;
     requires javafx.media;
     requires javafx.fxml;
+    requires java.xml;
 
-    exports cell;
+
+
+    exports src;
 }
