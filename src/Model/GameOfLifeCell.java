@@ -1,7 +1,5 @@
-package Models;
+package Model;
 
-
-import java.util.HashSet;
 
 public class GameOfLifeCell extends Cell {
     public GameOfLifeCell(Point position, Grid grid, CellStates.GameOfLifeStates state) {

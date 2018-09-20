@@ -1,7 +1,6 @@
-package Models;
+package Model;
 
 
-import java.util.Collection;
 import java.util.HashSet;
 
 
@@ -22,7 +21,7 @@ public abstract class Cell {
     protected boolean stateChanged;
 
     /**
-     * Constructor for Models
+     * Constructor for Model
      * @param position
      * @param grid
      * @param state

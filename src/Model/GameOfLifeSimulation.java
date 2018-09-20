@@ -1,5 +1,4 @@
-package Models;
-import java.util.HashSet;
+package Model;
 import java.util.Map;
 
 /**
