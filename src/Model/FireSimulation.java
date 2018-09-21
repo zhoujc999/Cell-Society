@@ -50,7 +50,7 @@ public class FireSimulation extends Simulation{
     /**
      * call this method at every time-step to update and evolve the model
      */
-    protected void step() {
+    public void step() {
         for (Cell cell: grid.getMatrix().values()) {
             cell.calculateNextState();
         }

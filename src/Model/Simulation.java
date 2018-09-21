@@ -24,14 +24,14 @@ public abstract class Simulation {
 
     protected void initializeAllNeighbors(){
         for (Cell cell: grid.getMatrix().values()) {
-            cell.initializeNeighbors();
+//            cell.initializeNeighbors();
         }
     }
 
     /**
      * call this method at every time-step to update and evolve the model
      */
-    protected abstract void step();
+    public abstract void step();
 
 
     public abstract void render();
