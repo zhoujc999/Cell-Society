@@ -31,7 +31,7 @@ public abstract class Simulation {
     /**
      * call this method at every time-step to update and evolve the model
      */
-    protected abstract void step();
+    public abstract void step();
 
 
     public abstract void render();

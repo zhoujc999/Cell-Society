@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<data mode="gameOfLife">
-    <ratio>.5</ratio>
+<data media="game">
+    <type>gameOfLife</type>
+    <ratio1>.5</ratio1>
+    <ratio2>0.1</ratio2>
     <width>400</width>
     <length>600</length>
     <numRows>40</numRows>
     <numColumns>40</numColumns>
+    <fames_per_sec>60</fames_per_sec>
 </data>
