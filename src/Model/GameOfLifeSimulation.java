@@ -25,7 +25,7 @@ public class GameOfLifeSimulation extends Simulation {
         this.numCells = numRows * numColumns;
         initializeGrid();
         initializeCells(initialState);
-        initializeNeighbors();
+        initializeAllNeighbors();
     }
 
 
