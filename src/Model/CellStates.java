@@ -18,6 +18,11 @@ public class CellStates {
         EMPTY;
     }
 
+    public enum SegregrationMood {
+        SATISFIED,
+        DISSATISFIED;
+    }
+
     public enum FireStates {
         TREE,
         BURNING,

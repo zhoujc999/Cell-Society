@@ -1,6 +1,7 @@
 package Model;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.EnumMap;
 
 /**
  * Abstract representation of a Simulation
@@ -13,7 +14,7 @@ public abstract class Simulation {
     protected int numRows;
     protected int numColumns;
     protected int numCells;
-    protected Map statistics;
+    protected EnumMap statistics;
     protected Map view;
 
 
