@@ -18,7 +18,7 @@ public class Controller_API {
 
     public void start(Stage mainStage){
         var dataFile = myChooser.showOpenDialog(mainStage);
-        while(dataFile!=null){
+        while(dataFile != null){
             try{
 
             }

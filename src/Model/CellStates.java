@@ -13,13 +13,20 @@ public class CellStates {
     }
 
     public enum SegregrationStates {
-        EMPTY,
-        RED_SATISFIED,
-        BLUE_SATISFIED,
-        RED_DISSATISFIED,
-        BLUE_DISSATISFIED;
-
+        RED,
+        BLUE,
+        EMPTY;
     }
 
+    public enum SegregrationMood {
+        SATISFIED,
+        DISSATISFIED;
+    }
+
+    public enum FireStates {
+        TREE,
+        BURNING,
+        EMPTY;
+    }
 
 }

@@ -2,9 +2,11 @@ package Model;
 
 
 public class GameOfLifeCell extends Cell {
-    public GameOfLifeCell(Point position, Grid grid, CellStates.GameOfLifeStates state) {
-        super (position, grid, state);
+    private GameOfLifeGrid grid;
 
+    public GameOfLifeCell(Point position, GameOfLifeGrid grid, CellStates.GameOfLifeStates state) {
+        super(position, state);
+        this.grid = grid;
     }
 
 
@@ -19,6 +21,13 @@ public class GameOfLifeCell extends Cell {
         }
     }
 
+    public void setNextState(Enum state) {
+        this.nextState = state;
+    }
+
+    public Enum getNextState() {
+        return this.nextState;
+    }
 
     @Override
     public void calculateNextState() {
@@ -43,4 +52,5 @@ public class GameOfLifeCell extends Cell {
         }
 
     }
+
 }

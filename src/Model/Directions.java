@@ -26,4 +26,25 @@ public class Directions {
         }
     }
 
+    public enum FourDirections {
+        N (0, -1),
+        W (-1, 0),
+        E (1, 0),
+        S (0, 1);
+
+        // declaring private variable for getting values
+        private Point vector;
+
+        // getter method
+        public Point getDirection()
+        {
+            return this.vector;
+        }
+
+        FourDirections(int x, int y)
+        {
+            this.vector = new Point(x, y);
+        }
+    }
+
 }

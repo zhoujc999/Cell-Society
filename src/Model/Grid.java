@@ -97,14 +97,12 @@ public abstract class Grid {
         return outOfBounds(x, y);
     }
 
-
     /**
      * get Cell with coordinate
      * @param x x-coordinate
      * @param y y-coordinate
      */
     protected Cell getCell(int x, int y) {
-
         return matrix.get(new Point(x, y));
     }
 
@@ -112,8 +110,7 @@ public abstract class Grid {
      * get Cell with Point
      * @param position
      */
-    public Cell getCell(Point position) {
-
+    protected Cell getCell(Point position) {
         return matrix.get(position);
     }
 
