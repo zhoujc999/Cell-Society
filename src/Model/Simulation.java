@@ -19,7 +19,7 @@ public abstract class Simulation {
 
     protected abstract void initializeGrid();
 
-    protected void initializeNeighbors(){
+    protected void initializeAllNeighbors(){
         for (Cell cell: grid.getMatrix().values()) {
             cell.initializeNeighbors();
         }
