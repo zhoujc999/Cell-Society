@@ -5,8 +5,4 @@ module lab_bounce {
     requires javafx.media;
     requires javafx.fxml;
     requires java.xml;
-
-
-
-    exports src;
 }
