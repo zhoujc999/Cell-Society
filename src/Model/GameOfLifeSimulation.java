@@ -13,6 +13,7 @@ public class GameOfLifeSimulation extends Simulation {
 //    No wrap arounds for Game of Life
     private static final boolean ROW_WRAP = false;
     private static final boolean COLUMN_WRAP = false;
+    private GameOfLifeGrid grid;
 
     private Map<CellStates.GameOfLifeStates, Integer> statistics;
 
@@ -49,14 +50,22 @@ public class GameOfLifeSimulation extends Simulation {
         }
     }
 
-
-
     /**
-     * @return the number of live Cells/ total number of Cells
+     * call this method at every time-step to update and evolve the model
      */
-    public double liveRatio() {
-        statistics = super.getNumCellsForEachCurrentState();
-        return statistics.get(CellStates.GameOfLifeStates.LIVE) / numCells;
+    protected void step() {
+        for (Cell cell: grid.getMatrix().values()) {
+            cell.calculateNextState();
+        }
+
+        for (Cell cell: grid.getMatrix().values()) {
+            cell.updateState();
+        }
+    }
+
+
+    public void render() {
+
     }
 
 

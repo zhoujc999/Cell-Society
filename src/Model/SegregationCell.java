@@ -1,15 +1,18 @@
 package Model;
 
 public class SegregationCell extends Cell{
+    private SegregationGrid grid;
 
     private double satisfactionThreshold;
     private int numRedNeighbors;
     private int numBlueNeighbors;
     private boolean satisfied;
 
-    public SegregationCell(Point position, Grid grid, CellStates.SegregrationStates state, double satisfactionThreshold) {
-        super(position, grid, state);
+    public SegregationCell(Point position, SegregationGrid grid, CellStates.SegregrationStates state, double satisfactionThreshold) {
+        super(position, state);
+        this.grid = grid;
         this.satisfactionThreshold = satisfactionThreshold;
+        this.satisfied = true;
     }
 
 
@@ -19,6 +22,38 @@ public class SegregationCell extends Cell{
 
     public double getSatisfactionThreshold() {
         return satisfactionThreshold;
+    }
+
+    public void setSatisfed(boolean satisfied) {
+        this.satisfied = satisfied;
+    }
+
+//    public void incrementNumRedNeighbors() {
+//        if (currentState != CellStates.SegregrationStates.EMPTY && numRedNeighbors < 8) {
+//            numRedNeighbors++;
+//        }
+//    }
+//
+//    public void decrementNumRedNeighbors() {
+//        if (currentState != CellStates.SegregrationStates.EMPTY && numRedNeighbors > 0) {
+//            numRedNeighbors--;
+//        }
+//    }
+//
+//    public void incrementNumBlueNeighbors() {
+//        if (currentState != CellStates.SegregrationStates.EMPTY && numBlueNeighbors < 8) {
+//            numBlueNeighbors++;
+//        }
+//    }
+//
+//    public void decrementNumBlueNeighbors() {
+//        if (currentState != CellStates.SegregrationStates.EMPTY && numBlueNeighbors > 0) {
+//            numBlueNeighbors--;
+//        }
+//    }
+
+    public boolean isSatisfied() {
+        return satisfied;
     }
 
     public void initializeNeighbors() {
@@ -41,34 +76,29 @@ public class SegregationCell extends Cell{
                 }
             }
         }
-
     }
 
     @Override
     public void calculateNextState() {
         if (currentState != CellStates.SegregrationStates.EMPTY) {
-            double satisfactionLevel = calculateSatisfactionLevel();
-            Point neighborPosition;
-            for (Directions.EightDirections direction : Directions.EightDirections.values()) {
-                neighborPosition = position.add(direction.getDirection());
-                if (!grid.outOfBounds(neighborPosition)) {
-                    neighbors.add(grid.getCell(neighborPosition));
-                }
+            determineSatisfied();
+            if (!satisfied) {
+                grid.swapPositions(position);
             }
+
         }
     }
 
-    private double calculateSatisfactionLevel() {
+    private void determineSatisfied() {
         if (currentState == CellStates.SegregrationStates.RED) {
-            return numRedNeighbors / (numBlueNeighbors + numRedNeighbors);
+            satisfied = (numRedNeighbors / (numBlueNeighbors + numRedNeighbors)) > satisfactionThreshold;
         }
-        if (currentState == CellStates.SegregrationStates.BLUE) {
-            return numBlueNeighbors / (numBlueNeighbors + numRedNeighbors);
+        else if (currentState == CellStates.SegregrationStates.BLUE) {
+            satisfied = (numBlueNeighbors / (numBlueNeighbors + numRedNeighbors)) > satisfactionThreshold;
         }
-        return 1;
+        else {
+            satisfied = true;
+        }
     }
-
-
-
 
 }

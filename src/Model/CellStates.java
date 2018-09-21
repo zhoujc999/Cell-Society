@@ -18,5 +18,10 @@ public class CellStates {
         EMPTY;
     }
 
+    public enum FireStates {
+        TREE,
+        BURNING,
+        EMPTY;
+    }
 
 }

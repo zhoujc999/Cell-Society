@@ -14,7 +14,6 @@ import java.util.HashSet;
 
 public abstract class Cell {
     protected Point position;
-    protected Grid grid;
     protected HashSet<Cell> neighbors;
     protected Enum currentState;
     protected Enum nextState;
@@ -23,12 +22,10 @@ public abstract class Cell {
     /**
      * Constructor for Model
      * @param position
-     * @param grid
      * @param state
      */
-    protected Cell(Point position, Grid grid, Enum state) {
+    protected Cell(Point position, Enum state) {
         this.position = position;
-        this.grid = grid;
         this.neighbors = new HashSet<>();
         this.currentState = state;
         this.nextState = state;
@@ -50,6 +47,11 @@ public abstract class Cell {
 
     public abstract void initializeNeighbors();
 
+    public void initializeNeighborsNeighbors() {
+        for (Cell neighbor : neighbors) {
+            neighbor.initializeNeighbors();
+        }
+    }
 
     public void clearNeighors() {
         this.neighbors.clear();
@@ -74,6 +76,7 @@ public abstract class Cell {
         return this.currentState;
     }
 
+
     public void setNextState(Enum state) {
         this.nextState = state;
     }
@@ -81,7 +84,6 @@ public abstract class Cell {
     public Enum getNextState() {
         return this.nextState;
     }
-
     /**
      * calculate and update nextState variable
      */
@@ -94,11 +96,11 @@ public abstract class Cell {
         if (nextState != currentState) {
             currentState = nextState;
             stateChanged = true;
-        }
-        else {
+        } else {
             stateChanged = false;
         }
 
     }
+
 
 }
