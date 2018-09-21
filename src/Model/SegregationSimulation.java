@@ -8,6 +8,7 @@ public class SegregationSimulation extends Simulation {
     private static final boolean COLUMN_WRAP = false;
     private SegregationGrid grid;
     private double satisfactionThreshold;
+    private int numEmptyCells;
 
     private Map<CellStates.SegregrationStates, Integer> statistics;
 
@@ -22,6 +23,7 @@ public class SegregationSimulation extends Simulation {
         this.numColumns = numColumns;
         this.numCells = numRows * numColumns;
         this.satisfactionThreshold = threshold;
+        this.numEmptyCells = 0;
         initializeGrid();
         initializeCells(initialState);
         initializeAllNeighbors();
@@ -46,6 +48,7 @@ public class SegregationSimulation extends Simulation {
             }
             if (state == CellStates.SegregrationStates.EMPTY) {
                 grid.getEmptyPositions();
+                numEmptyCells++;
             }
             SegregationCell cell = new SegregationCell(position, grid, state, satisfactionThreshold);
             grid.getMatrix().put(position, cell);
@@ -53,6 +56,7 @@ public class SegregationSimulation extends Simulation {
     }
 
     public void step() {
+        grid.setSwapQuota(numEmptyCells);
         for (Cell cell: grid.getMatrix().values()) {
             cell.calculateNextState();
         }
@@ -64,6 +68,10 @@ public class SegregationSimulation extends Simulation {
             }
         }
     }
+    public void render() {
+        
+    }
+
 
     public String toString() {
         return "Segregation Simulation";
