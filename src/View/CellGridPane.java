@@ -49,7 +49,7 @@ public class CellGridPane {
         // NULL POINTER EXCEPTION HERE
         GameOfLifeSimulation simulation= new GameOfLifeSimulation(width, height, map);
         simulation.render();
-//        Map<Point, CellStates.GameOfLifeStates> myMap = simulation.getView();
+        Map<Point, CellStates.GameOfLifeStates> myMap = simulation.getView();
 
         int index = 0;
         for(Point p: map.keySet()){
