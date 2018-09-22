@@ -21,7 +21,7 @@ Hours Spent:
 
 ### Running the Program
 
-Main class:
+View.Main class:
 
 Data files needed: 
 
