@@ -1,6 +1,7 @@
 package Controller;
 
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -8,6 +9,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -36,13 +39,19 @@ public class XMLParser {
     /**
      * Get the data contained in this XML file as an object
      */
-    public Element getRoot(File dataFile) {
+    public Map<String,String> getAttribute(File dataFile) {
         var root = getRootElement(dataFile);
         if (! isValidFile(root, "game")) {
             throw new XMLException(ERROR_MESSAGE, "game");
         }
+        var result = new HashMap<String, String>();
+        NodeList nodes= root.getChildNodes();
+        for(int i = 0; i<nodes.getLength(); i++)
+        {
+            result.put(nodes.item(i).getNodeName(),nodes.item(i).getTextContent());
+        }
         // read data associated with the fields given by the object
-        return root;
+        return result;
     }
 
     // Get root element of an XML file
