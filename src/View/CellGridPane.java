@@ -15,6 +15,7 @@ import javafx.util.Duration;
 import javafx.stage.Stage;
 import org.w3c.dom.Element;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -41,7 +42,8 @@ public class CellGridPane {
         initialize(5,5);
     }
 
-    public void create(Stage mainStage, Map<String, String> attributes, Simulation initialSimulation) throws Exception{
+
+    public void create(Stage mainStage, Map<String, String> attributes, Simulation initialSimulation) throws Exception {
         width = Integer.parseInt(attributes.get("width"));
         height = Integer.parseInt(attributes.get("length"));
         initialize(width, height, initialSimulation);

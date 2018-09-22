@@ -10,6 +10,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import View.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,17 +33,6 @@ public class Controller_API{
     private Simulation mySimulation;
     private Stage myStage;
 
-    // fields with @FXML annotation are automatically populated to reference the UI element
-    // with the same name as its id in fxml
-    @FXML
-    private TextField widthTextField;
-    @FXML
-    private TextField heightTextField;
-    @FXML
-    private Slider slider;
-    @FXML
-    public GridPane gridPane;
-
 
     public void start(Stage mainStage) throws Exception {
         var dataFile = myChooser.showOpenDialog(mainStage);
@@ -52,6 +42,7 @@ public class Controller_API{
 
         setUp(mainStage, attributes);
     }
+
 
     private void setUp(Stage mainStage, Map<String, String> attributes) throws Exception {
         //retrieve parameters needed to build a new Simulation

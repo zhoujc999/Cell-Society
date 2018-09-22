@@ -19,13 +19,6 @@ public class GameOfLifeCell extends Cell {
         }
     }
 
-    public void setNextState(Enum state) {
-        this.nextState = state;
-    }
-
-    public Enum getNextState() {
-        return this.nextState;
-    }
 
     @Override
     public void calculateNextState() {
