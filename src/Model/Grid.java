@@ -1,6 +1,7 @@
 package Model;
-import java.util.Map;
+
 import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -27,11 +28,11 @@ public abstract class Grid {
      */
     protected Grid(int numRows, int numColumns, boolean rowWrap, boolean columnWrap) {
         this.matrix = new HashMap<>();
-        for (int i = 0; i < numRows; i++) {
-            for (int j = 0; j < numColumns; j++) {
-                matrix.put(new Point(j, i), null);
-            }
-        }
+//        for (int i = 0; i < numRows; i++) {
+//            for (int j = 0; j < numColumns; j++) {
+//                matrix.put(new Point(j, i), null);
+//            }
+//        }
         this.numRows = numRows;
         this.numColumns = numColumns;
         this.rowWrap = rowWrap;
@@ -102,7 +103,7 @@ public abstract class Grid {
      * @param x x-coordinate
      * @param y y-coordinate
      */
-    protected Cell getCell(int x, int y) {
+    public Cell getCell(int x, int y) {
         return matrix.get(new Point(x, y));
     }
 

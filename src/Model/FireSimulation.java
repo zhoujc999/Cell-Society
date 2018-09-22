@@ -3,7 +3,7 @@ package Model;
 import java.util.Map;
 import java.util.Random;
 
-public class FireSimulation extends Simulation{
+public class FireSimulation extends Simulation {
     //    No wrap arounds for Game of Life
     private static final boolean ROW_WRAP = false;
     private static final boolean COLUMN_WRAP = false;
@@ -24,7 +24,7 @@ public class FireSimulation extends Simulation{
         this.random = new Random();
         initializeGrid();
         initializeCells(initialState);
-        initializeAllNeighbors();
+//        initializeAllNeighbors();
     }
 
 
