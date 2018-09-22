@@ -7,7 +7,7 @@ public class FireCell extends Cell {
     private double probCatchFire;
     private Random random;
     public FireCell(Point position, FireGrid grid, CellStates.FireStates state, double probCatchFire, Random random) {
-        super(position, state);
+        super(position, grid, state);
         this.grid = grid;
         this.probCatchFire = probCatchFire;
         this.random = random;

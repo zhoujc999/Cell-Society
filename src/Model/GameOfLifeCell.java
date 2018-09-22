@@ -2,11 +2,9 @@ package Model;
 
 
 public class GameOfLifeCell extends Cell {
-    private GameOfLifeGrid grid;
 
     public GameOfLifeCell(Point position, GameOfLifeGrid grid, CellStates.GameOfLifeStates state) {
-        super(position, state);
-        this.grid = grid;
+        super(position, grid, state);
     }
 
 

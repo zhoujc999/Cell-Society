@@ -14,6 +14,7 @@ import java.util.HashSet;
 
 public abstract class Cell {
     protected Point position;
+    protected Grid grid;
     protected HashSet<Cell> neighbors;
     protected Enum currentState;
     protected Enum nextState;
@@ -24,8 +25,9 @@ public abstract class Cell {
      * @param position
      * @param state
      */
-    protected Cell(Point position, Enum state) {
+    protected Cell(Point position, Grid grid, Enum state) {
         this.position = position;
+        this.grid = grid;
         this.neighbors = new HashSet<>();
         this.currentState = state;
         this.nextState = state;
@@ -104,6 +106,6 @@ public abstract class Cell {
 
     @Override
     public String toString() {
-        return "Cell" + position;
+        return "Cell" +  " @ " + position;
     }
 }

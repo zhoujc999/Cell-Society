@@ -48,6 +48,6 @@ public class Point {
 
     @Override
     public String toString() {
-        return "Point " + x + ". " + y;
+        return "Point " + "(" + x + ", " + y + ")";
     }
 }
