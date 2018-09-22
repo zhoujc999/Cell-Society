@@ -255,23 +255,9 @@ public class CellGridPane {
 //                }
 //        ));
 
-
-
-
-
-
-
-
-
-
-
-
 //
 //        tt1.setCycleCount(Timeline.INDEFINITE);
 //        tt1.play();
-
-
-
 
     }
 
