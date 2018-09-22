@@ -32,19 +32,23 @@ public class Controller_API{
     private CellGridPane myView;
     private Simulation mySimulation;
     private Stage myStage;
+    private GridPane gridPane;
 
+    public Controller_API(GridPane gridPane)
+    {
+        this.gridPane =gridPane;
+    }
+    public void start() throws Exception {
+        var dataFile = myChooser.showOpenDialog(null);
 
-    public void start(Stage mainStage) throws Exception {
-        var dataFile = myChooser.showOpenDialog(mainStage);
-        Stage myStage = mainStage;
         XMLParser parser = new XMLParser("game");
         Map<String, String> attributes = parser.getAttribute(dataFile);
 
-        setUp(mainStage, attributes);
+        setUp(attributes);
     }
 
 
-    private void setUp(Stage mainStage, Map<String, String> attributes) throws Exception {
+    private void setUp(Map<String, String> attributes) throws Exception{
         //retrieve parameters needed to build a new Simulation
 
         int numRows = Integer.parseInt(attributes.get("numRows"));
@@ -55,34 +59,8 @@ public class Controller_API{
         String type = attributes.get("type");
         mySimulation = golSimulation(numRows, numColumns, cellRatio);
 
-        //pass the mxlObj, stage and Simulation obj for the viewer to create for the first time
-        myView  = new CellGridPane();
-        myView.create(mainStage, attributes, mySimulation);
-
-
-        var frame = new KeyFrame(Duration.millis(1000/speed),e->step((double)(1.0/speed)));
-        myTime = new Timeline();
-        myTime.setCycleCount(Timeline.INDEFINITE);
-        myTime.getKeyFrames().add(frame);
-        myTime.play();
-
-        //build a new simulation*/
-
-    }
-
-    private void setUp(Map<String, String> attributes){
-        //retrieve parameters needed to build a new Simulation
-
-        int numRows = Integer.parseInt(attributes.get("numRows"));
-        int numColumns = Integer.parseInt(attributes.get("numColumns"));
-        double cellRatio = Double.parseDouble(attributes.get("ratio1"));
-        double emptyRatio = Double.parseDouble(attributes.get("ratio2"));
-        int speed = Integer.parseInt(attributes.get("frames_per_sec"));
-        String type = attributes.get("type");
-        mySimulation = golSimulation(numRows, numColumns, cellRatio);
-
-        //pass the mxlObj, stage and Simulation obj for the viewer to create for the first time
-
+        myView = new CellGridPane(gridPane);
+        myView.create(attributes, mySimulation);
 
         var frame = new KeyFrame(Duration.millis(1000/speed),e->step((double)(1.0/speed)));
         myTime = new Timeline();
@@ -150,9 +128,5 @@ public class Controller_API{
 
     public void setMyView(CellGridPane myView){
         this.myView = myView;
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

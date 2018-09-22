@@ -1,5 +1,6 @@
 package View;
 
+import Controller.Controller_API;
 import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
@@ -26,10 +27,12 @@ public class UIManager {
     public GridPane gridPane;
 
     // this method will be called automatically by the FXML loader
-    public void initialize(){
+    public void initialize() throws Exception{
         forceInputToBeNumeric(widthTextField);
         forceInputToBeNumeric(heightTextField);
-        CellGridPane societyGridPane = new CellGridPane(gridPane);
+        Controller_API controller = new Controller_API(gridPane);
+       // CellGridPane societyGridPane = new CellGridPane(gridPane);
+        controller.start();
     }
 
     // you can get the updated value from the user input fields from this method
