@@ -1,4 +1,4 @@
-module Cellular_Automaton {
+module cellsociety_team{
 
     requires transitive javafx.fxml;
 
@@ -10,5 +10,6 @@ module Cellular_Automaton {
     exports View to javafx.graphics, javafx.fxml;
 
     opens View to javafx.graphics, javafx.fxml;
+    exports Controller;
 
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<data media="game">
+<data game="game">
     <type>gameOfLife</type>
     <ratio1>.5</ratio1>
     <ratio2>0.1</ratio2>
@@ -7,5 +7,5 @@
     <length>600</length>
     <numRows>40</numRows>
     <numColumns>40</numColumns>
-    <fames_per_sec>60</fames_per_sec>
+    <frames_per_sec>60</frames_per_sec>
 </data>

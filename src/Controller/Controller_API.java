@@ -1,6 +1,7 @@
 package Controller;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Application;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import View.*;
@@ -15,13 +16,15 @@ import Model.*;
 import javafx.util.Duration;
 import org.w3c.dom.Element;
 
-public class Controller_API {
+import static javafx.application.Application.launch;
+
+public class Controller_API extends Application {
     public static final String DATA_FILE_EXTENSION = "*.xml";
     private FileChooser myChooser = makeChooser(DATA_FILE_EXTENSION);
 
     private int frames_per_sec;
     private Timeline myTime;
-    //private View myView;
+    private CellGridPane myView;
     private Simulation mySimulation;
     private Stage myStage;
 
@@ -29,23 +32,24 @@ public class Controller_API {
         var dataFile = myChooser.showOpenDialog(mainStage);
         Stage myStage = mainStage;
         XMLParser parser = new XMLParser("game");
-        Element root = parser.getRoot(dataFile);
+        Map<String, String> attributes = parser.getAttribute(dataFile);
 
-        setUp(mainStage, root);
+        setUp(mainStage, attributes);
     }
 
-    private void setUp(Stage mainStage, Element root) {
+    private void setUp(Stage mainStage, Map<String, String> attributes) {
         //retrieve parameters needed to build a new Simulation
-        int numRows = Integer.parseInt(root.getAttribute("numRows"));
-        int numColumns = Integer.parseInt(root.getAttribute("numColumns"));
-        double cellRatio = Double.parseDouble(root.getAttribute("ratio1"));
-        double emptyRatio = Double.parseDouble(root.getAttribute("ratio1"));
-        int speed = Integer.parseInt(root.getAttribute("frames_per_sec"));
-        String type = root.getAttribute("type");
+
+        int numRows = Integer.parseInt(attributes.get("numRows"));
+        int numColumns = Integer.parseInt(attributes.get("numColumns"));
+        double cellRatio = Double.parseDouble(attributes.get("ratio1"));
+        double emptyRatio = Double.parseDouble(attributes.get("ratio2"));
+        int speed = Integer.parseInt(attributes.get("frames_per_sec"));
+        String type = attributes.get("type");
         mySimulation = golSimulation(numRows, numColumns, cellRatio);
 
         //pass the mxlObj, stage and Simulation obj for the viewer to create for the first time
-        //myView.create(mainStage, root, initialSimulation);
+        myView.create(mainStage, attributes, mySimulation);
 
 
         var frame = new KeyFrame(Duration.millis(1000/speed),e->step((double)(1.0/speed)));
@@ -54,7 +58,7 @@ public class Controller_API {
         myTime.getKeyFrames().add(frame);
         myTime.play();
 
-        //build a new simulation
+        //build a new simulation*/
 
     }
 
@@ -63,7 +67,7 @@ public class Controller_API {
         mySimulation.step();
 
         //pass the new Simulation to myView
-       // myView.render(mySimulation);
+        myView.render(mySimulation);
     }
 
     public void stop() {
@@ -112,5 +116,9 @@ public class Controller_API {
         return new GameOfLifeSimulation(numRows, numColumns, initialState);
 
 
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }
