@@ -42,9 +42,9 @@ public class Controller_API {
         double cellRatio = Double.parseDouble(root.getAttribute("ratio1"));
         double emptyRatio = Double.parseDouble(root.getAttribute("ratio1"));
         int speed = Integer.parseInt(root.getAttribute("frames_per_sec"));
-        String type = root.getAttribute("mode");
-        Simulation initialSimulation = golSimulation(numRows, numColumns, cellRatio);
-        mySimulation = initialSimulation;
+        String type = root.getAttribute("type");
+        mySimulation = golSimulation(numRows, numColumns, cellRatio);
+
         //pass the mxlObj, stage and Simulation obj for the viewer to create for the first time
         //myView.create(mainStage, root, initialSimulation);
 
