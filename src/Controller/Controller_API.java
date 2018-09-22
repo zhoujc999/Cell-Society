@@ -6,6 +6,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import View.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +29,7 @@ public class Controller_API extends Application {
     private Simulation mySimulation;
     private Stage myStage;
 
-    public void start(Stage mainStage) {
+    public void start(Stage mainStage) throws IOException {
         var dataFile = myChooser.showOpenDialog(mainStage);
         Stage myStage = mainStage;
         XMLParser parser = new XMLParser("game");
@@ -37,7 +38,7 @@ public class Controller_API extends Application {
         setUp(mainStage, attributes);
     }
 
-    private void setUp(Stage mainStage, Map<String, String> attributes) {
+    private void setUp(Stage mainStage, Map<String, String> attributes) throws IOException {
         //retrieve parameters needed to build a new Simulation
 
         int numRows = Integer.parseInt(attributes.get("numRows"));
