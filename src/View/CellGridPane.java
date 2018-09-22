@@ -256,19 +256,17 @@ public class CellGridPane {
     }
 
 
-    public void render(Simulation simulation){
-        Map<Point, CellStates.GameOfLifeStates> map = simulation.getView();
+    public void render(Map<Point, CellStates.GameOfLifeStates> updatedMap){
         Rectangle[] rects = new Rectangle[width*height];
 
         int index = 0;
-        for(Point p: map.keySet()){
-            if(map.get(p) == CellStates.GameOfLifeStates.LIVE){
+        for(Point p: updatedMap.keySet()){
+            if(updatedMap.get(p) == CellStates.GameOfLifeStates.LIVE){
                 rects[index].setFill(Color.BLACK);
             }
             else{
                 rects[index].setFill(Color.WHITE);
             }
-            gridPane.add(rects[index++], p.getY(), p.getX());
         }
     }
 }
