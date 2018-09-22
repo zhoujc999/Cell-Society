@@ -111,19 +111,34 @@ public class Controller_API{
     private Simulation golSimulation(int numRows, int numColumns, double cellRatio) {
         Map<Point, CellStates.GameOfLifeStates> initialState = new HashMap<Point, CellStates.GameOfLifeStates>();
 
-        Random r = new Random();
-        for (int i = 0; i < numColumns; i++) {
-            for (int j = 0; j < numRows; j++) {
-                Point p = new Point(i, j);
-                CellStates.GameOfLifeStates state;
-                double level = r.nextDouble();
-                if (level < cellRatio)
-                    state = CellStates.GameOfLifeStates.DEAD;
-                else
-                    state = CellStates.GameOfLifeStates.DEAD;
-                initialState.put(p, state);
+//        Random r = new Random();
+//        for (int i = 0; i < numColumns; i++) {
+//            for (int j = 0; j < numRows; j++) {
+//                Point p = new Point(i, j);
+//                CellStates.GameOfLifeStates state;
+//                double level = r.nextDouble();
+//                if (level < cellRatio)
+//                    state = CellStates.GameOfLifeStates.DEAD;
+//                else
+//                    state = CellStates.GameOfLifeStates.DEAD;
+//                initialState.put(p, state);
+//            }
+//        }
+
+        int rowIndex = 0;
+        int colIndex = 0;
+        for(int i = 0; i < 25; i++){
+            if(colIndex >= 5){
+                rowIndex += 1;
+                colIndex = 0;
             }
+            if((rowIndex==1&&colIndex==2)||(rowIndex==2&&colIndex==2)||(rowIndex==3&&colIndex==2)){
+                initialState.put(new Point(rowIndex, colIndex), CellStates.GameOfLifeStates.LIVE);
+            }
+            else initialState.put(new Point(rowIndex, colIndex), CellStates.GameOfLifeStates.DEAD);
+            colIndex++;
         }
+
         return new GameOfLifeSimulation(numRows, numColumns, initialState);
     }
 
