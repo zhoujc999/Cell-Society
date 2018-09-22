@@ -29,16 +29,21 @@ public class CellGridPane {
     private GridPane gridPane;
     private int width;
     private int height;
-    private Rectangle[]rects;
+    private Rectangle[] rects;
+
+    public CellGridPane(){
+
+    }
 
     public CellGridPane(GridPane gridPane){
         this.gridPane = gridPane;
         // testing a 50*50 grid
+        initialize(10,10);
     }
 
-    public void create(Stage mainStage, Map<String, String> attributes, Simulation initialSimulation){
+    public void create(Stage mainStage, Map<String, String> attributes, Simulation initialSimulation) throws Exception{
         width = Integer.parseInt(attributes.get("width"));
-        height = Integer.parseInt(attributes.get("height"));
+        height = Integer.parseInt(attributes.get("length"));
         initialize(width, height, initialSimulation);
 
         Parent root = FXMLLoader.load(getClass().getResource("UI.fxml"));
@@ -76,7 +81,6 @@ public class CellGridPane {
         Map<Point, CellStates.GameOfLifeStates> temp = simulation.getView();
         int i = 0;
         for (Point p : temp.keySet()) {
-
             if (temp.get(p) == CellStates.GameOfLifeStates.LIVE) {
                 rects[i].setFill(Color.BLACK);
             } else {
@@ -123,6 +127,69 @@ public class CellGridPane {
 //            colIndex++;
 //        }
 //    }
+
+    private void initialize(int width, int height){
+
+        Rectangle[] rects = new Rectangle[width*height];
+        for(int i = 0; i < rects.length; i++){
+            rects[i] = new Rectangle(CELL_SIZE,CELL_SIZE);
+        }
+
+        Map<Point, CellStates.GameOfLifeStates> map = new HashMap<>();
+        int rowIndex = 0;
+        int colIndex = 0;
+        for(int i = 0; i < rects.length; i++){
+            if(colIndex >= width){
+                rowIndex += 1;
+                colIndex = 0;
+            }
+            if((rowIndex==5&&colIndex==5)||(rowIndex==5&&colIndex==6)||(rowIndex==6&&colIndex==5)||(rowIndex==4&&colIndex==4)||(rowIndex==6&&colIndex==6)){
+                map.put(new Point(rowIndex, colIndex), CellStates.GameOfLifeStates.LIVE);
+            }
+            else map.put(new Point(rowIndex, colIndex), CellStates.GameOfLifeStates.DEAD);
+            colIndex++;
+        }
+
+        GameOfLifeSimulation simulation= new GameOfLifeSimulation(width, height, map);
+        simulation.render();
+        Map<Point, CellStates.GameOfLifeStates> myMap = simulation.getView();
+
+        int index = 0;
+        for(Point p: myMap.keySet()){
+            if(map.get(p) == CellStates.GameOfLifeStates.LIVE){
+                rects[index].setFill(Color.BLACK);
+            }
+            else{
+                rects[index].setFill(Color.WHITE);
+            }
+            gridPane.add(rects[index++], p.getY(), p.getX());
+        }
+
+        // add time line
+        Timeline tt1 = new Timeline( new KeyFrame(
+                Duration.millis(1000),
+                e -> {
+//                    simulation.render();
+                    simulation.step();
+                    simulation.render();
+                    Map<Point, CellStates.GameOfLifeStates> temp = simulation.getView();
+                    int i = 0;
+                    for(Point p: temp.keySet()){
+                        System.out.println();
+                        if(temp.get(p) == CellStates.GameOfLifeStates.LIVE){
+                            rects[i].setFill(Color.BLACK);
+                        }
+                        else{
+                            rects[i].setFill(Color.WHITE);
+                        }
+                        i++;
+                    }
+                    System.out.println("Timeline called back");
+                }
+        ));
+        tt1.setCycleCount(Timeline.INDEFINITE);
+        tt1.play();
+    }
 
 
     public void render(Simulation simulation){
