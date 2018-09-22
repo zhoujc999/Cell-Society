@@ -23,7 +23,7 @@ public class UIManager {
     @FXML
     private Slider slider;
     @FXML
-    private GridPane gridPane;
+    public static GridPane gridPane;
 
     // this method will be called automatically by the FXML loader
     public void initialize(){
