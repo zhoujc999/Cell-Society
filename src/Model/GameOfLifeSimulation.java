@@ -31,7 +31,7 @@ public class GameOfLifeSimulation extends Simulation {
         initializeView();
         initializeGrid();
         initializeCells(initialState);
-        initializeAllNeighbors();
+        initializeAllNeighbors(grid);
     }
 
 
@@ -45,6 +45,7 @@ public class GameOfLifeSimulation extends Simulation {
      * initialize Cells and put them on grid
      */
     protected void initializeCells(Map<Point, CellStates.GameOfLifeStates> initialParam) {
+//        System.out.println(initialParam.size());
         for (Map.Entry<Point, CellStates.GameOfLifeStates> entry : initialParam.entrySet()) {
             Point position = entry.getKey();
             if (grid.getMatrix().get(position) != null) {
@@ -53,6 +54,8 @@ public class GameOfLifeSimulation extends Simulation {
             GameOfLifeCell cell = new GameOfLifeCell(position, grid, entry.getValue());
             grid.getMatrix().put(position, cell);
         }
+//        System.out.println(grid.getMatrix());
+        Point p = new Point(0, 0);
     }
 
     protected void initializeStatistics() {

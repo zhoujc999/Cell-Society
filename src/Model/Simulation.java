@@ -1,7 +1,7 @@
 package Model;
-import java.util.HashMap;
-import java.util.Map;
+
 import java.util.EnumMap;
+import java.util.Map;
 
 /**
  * Abstract representation of a Simulation
@@ -10,7 +10,6 @@ import java.util.EnumMap;
  */
 
 public abstract class Simulation {
-    protected Grid grid;
     protected int numRows;
     protected int numColumns;
     protected int numCells;
@@ -22,9 +21,9 @@ public abstract class Simulation {
 
     protected abstract void initializeGrid();
 
-    protected void initializeAllNeighbors(){
+    protected void initializeAllNeighbors(Grid grid){
         for (Cell cell: grid.getMatrix().values()) {
-//            cell.initializeNeighbors();
+            cell.initializeNeighbors();
         }
     }
 

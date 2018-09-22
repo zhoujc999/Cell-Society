@@ -1,6 +1,6 @@
 package Model;
 
-public class SegregationCell extends Cell{
+public class SegregationCell extends Cell {
     private SegregationGrid grid;
 
     private double satisfactionThreshold;
