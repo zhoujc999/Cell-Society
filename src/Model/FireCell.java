@@ -3,12 +3,10 @@ package Model;
 import java.util.Random;
 
 public class FireCell extends Cell {
-    private FireGrid grid;
     private double probCatchFire;
     private Random random;
     public FireCell(Point position, FireGrid grid, CellStates.FireStates state, double probCatchFire, Random random) {
         super(position, grid, state);
-        this.grid = grid;
         this.probCatchFire = probCatchFire;
         this.random = random;
     }
@@ -24,13 +22,6 @@ public class FireCell extends Cell {
         }
     }
 
-    public void setNextState(Enum state) {
-        this.nextState = state;
-    }
-
-    public Enum getNextState() {
-        return this.nextState;
-    }
 
     @Override
     public void calculateNextState() {
