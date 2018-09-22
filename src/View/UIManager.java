@@ -23,14 +23,13 @@ public class UIManager {
     @FXML
     private Slider slider;
     @FXML
-    private GridPane gridPane;
+    public GridPane gridPane;
 
     // this method will be called automatically by the FXML loader
     public void initialize(){
         forceInputToBeNumeric(widthTextField);
         forceInputToBeNumeric(heightTextField);
         CellGridPane societyGridPane = new CellGridPane(gridPane);
-
     }
 
     // you can get the updated value from the user input fields from this method
@@ -65,11 +64,10 @@ public class UIManager {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     public void handleStartButtonAction(){
-
+        System.out.println("Testing");
     }
 
     public void handleStopButtonAction(){
@@ -82,6 +80,10 @@ public class UIManager {
 
     public void handleStepButtonAction(){
 
+    }
+
+    public GridPane getGridPane(){
+        return gridPane;
     }
 
 }
