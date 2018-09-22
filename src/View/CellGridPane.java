@@ -139,8 +139,6 @@ public class CellGridPane {
                 rowIndex += 1;
                 colIndex = 0;
             }
-//            if((rowIndex==2&&colIndex==2)||(rowIndex==2&&colIndex==3)||(rowIndex==3&&colIndex==4)||(rowIndex==1&&colIndex==1)||(rowIndex==3&&colIndex==3)){
-
             if((rowIndex==1&&colIndex==2)||(rowIndex==2&&colIndex==2)||(rowIndex==3&&colIndex==2)){
                 map.put(new Point(rowIndex, colIndex), CellStates.GameOfLifeStates.LIVE);
             }
@@ -257,7 +255,6 @@ public class CellGridPane {
 
 
     public void render(Map<Point, CellStates.GameOfLifeStates> updatedMap){
-        Rectangle[] rects = new Rectangle[width*height];
 
         int index = 0;
         for(Point p: updatedMap.keySet()){
@@ -267,6 +264,7 @@ public class CellGridPane {
             else{
                 rects[index].setFill(Color.WHITE);
             }
+            index++;
         }
     }
 }
