@@ -146,6 +146,7 @@ public class CellGridPane {
                 colIndex = 0;
             }
 //            if((rowIndex==2&&colIndex==2)||(rowIndex==2&&colIndex==3)||(rowIndex==3&&colIndex==4)||(rowIndex==1&&colIndex==1)||(rowIndex==3&&colIndex==3)){
+
             if((rowIndex==1&&colIndex==2)||(rowIndex==2&&colIndex==2)||(rowIndex==3&&colIndex==2)){
                 map.put(new Point(rowIndex, colIndex), CellStates.GameOfLifeStates.LIVE);
             }
@@ -157,42 +158,121 @@ public class CellGridPane {
         simulation.render();
         Map<Point, CellStates.GameOfLifeStates> myMap = simulation.getView();
 
-        int index = 0;
-        for(Point p: myMap.keySet()){
-            if(map.get(p) == CellStates.GameOfLifeStates.LIVE){
-                rects[index].setFill(Color.BLACK);
+
+
+        Map<Point, CellStates.GameOfLifeStates> fireMap = new HashMap<>();
+        rowIndex = 0;
+        colIndex = 0;
+        for(int i = 0; i < rects.length; i++){
+            if(colIndex >= width){
+                rowIndex += 1;
+                colIndex = 0;
             }
-            else{
-                rects[index].setFill(Color.WHITE);
-            }
-            gridPane.add(rects[index++], p.getY(), p.getX());
+//            if((rowIndex==2&&colIndex==2)||(rowIndex==2&&colIndex==3)||(rowIndex==3&&colIndex==4)||(rowIndex==1&&colIndex==1)||(rowIndex==3&&colIndex==3)){
+//
+//            if((rowIndex==2&&colIndex==2)){
+//                map.put(new Point(rowIndex, colIndex), CellStates.FireStates.BURNING);
+//            }
+//            else map.put(new Point(rowIndex, colIndex), CellStates.GameOfLifeStates.DEAD);
+//            colIndex++;
         }
 
+//        FireSimulation fireSimulation = new FireSimulation(width, height, )
+
+
+        int index = 0;
+//        for(Point p: myMap.keySet()){
+//            if(map.get(p) == CellStates.GameOfLifeStates.LIVE){
+//                rects[index].setFill(Color.BLACK);
+//            }
+//            else{
+//                rects[index].setFill(Color.WHITE);
+//            }
+//            gridPane.add(rects[index++], p.getY(), p.getX());
+//        }
+
         // add time line
-        Timeline tt1 = new Timeline( new KeyFrame(
-                Duration.millis(1000),
-                e -> {
+//        Timeline tt1 = new Timeline( new KeyFrame(
+//                Duration.millis(1000),
+//                e -> {
+////                    simulation.render();
+//                    simulation.step();
 //                    simulation.render();
-                    simulation.step();
-                    simulation.render();
-                    Map<Point, CellStates.GameOfLifeStates> temp = simulation.getView();
-                    System.out.println(temp);
-                    int i = 0;
-                    for(Point p: temp.keySet()){
-                        System.out.println();
-                        if(temp.get(p) == CellStates.GameOfLifeStates.LIVE){
-                            rects[i].setFill(Color.BLACK);
-                        }
-                        else{
-                            rects[i].setFill(Color.WHITE);
-                        }
-                        i++;
-                    }
-                    System.out.println("Timeline called back");
-                }
-        ));
-        tt1.setCycleCount(Timeline.INDEFINITE);
-        tt1.play();
+//                    Map<Point, CellStates.GameOfLifeStates> temp = simulation.getView();
+//                    System.out.println(temp);
+//                    int i = 0;
+//                    for(Point p: temp.keySet()){
+//                        System.out.println();
+//                        if(temp.get(p) == CellStates.GameOfLifeStates.LIVE){
+//                            rects[i].setFill(Color.BLACK);
+//                        }
+//                        else{
+//                            rects[i].setFill(Color.WHITE);
+//                        }
+//                        i++;
+//                    }
+//                    System.out.println("Timeline called back");
+//                }
+//        ));
+
+
+//        for(Point p: myMap.keySet()){
+//            if(myMap.get(p) == CellStates.FireStates.BURNING){
+//                rects[index].setFill(Color.RED);
+//            }
+//            else if(myMap.get(p) == CellStates.FireStates.TREE){
+//                rects[index].setFill(Color.GREEN);
+//            }
+//            else{
+//                rects[index].setFill(Color.WHITE);
+//            }
+//            gridPane.add(rects[index++], p.getY(), p.getX());
+//        }
+
+
+//        Timeline tt1 = new Timeline( new KeyFrame(
+//                Duration.millis(1000),
+//                e -> {
+////                    simulation.render();
+//                    simulation.step();
+//                    simulation.render();
+//                    Map<Point, CellStates.FireStates> temp = simulation.getView();
+//                    System.out.println(temp);
+//                    int i = 0;
+//                    for(Point p: temp.keySet()){
+//                        if(temp.get(p) == CellStates.FireStates.BURNING){
+//                            rects[i].setFill(Color.RED);
+//                        }
+//                        else if(temp.get(p) == CellStates.FireStates.TREE){
+//                            rects[i].setFill(Color.GREEN);
+//                        }
+//                        else{
+//                            rects[i].setFill(Color.WHITE);
+//                        }
+//                        i++;
+//                    }
+//                    System.out.println("Timeline called back");
+//                }
+//        ));
+
+
+
+
+
+
+
+
+
+
+
+
+//
+//        tt1.setCycleCount(Timeline.INDEFINITE);
+//        tt1.play();
+
+
+
+
     }
 
 

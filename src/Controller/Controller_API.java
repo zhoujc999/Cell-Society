@@ -69,7 +69,7 @@ public class Controller_API{
         //build a new simulation*/
 
     }
-h
+
     private void setUp(Map<String, String> attributes){
         //retrieve parameters needed to build a new Simulation
 
@@ -146,8 +146,6 @@ h
             }
         }
         return new GameOfLifeSimulation(numRows, numColumns, initialState);
-
-
     }
 
     public void setMyView(CellGridPane myView){
