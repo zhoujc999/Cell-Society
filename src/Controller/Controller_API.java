@@ -75,9 +75,10 @@ public class Controller_API{
     private void step(double elapsedTime) {
         //ask mySimulation to update
         mySimulation.step();
+        mySimulation.render();
 
         //pass the new Simulation to myView
-        myView.render(mySimulation);
+        myView.render(mySimulation.getView());
     }
 
     public void stop() {
