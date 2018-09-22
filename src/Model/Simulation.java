@@ -10,6 +10,8 @@ import java.util.Map;
  */
 
 public abstract class Simulation {
+    protected Grid grid;
+
     protected int numRows;
     protected int numColumns;
     protected int numCells;
@@ -17,11 +19,26 @@ public abstract class Simulation {
     protected Map view;
 
 
+    public Simulation(int numRows, int numColumns, Map initialState) {
+        if (initialState.size() != numRows * numColumns) {
+            throw new IllegalArgumentException("InitialState - Number of Points Error");
+        }
+        this.numRows = numRows;
+        this.numColumns = numColumns;
+        this.numCells = numRows * numColumns;
 
+        initializeStatistics();
+        initializeView();
+        initializeGrid();
+        initializeCells(initialState);
+        initializeAllNeighbors();
+    }
 
     protected abstract void initializeGrid();
 
-    protected void initializeAllNeighbors(Grid grid){
+    protected abstract void initializeCells(Map<Point, ? extends Enum> m);
+
+    protected void initializeAllNeighbors(){
         for (Cell cell: grid.getMatrix().values()) {
             cell.initializeNeighbors();
         }
@@ -34,6 +51,12 @@ public abstract class Simulation {
 
 
     public abstract void render();
+
+
+    protected abstract void initializeView();
+
+
+    protected abstract void initializeStatistics();
 
 
     public Map getView() {

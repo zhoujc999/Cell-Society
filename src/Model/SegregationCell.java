@@ -1,7 +1,6 @@
 package Model;
 
 public class SegregationCell extends Cell {
-    private SegregationGrid grid;
 
     private double satisfactionThreshold;
     private int numRedNeighbors;
@@ -9,8 +8,7 @@ public class SegregationCell extends Cell {
     private boolean satisfied;
 
     public SegregationCell(Point position, SegregationGrid grid, CellStates.SegregrationStates state, double satisfactionThreshold) {
-        super(position, state);
-        this.grid = grid;
+        super(position, grid,state);
         this.satisfactionThreshold = satisfactionThreshold;
         this.satisfied = true;
     }
@@ -80,10 +78,11 @@ public class SegregationCell extends Cell {
 
     @Override
     public void calculateNextState() {
+        Grid segregationGrid = this.grid;
         if (currentState != CellStates.SegregrationStates.EMPTY) {
             determineSatisfied();
             if (!satisfied) {
-                grid.swapPositions(position);
+                segregationGrid.swapPositions(position);
             }
 
         }

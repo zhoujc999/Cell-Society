@@ -15,23 +15,10 @@ public class GameOfLifeSimulation extends Simulation {
 //    No wrap arounds for Game of Life
     private static final boolean ROW_WRAP = false;
     private static final boolean COLUMN_WRAP = false;
-    private GameOfLifeGrid grid;
 
-    private Map<CellStates.GameOfLifeStates, Integer> statistics;
 
     public GameOfLifeSimulation(int numRows, int numColumns, Map<Point, CellStates.GameOfLifeStates> initialState) {
-        if (initialState.size() != numRows * numColumns) {
-            throw new IllegalArgumentException("InitialState - Number of Points Error");
-        }
-        this.numRows = numRows;
-        this.numColumns = numColumns;
-        this.numCells = numRows * numColumns;
-
-        initializeStatistics();
-        initializeView();
-        initializeGrid();
-        initializeCells(initialState);
-        initializeAllNeighbors(grid);
+        super(numRows, numColumns, initialState);
     }
 
 
@@ -44,22 +31,21 @@ public class GameOfLifeSimulation extends Simulation {
     /**
      * initialize Cells and put them on grid
      */
-    protected void initializeCells(Map<Point, CellStates.GameOfLifeStates> initialParam) {
+    protected void initializeCells(Map<Point, ? extends Enum> initialParam) {
 //        System.out.println(initialParam.size());
-        for (Map.Entry<Point, CellStates.GameOfLifeStates> entry : initialParam.entrySet()) {
-            Point position = entry.getKey();
+        for (Map.Entry entry : initialParam.entrySet()) {
+            Point position = (Point) entry.getKey();
             if (grid.getMatrix().get(position) != null) {
                 throw new IllegalArgumentException("InitialState - Duplicate Points Error");
             }
-            GameOfLifeCell cell = new GameOfLifeCell(position, grid, entry.getValue());
+            GameOfLifeCell cell = new GameOfLifeCell(position, (GameOfLifeGrid) grid, (CellStates.GameOfLifeStates) entry.getValue());
             grid.getMatrix().put(position, cell);
         }
 //        System.out.println(grid.getMatrix());
-        Point p = new Point(0, 0);
     }
 
     protected void initializeStatistics() {
-        this.statistics = new EnumMap<>(CellStates.GameOfLifeStates.class);
+        this.statistics = new EnumMap<CellStates.GameOfLifeStates, Integer>(CellStates.GameOfLifeStates.class);
         statistics.put(CellStates.GameOfLifeStates.LIVE, 0);
         statistics.put(CellStates.GameOfLifeStates.DEAD, 0);
     }

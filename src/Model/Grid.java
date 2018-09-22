@@ -18,6 +18,7 @@ public abstract class Grid {
     protected int numColumns;
     protected boolean rowWrap;
     protected boolean columnWrap;
+    
 
     /**
      *
@@ -115,5 +116,12 @@ public abstract class Grid {
         return matrix.get(position);
     }
 
+    protected void addEmptyPosition(Point p) {
+    }
 
+    protected void swapPositions(Point position) {
+    }
+
+    protected void setSwapQuota(int quota) {
+    }
 }

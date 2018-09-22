@@ -11,11 +11,14 @@ public class SegregationGrid extends Grid {
         emptyPositions = new ArrayList<>();
     }
 
-    public ArrayList<Point> getEmptyPositions() {
-        return emptyPositions;
+    @Override
+    protected void addEmptyPosition(Point p) {
+        emptyPositions.add(p);
     }
 
-    public void swapPositions(Point currentPosition) {
+
+    @Override
+    protected void swapPositions(Point currentPosition) {
         if (emptyPositions.size() > 0 && swapQuota > 0) {
             SegregationCell activeCell = (SegregationCell) matrix.get(currentPosition);
             SegregationCell passiveCell = (SegregationCell) matrix.get(emptyPositions.remove(0));
@@ -25,7 +28,7 @@ public class SegregationGrid extends Grid {
         }
     }
 
-    public void setSwapQuota(int quota) {
+    protected void setSwapQuota(int quota) {
         swapQuota = quota;
     }
 }

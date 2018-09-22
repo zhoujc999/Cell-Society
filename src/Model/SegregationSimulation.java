@@ -8,27 +8,15 @@ public class SegregationSimulation extends Simulation {
     //    No wrap arounds for Game of Life
     private static final boolean ROW_WRAP = false;
     private static final boolean COLUMN_WRAP = false;
-    private SegregationGrid grid;
+
     private double satisfactionThreshold;
     private int numEmptyCells;
 
     public SegregationSimulation(int numRows, int numColumns, Map<Point, CellStates.SegregrationStates> initialState, double threshold) {
-        if (initialState.size() != numRows * numColumns) {
-            throw new IllegalArgumentException("InitialState Number of Points Error");
-        }
-        if (threshold > 1) {
-            throw new IllegalArgumentException("Threshold Error");
-        }
-        this.numRows = numRows;
-        this.numColumns = numColumns;
-        this.numCells = numRows * numColumns;
+        super(numRows, numColumns, initialState);
         this.satisfactionThreshold = threshold;
         this.numEmptyCells = 0;
-        initializeStatistics();
-        initializeView();
-        initializeGrid();
-        initializeCells(initialState);
-//        initializeAllNeighbors();
+        initializeAllNeighbors();
     }
 
 
@@ -39,18 +27,18 @@ public class SegregationSimulation extends Simulation {
     /**
      * initialize Cells and put them on grid
      */
-    protected void initializeCells(Map<Point, CellStates.SegregrationStates> initialParam) {
-        for (Map.Entry<Point, CellStates.SegregrationStates> entry : initialParam.entrySet()) {
-            Point position = entry.getKey();
-            CellStates.SegregrationStates state = entry.getValue();
+    protected void initializeCells(Map<Point, ? extends Enum> initialParam) {
+        for (Map.Entry entry : initialParam.entrySet()) {
+            Point position = (Point) entry.getKey();
+            CellStates.SegregrationStates state = (CellStates.SegregrationStates) entry.getValue();
             if (grid.getMatrix().get(position) != null) {
                 throw new IllegalArgumentException("InitialState Duplicate Point Error");
             }
             if (state == CellStates.SegregrationStates.EMPTY) {
-                grid.getEmptyPositions();
+                grid.addEmptyPosition(position);
                 numEmptyCells++;
             }
-            SegregationCell cell = new SegregationCell(position, grid, state, satisfactionThreshold);
+            SegregationCell cell = new SegregationCell(position, (SegregationGrid) grid, state, satisfactionThreshold);
             grid.getMatrix().put(position, cell);
         }
     }
