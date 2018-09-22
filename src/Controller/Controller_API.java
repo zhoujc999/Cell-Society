@@ -2,6 +2,10 @@ package Controller;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.fxml.FXML;
+import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import View.*;
@@ -142,8 +146,6 @@ public class Controller_API{
             }
         }
         return new GameOfLifeSimulation(numRows, numColumns, initialState);
-
-
     }
 
     public void setMyView(CellGridPane myView){

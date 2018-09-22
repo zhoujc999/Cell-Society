@@ -15,9 +15,6 @@ public class Main extends Application {
 
         primaryStage.setTitle("Hello World");
         Scene scene = new Scene(root, 800, 800);
-        UIManager uiManager = new UIManager();
-        System.out.println(uiManager.getGridPane());
-//        uiManager.handleApplyButtonAction();
         primaryStage.setScene(scene);
         primaryStage.show();
     }
