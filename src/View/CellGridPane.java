@@ -36,7 +36,7 @@ public class CellGridPane {
         // testing a 50*50 grid
     }
 
-    public void create(Stage mainStage, Map<String, String> attributes, Simulation initialSimulation){
+    public void create (Stage mainStage, Map<String, String> attributes, Simulation initialSimulation)throws Exception{
         width = Integer.parseInt(attributes.get("width"));
         height = Integer.parseInt(attributes.get("height"));
         initialize(width, height, initialSimulation);

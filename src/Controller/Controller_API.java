@@ -28,7 +28,7 @@ public class Controller_API extends Application {
     private Simulation mySimulation;
     private Stage myStage;
 
-    public void start(Stage mainStage) {
+    public void start (Stage mainStage)throws Exception{
         var dataFile = myChooser.showOpenDialog(mainStage);
         Stage myStage = mainStage;
         XMLParser parser = new XMLParser("game");
@@ -37,7 +37,7 @@ public class Controller_API extends Application {
         setUp(mainStage, attributes);
     }
 
-    private void setUp(Stage mainStage, Map<String, String> attributes) {
+    private void setUp(Stage mainStage, Map<String, String> attributes) throws Exception{
         //retrieve parameters needed to build a new Simulation
 
         int numRows = Integer.parseInt(attributes.get("numRows"));
@@ -48,7 +48,7 @@ public class Controller_API extends Application {
         String type = attributes.get("type");
         mySimulation = golSimulation(numRows, numColumns, cellRatio);
 
-        //pass the mxlObj, stage and Simulation obj for the viewer to create for the first time
+        myView = new CellGridPane(UIManager.gridPane);
         myView.create(mainStage, attributes, mySimulation);
 
 
