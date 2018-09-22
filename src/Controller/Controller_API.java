@@ -9,8 +9,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-
+import Model.Simulation;
 import Model.*;
+
 import javafx.util.Duration;
 import org.w3c.dom.Element;
 
@@ -29,8 +30,6 @@ public class Controller_API {
         Stage myStage = mainStage;
         XMLParser parser = new XMLParser("game");
         Element root = parser.getRoot(dataFile);
-
-
 
         setUp(mainStage, root);
     }
@@ -93,7 +92,6 @@ public class Controller_API {
         result.getExtensionFilters().setAll(new FileChooser.ExtensionFilter("Text files", extension));
         return result;
     }
-
 
     private Simulation golSimulation(int numRows, int numColumns, double cellRatio) {
         Map<Point, CellStates.GameOfLifeStates> initialState = new HashMap<Point, CellStates.GameOfLifeStates>();

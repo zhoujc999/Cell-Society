@@ -28,7 +28,7 @@ public class SegregationSimulation extends Simulation {
         initializeView();
         initializeGrid();
         initializeCells(initialState);
-        initializeAllNeighbors();
+//        initializeAllNeighbors();
     }
 
 
