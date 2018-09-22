@@ -79,9 +79,9 @@ public class GameOfLifeSimulation extends Simulation {
             else if (cell.currentState == CellStates.GameOfLifeStates.DEAD) {
                 numDead++;
             }
-            if (entry.getValue().stateChanged) {
+//            if (entry.getValue().stateChanged) {
                 view.put(entry.getKey(), entry.getValue().currentState);
-            }
+//            }
         }
         statistics.put(CellStates.GameOfLifeStates.LIVE, numLive);
         statistics.put(CellStates.GameOfLifeStates.DEAD, numDead);

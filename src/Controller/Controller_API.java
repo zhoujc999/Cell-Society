@@ -2,6 +2,10 @@ package Controller;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.fxml.FXML;
+import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import View.*;
@@ -27,6 +31,18 @@ public class Controller_API{
     private CellGridPane myView;
     private Simulation mySimulation;
     private Stage myStage;
+
+    // fields with @FXML annotation are automatically populated to reference the UI element
+    // with the same name as its id in fxml
+    @FXML
+    private TextField widthTextField;
+    @FXML
+    private TextField heightTextField;
+    @FXML
+    private Slider slider;
+    @FXML
+    public GridPane gridPane;
+
 
     public void start(Stage mainStage) throws Exception {
         var dataFile = myChooser.showOpenDialog(mainStage);
@@ -62,7 +78,7 @@ public class Controller_API{
         //build a new simulation*/
 
     }
-
+h
     private void setUp(Map<String, String> attributes){
         //retrieve parameters needed to build a new Simulation
 

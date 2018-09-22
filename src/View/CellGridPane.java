@@ -38,7 +38,7 @@ public class CellGridPane {
     public CellGridPane(GridPane gridPane){
         this.gridPane = gridPane;
         // testing a 50*50 grid
-        initialize(10,10);
+        initialize(5,5);
     }
 
     public void create(Stage mainStage, Map<String, String> attributes, Simulation initialSimulation) throws Exception{
@@ -143,7 +143,8 @@ public class CellGridPane {
                 rowIndex += 1;
                 colIndex = 0;
             }
-            if((rowIndex==5&&colIndex==5)||(rowIndex==5&&colIndex==6)||(rowIndex==6&&colIndex==5)||(rowIndex==4&&colIndex==4)||(rowIndex==6&&colIndex==6)){
+//            if((rowIndex==2&&colIndex==2)||(rowIndex==2&&colIndex==3)||(rowIndex==3&&colIndex==4)||(rowIndex==1&&colIndex==1)||(rowIndex==3&&colIndex==3)){
+            if((rowIndex==1&&colIndex==2)||(rowIndex==2&&colIndex==2)||(rowIndex==3&&colIndex==2)){
                 map.put(new Point(rowIndex, colIndex), CellStates.GameOfLifeStates.LIVE);
             }
             else map.put(new Point(rowIndex, colIndex), CellStates.GameOfLifeStates.DEAD);
@@ -173,6 +174,7 @@ public class CellGridPane {
                     simulation.step();
                     simulation.render();
                     Map<Point, CellStates.GameOfLifeStates> temp = simulation.getView();
+                    System.out.println(temp);
                     int i = 0;
                     for(Point p: temp.keySet()){
                         System.out.println();
