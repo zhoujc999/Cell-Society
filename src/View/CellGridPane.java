@@ -43,16 +43,10 @@ public class CellGridPane {
     }
 
 
-    public void create(Stage mainStage, Map<String, String> attributes, Simulation initialSimulation) throws Exception {
+    public void create(Map<String, String> attributes, Simulation initialSimulation) throws Exception {
         width = Integer.parseInt(attributes.get("width"));
         height = Integer.parseInt(attributes.get("length"));
         initialize(width, height, initialSimulation);
-
-        Parent root = FXMLLoader.load(getClass().getResource("UI.fxml"));
-        mainStage.setTitle("Hello World");
-        Scene scene = new Scene(root, width, height);
-        mainStage.setScene(scene);
-        mainStage.show();
     }
 
     private void initialize(int width, int height, Simulation simulation){
