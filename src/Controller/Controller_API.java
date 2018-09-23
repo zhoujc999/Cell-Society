@@ -116,9 +116,7 @@ public class Controller_API{
    // }
 
     public void reset() {
-        stop();
         setUp(originalAttributes);
-        stop();
     }
 
     private FileChooser makeChooser(String extension) {
