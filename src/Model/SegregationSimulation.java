@@ -27,11 +27,11 @@ public class SegregationSimulation extends Simulation {
     /**
      * initialize Cells and put them on grid
      */
-    protected void initializeCells(Map<Point, ? extends Enum> initialParam) {
+    protected void initializeCells(Map<Point, Integer> initialParam) {
         numEmptyCells = 0;
         for (Map.Entry entry : initialParam.entrySet()) {
             Point position = (Point) entry.getKey();
-            CellStates.SegregationStates state = (CellStates.SegregationStates) entry.getValue();
+            CellStates.SegregationStates state = CellStates.SegregationStates.fromInt((int) entry.getValue());
             if (grid.getMatrix().get(position) != null) {
                 throw new IllegalArgumentException("InitialState Duplicate Point Error");
             }

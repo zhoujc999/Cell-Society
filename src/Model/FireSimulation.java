@@ -4,7 +4,7 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FireSimulation extends Simulation{
+public class FireSimulation extends Simulation {
     //    No wrap arounds for Game of Life
     private static final boolean ROW_WRAP = false;
     private static final boolean COLUMN_WRAP = false;
@@ -27,13 +27,13 @@ public class FireSimulation extends Simulation{
     /**
      * initialize Cells and put them on grid
      */
-    protected void initializeCells(Map<Point, ? extends Enum> initialParam) {
+    protected void initializeCells(Map<Point, Integer> initialParam) {
         for (Map.Entry entry : initialParam.entrySet()) {
             Point position = (Point) entry.getKey();
             if (grid.getMatrix().get(position) != null) {
                 throw new IllegalArgumentException("InitialState Duplicate Point Error");
             }
-            FireCell cell = new FireCell(position, (FireGrid) grid, (CellStates.FireStates) entry.getValue());
+            FireCell cell = new FireCell(position, (FireGrid) grid, CellStates.FireStates.fromInt((int) entry.getValue()));
             super.grid.getMatrix().put(position, cell);
         }
     }

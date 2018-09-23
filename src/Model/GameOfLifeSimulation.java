@@ -31,13 +31,13 @@ public class GameOfLifeSimulation extends Simulation {
     /**
      * initialize Cells and put them on grid
      */
-    protected void initializeCells(Map<Point, ? extends Enum> initialParam) {
+    protected void initializeCells(Map<Point, Integer> initialParam) {
         for (Map.Entry entry : initialParam.entrySet()) {
             Point position = (Point) entry.getKey();
             if (grid.getMatrix().get(position) != null) {
                 throw new IllegalArgumentException("InitialState - Duplicate Points Error");
             }
-            GameOfLifeCell cell = new GameOfLifeCell(position, (GameOfLifeGrid) grid, (CellStates.GameOfLifeStates) entry.getValue());
+            GameOfLifeCell cell = new GameOfLifeCell(position, (GameOfLifeGrid) grid, CellStates.GameOfLifeStates.fromInt((int) entry.getValue()));
             grid.getMatrix().put(position, cell);
         }
     }
@@ -60,7 +60,9 @@ public class GameOfLifeSimulation extends Simulation {
         }
 
         for (Cell cell: grid.getMatrix().values()) {
-            cell.updateState();
+            if (cell.stateChanged) {
+                cell.updateState();
+            }
         }
     }
 
