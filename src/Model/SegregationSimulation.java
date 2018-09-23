@@ -15,8 +15,8 @@ public class SegregationSimulation extends Simulation {
     public SegregationSimulation(int numRows, int numColumns, Map<Point, CellStates.SegregrationStates> initialState, double threshold) {
         super(numRows, numColumns, initialState);
         this.satisfactionThreshold = threshold;
-        this.numEmptyCells = 0;
-        initializeAllNeighbors();
+        initializeCellsThreshold();
+        this.grid.setSwapQuota(numEmptyCells);
     }
 
 
@@ -28,6 +28,7 @@ public class SegregationSimulation extends Simulation {
      * initialize Cells and put them on grid
      */
     protected void initializeCells(Map<Point, ? extends Enum> initialParam) {
+        numEmptyCells = 0;
         for (Map.Entry entry : initialParam.entrySet()) {
             Point position = (Point) entry.getKey();
             CellStates.SegregrationStates state = (CellStates.SegregrationStates) entry.getValue();
@@ -43,6 +44,13 @@ public class SegregationSimulation extends Simulation {
         }
     }
 
+    protected void initializeCellsThreshold() {
+        for (Cell cell : this.grid.getMatrix().values()) {
+            SegregationCell c = (SegregationCell) cell;
+            c.setSatisfactionThreshold(this.satisfactionThreshold);
+        }
+    }
+
     protected void initializeStatistics() {
         this.statistics = new EnumMap<CellStates.SegregrationMood, Integer>(CellStates.SegregrationMood.class);
         statistics.put(CellStates.SegregrationMood.SATISFIED, 0);
@@ -53,7 +61,7 @@ public class SegregationSimulation extends Simulation {
     }
 
     public void step() {
-        grid.setSwapQuota(numEmptyCells);
+        this.grid.setSwapQuota(numEmptyCells);
         for (Cell cell: grid.getMatrix().values()) {
             cell.calculateNextState();
         }

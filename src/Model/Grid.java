@@ -2,6 +2,7 @@ package Model;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 
 /**
@@ -18,6 +19,8 @@ public abstract class Grid {
     protected int numColumns;
     protected boolean rowWrap;
     protected boolean columnWrap;
+
+    protected Random random;
     
 
     /**
@@ -29,15 +32,11 @@ public abstract class Grid {
      */
     protected Grid(int numRows, int numColumns, boolean rowWrap, boolean columnWrap) {
         this.matrix = new HashMap<>();
-//        for (int i = 0; i < numRows; i++) {
-//            for (int j = 0; j < numColumns; j++) {
-//                matrix.put(new Point(j, i), null);
-//            }
-//        }
         this.numRows = numRows;
         this.numColumns = numColumns;
         this.rowWrap = rowWrap;
         this.columnWrap = columnWrap;
+        this.random = new Random();
     }
 
     /**
@@ -124,4 +123,5 @@ public abstract class Grid {
 
     protected void setSwapQuota(int quota) {
     }
+
 }

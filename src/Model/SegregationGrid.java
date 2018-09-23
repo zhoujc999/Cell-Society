@@ -16,18 +16,19 @@ public class SegregationGrid extends Grid {
         emptyPositions.add(p);
     }
 
-
     @Override
     protected void swapPositions(Point currentPosition) {
         if (emptyPositions.size() > 0 && swapQuota > 0) {
             SegregationCell activeCell = (SegregationCell) matrix.get(currentPosition);
-            SegregationCell passiveCell = (SegregationCell) matrix.get(emptyPositions.remove(0));
+            SegregationCell passiveCell = (SegregationCell) matrix.get(emptyPositions.remove(random.nextInt(emptyPositions.size())));
             activeCell.setNextState(CellStates.SegregrationStates.EMPTY);
             passiveCell.setNextState(activeCell.getCurrentState());
+            addEmptyPosition(currentPosition);
             swapQuota--;
         }
     }
 
+    @Override
     protected void setSwapQuota(int quota) {
         swapQuota = quota;
     }
