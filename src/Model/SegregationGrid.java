@@ -21,7 +21,7 @@ public class SegregationGrid extends Grid {
         if (emptyPositions.size() > 0 && swapQuota > 0) {
             SegregationCell activeCell = (SegregationCell) matrix.get(currentPosition);
             SegregationCell passiveCell = (SegregationCell) matrix.get(emptyPositions.remove(random.nextInt(emptyPositions.size())));
-            activeCell.setNextState(CellStates.SegregrationStates.EMPTY);
+            activeCell.setNextState(CellStates.SegregationStates.EMPTY);
             passiveCell.setNextState(activeCell.getCurrentState());
             addEmptyPosition(currentPosition);
             swapQuota--;

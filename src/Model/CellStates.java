@@ -12,7 +12,7 @@ public class CellStates {
         DEAD;
     }
 
-    public enum SegregrationStates {
+    public enum SegregationStates {
         RED,
         BLUE,
         EMPTY;
