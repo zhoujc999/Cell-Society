@@ -39,7 +39,7 @@ public class CellGridPane {
     public CellGridPane(GridPane gridPane){
         this.gridPane = gridPane;
         // testing a 50*50 grid
-        initialize(5,5);
+//        initialize(5,5);
     }
 
 
