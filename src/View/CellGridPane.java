@@ -57,16 +57,7 @@ public class CellGridPane {
             gridPane.add(rects[index++], p.getY(), p.getX());
         }
 
-        // add time line
     }
-//            if((rowIndex==2&&colIndex==2)||(rowIndex==2&&colIndex==3)||(rowIndex==3&&colIndex==4)||(rowIndex==1&&colIndex==1)||(rowIndex==3&&colIndex==3)){
-//
-//            if((rowIndex==2&&colIndex==2)){
-//                map.put(new Point(rowIndex, colIndex), CellStates.FireStates.BURNING);
-//            }
-//            else map.put(new Point(rowIndex, colIndex), CellStates.GameOfLifeStates.DEAD);
-//            colIndex++;
-//        FireSimulation fireSimulation = new FireSimulation(width, height, )
     public void render(Map<Point, Integer> updatedMap){
         int index = 0;
 //        System.out.println(updatedMap);

@@ -52,21 +52,22 @@ public class UIManager {
 
     // you can get the file chosen from this method
     public void handleChooseAFileAction(){
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setInitialDirectory(new File("."));
-        File selectedFile = fileChooser.showOpenDialog(null);
-
-        if (selectedFile == null) { return; }
-
-        try {
-            // we obtain the path to the selected file
-            System.out.println(selectedFile.getName());
-            System.out.println(selectedFile.getAbsolutePath());
-            // we can now do whatever we need with this file
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        FileChooser fileChooser = new FileChooser();
+//        fileChooser.setInitialDirectory(new File("."));
+//        File selectedFile = fileChooser.showOpenDialog(null);
+//
+//        if (selectedFile == null) { return; }
+//
+//        try {
+//            // we obtain the path to the selected file
+//            System.out.println(selectedFile.getName());
+//            System.out.println(selectedFile.getAbsolutePath());
+//            // we can now do whatever we need with this file
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+        controller.start();
     }
 
     // you can get the updated value from the user input fields from this method
@@ -92,7 +93,7 @@ public class UIManager {
     }
 
     public void handleStepButtonAction(){
-
+        controller.animationStep();
     }
 
     // if the input is empty, use default value
