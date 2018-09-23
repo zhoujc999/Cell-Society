@@ -33,6 +33,7 @@ public class Controller_API{
     private Simulation mySimulation;
     private GridPane gridPane;
     private Map<String, String> originalAttributes;
+    private Map<Point, Integer> myMap;
 
     public Controller_API(GridPane gridPane)
     {
@@ -56,8 +57,11 @@ public class Controller_API{
         double cellRatio = Double.parseDouble(attributes.getOrDefault("ratio1", "0.5"));
         double emptyRatio = Double.parseDouble(attributes.getOrDefault("ratio2", "0.5"));
         int speed = Integer.parseInt(attributes.get("frames_per_sec"));
+        double threshold = Double.parseDouble(attributes.getOrDefault("threshold", "0.5"));
         String type = attributes.get("type");
-        mySimulation = golSimulation(numRows, numColumns, cellRatio);
+
+        myMap = simulationMap(numRows,numColumns,cellRatio,emptyRatio);
+        mySimulation = getSimulation(numRows, numColumns,type, threshold);
 
         myView = new CellGridPane(gridPane);
         myView.create(attributes, mySimulation);
@@ -114,24 +118,39 @@ public class Controller_API{
         return result;
     }
 
-    private Simulation golSimulation(int numRows, int numColumns, double cellRatio) {
-        Map<Point, CellStates.GameOfLifeStates> initialState = new HashMap<Point, CellStates.GameOfLifeStates>();
+    Simulation getSimulation(int numRows, int numCols, String type, double threshold){
+        switch (type){
+            case "gameOfLife":
+                return new GameOfLifeSimulation(numRows,numCols,myMap);
+                break;
+            case "segregation":
+                return new SegregationSimulation(numRows,numCols,myMap, threshold);
+            case "fire":
+                return new FireSimulation(numRows, threshold)
 
-//        Random r = new Random();
-//        for (int i = 0; i < numColumns; i++) {
-//            for (int j = 0; j < numRows; j++) {
-//                Point p = new Point(i, j);
-//                CellStates.GameOfLifeStates state;
-//                double level = r.nextDouble();
-//                if (level < cellRatio)
-//                    state = CellStates.GameOfLifeStates.DEAD;
-//                else
-//                    state = CellStates.GameOfLifeStates.DEAD;
-//                initialState.put(p, state);
-//            }
-//        }
+        }
 
-        int rowIndex = 0;
+    }
+    private Map<Point, Integer> simulationMap(int numRows, int numColumns, double cellRatio, double emptyRatio) {
+        Map<Point, Integer> initialState = new HashMap<>();
+
+        Random r = new Random();
+        for (int i = 0; i < numColumns; i++) {
+            for (int j = 0; j < numRows; j++) {
+                Point p = new Point(i, j);
+                int state;
+                double level = r.nextDouble();
+                if (level < emptyRatio)
+                    state = 2;
+                else if (level < emptyRatio+(1-emptyRatio)*cellRatio)
+                    state = 0;
+                else
+                    state = 1;
+                initialState.put(p, state);
+            }
+        }
+
+        /*int rowIndex = 0;
         int colIndex = 0;
         for(int i = 0; i < 25; i++){
             if(colIndex >= 5){
@@ -143,9 +162,9 @@ public class Controller_API{
             }
             else initialState.put(new Point(rowIndex, colIndex), CellStates.GameOfLifeStates.DEAD);
             colIndex++;
-        }
+        }*/
 
-        return new GameOfLifeSimulation(numRows, numColumns, initialState);
+        return initialState;
     }
 
     public void setMyView(CellGridPane myView){
