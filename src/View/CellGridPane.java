@@ -74,15 +74,19 @@ public class CellGridPane {
 
 
 
-    public void render(Map<Point, CellStates.GameOfLifeStates> updatedMap){
+    public void render(Map<Point, Integer> updatedMap){
 
         int index = 0;
         System.out.println(updatedMap);
         for(Point p: updatedMap.keySet()){
-            if(updatedMap.get(p) == CellStates.GameOfLifeStates.LIVE){
-                rects[index].setFill(Color.BLACK);
+            if(updatedMap.get(p) == 0){
+                rects[index].setFill(Color.BLUE);
             }
-            else{
+            else if(updatedMap.get(p) == 1){
+                rects[index].setFill(Color.PINK);
+            }
+            else
+            {
                 rects[index].setFill(Color.WHITE);
             }
             index++;
