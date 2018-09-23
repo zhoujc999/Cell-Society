@@ -150,8 +150,6 @@ public class CellGridPane {
         simulation.render();
         Map<Point, CellStates.GameOfLifeStates> myMap = simulation.getView();
 
-
-
         Map<Point, CellStates.GameOfLifeStates> fireMap = new HashMap<>();
         rowIndex = 0;
         colIndex = 0;

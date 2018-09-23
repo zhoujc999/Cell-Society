@@ -2,6 +2,7 @@ package Model;
 
 
 import java.util.HashSet;
+import java.util.Random;
 
 
 /**
@@ -19,6 +20,7 @@ public abstract class Cell {
     protected Enum currentState;
     protected Enum nextState;
     protected boolean stateChanged;
+    protected Random random;
 
     /**
      * Constructor for Model
@@ -32,6 +34,7 @@ public abstract class Cell {
         this.currentState = state;
         this.nextState = state;
         this.stateChanged = true;
+        this.random = new Random();
     }
 
 
@@ -98,7 +101,8 @@ public abstract class Cell {
         if (nextState != currentState) {
             currentState = nextState;
             stateChanged = true;
-        } else {
+        }
+        else {
             stateChanged = false;
         }
 

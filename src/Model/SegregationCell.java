@@ -7,7 +7,7 @@ public class SegregationCell extends Cell {
     private int numBlueNeighbors;
     private boolean satisfied;
 
-    public SegregationCell(Point position, SegregationGrid grid, CellStates.SegregrationStates state, double satisfactionThreshold) {
+    public SegregationCell(Point position, SegregationGrid grid, CellStates.SegregationStates state, double satisfactionThreshold) {
         super(position, grid,state);
         this.satisfactionThreshold = satisfactionThreshold;
         this.satisfied = true;
@@ -26,30 +26,6 @@ public class SegregationCell extends Cell {
         this.satisfied = satisfied;
     }
 
-//    public void incrementNumRedNeighbors() {
-//        if (currentState != CellStates.SegregrationStates.EMPTY && numRedNeighbors < 8) {
-//            numRedNeighbors++;
-//        }
-//    }
-//
-//    public void decrementNumRedNeighbors() {
-//        if (currentState != CellStates.SegregrationStates.EMPTY && numRedNeighbors > 0) {
-//            numRedNeighbors--;
-//        }
-//    }
-//
-//    public void incrementNumBlueNeighbors() {
-//        if (currentState != CellStates.SegregrationStates.EMPTY && numBlueNeighbors < 8) {
-//            numBlueNeighbors++;
-//        }
-//    }
-//
-//    public void decrementNumBlueNeighbors() {
-//        if (currentState != CellStates.SegregrationStates.EMPTY && numBlueNeighbors > 0) {
-//            numBlueNeighbors--;
-//        }
-//    }
-
     public boolean isSatisfied() {
         return satisfied;
     }
@@ -58,16 +34,16 @@ public class SegregationCell extends Cell {
         neighbors.clear();
         numRedNeighbors = 0;
         numBlueNeighbors = 0;
-        if (currentState != CellStates.SegregrationStates.EMPTY) {
+        if (currentState != CellStates.SegregationStates.EMPTY) {
             Point neighborPosition;
             for (Directions.EightDirections direction : Directions.EightDirections.values()) {
                 neighborPosition = position.add(direction.getDirection());
                 if (!grid.outOfBounds(neighborPosition)) {
                     SegregationCell neighbor = (SegregationCell) grid.getCell(neighborPosition);
-                    if (neighbor.currentState == CellStates.SegregrationStates.RED) {
+                    if (neighbor.currentState == CellStates.SegregationStates.RED) {
                         numRedNeighbors++;
                     }
-                    else if (neighbor.currentState == CellStates.SegregrationStates.BLUE) {
+                    else if (neighbor.currentState == CellStates.SegregationStates.BLUE) {
                         numBlueNeighbors++;
                     }
                     neighbors.add(grid.getCell(neighborPosition));
@@ -78,25 +54,25 @@ public class SegregationCell extends Cell {
 
     @Override
     public void calculateNextState() {
-        Grid segregationGrid = this.grid;
-        if (currentState != CellStates.SegregrationStates.EMPTY) {
-            determineSatisfied();
-            if (!satisfied) {
-                segregationGrid.swapPositions(position);
-            }
-
+        determineSatisfied();
+        if (!satisfied) {
+            this.grid.swapPositions(position);
         }
     }
 
+
     private void determineSatisfied() {
-        if (currentState == CellStates.SegregrationStates.RED) {
-            satisfied = (numRedNeighbors / (numBlueNeighbors + numRedNeighbors)) > satisfactionThreshold;
-        }
-        else if (currentState == CellStates.SegregrationStates.BLUE) {
-            satisfied = (numBlueNeighbors / (numBlueNeighbors + numRedNeighbors)) > satisfactionThreshold;
-        }
-        else {
+        double satisfaction;
+        if (numRedNeighbors + numBlueNeighbors == 0 || currentState == CellStates.SegregationStates.EMPTY) {
             satisfied = true;
+        }
+        else if (currentState == CellStates.SegregationStates.RED) {
+            satisfaction = (double) numRedNeighbors / (numBlueNeighbors + numRedNeighbors);
+            satisfied = satisfaction >= satisfactionThreshold;
+        }
+        else if (currentState == CellStates.SegregationStates.BLUE) {
+            satisfaction = (double) numBlueNeighbors / (numBlueNeighbors + numRedNeighbors);
+            satisfied = satisfaction >= satisfactionThreshold;
         }
     }
 

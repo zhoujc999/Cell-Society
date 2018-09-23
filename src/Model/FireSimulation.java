@@ -3,21 +3,19 @@ package Model;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 public class FireSimulation extends Simulation{
     //    No wrap arounds for Game of Life
     private static final boolean ROW_WRAP = false;
     private static final boolean COLUMN_WRAP = false;
     private double probCatchFire;
-    private Random random;
 
-    private Map<CellStates.FireStates, Integer> statistics;
 
     public FireSimulation(int numRows, int numColumns, Map<Point, CellStates.FireStates> initialState, double proCatchFire) {
+
         super(numRows, numColumns, initialState);
         this.probCatchFire = proCatchFire;
-        this.random = new Random();
+        initializeCellsProbability();
     }
 
 
@@ -35,8 +33,15 @@ public class FireSimulation extends Simulation{
             if (grid.getMatrix().get(position) != null) {
                 throw new IllegalArgumentException("InitialState Duplicate Point Error");
             }
-            FireCell cell = new FireCell(position, (FireGrid) grid, (CellStates.FireStates) entry.getValue(), probCatchFire, random);
-            grid.getMatrix().put(position, cell);
+            FireCell cell = new FireCell(position, (FireGrid) grid, (CellStates.FireStates) entry.getValue());
+            super.grid.getMatrix().put(position, cell);
+        }
+    }
+
+    protected void initializeCellsProbability() {
+        for (Cell cell : this.grid.getMatrix().values()) {
+            FireCell c = (FireCell) cell;
+            c.setProbCatchFire(this.probCatchFire);
         }
     }
 
@@ -47,6 +52,7 @@ public class FireSimulation extends Simulation{
         statistics.put(CellStates.FireStates.TREE, 0);
         statistics.put(CellStates.FireStates.BURNING, 0);
         statistics.put(CellStates.FireStates.EMPTY, 0);
+
     }
     protected void initializeView() {
         this.view = new HashMap<Point, CellStates.FireStates>();
@@ -57,6 +63,7 @@ public class FireSimulation extends Simulation{
      * call this method at every time-step to update and evolve the model
      */
     public void step() {
+
         for (Cell cell: grid.getMatrix().values()) {
             cell.calculateNextState();
         }
@@ -68,7 +75,28 @@ public class FireSimulation extends Simulation{
 
 
     public void render() {
-
+        int numTree = 0;
+        int numBurning = 0;
+        int numEmpty = 0;
+        view.clear();
+        for (Map.Entry<Point, ? extends Cell> entry: grid.getMatrix().entrySet()) {
+            FireCell cell = (FireCell) entry.getValue();
+            if (cell.currentState == CellStates.FireStates.TREE) {
+                numTree++;
+            }
+            else if (cell.currentState == CellStates.FireStates.BURNING) {
+                numBurning++;
+            }
+            else if (cell.currentState == CellStates.FireStates.EMPTY) {
+                numEmpty++;
+            }
+            if (entry.getValue().stateChanged) {
+                view.put(entry.getKey(), entry.getValue().currentState);
+            }
+        }
+        statistics.put(CellStates.FireStates.TREE, numTree);
+        statistics.put(CellStates.FireStates.BURNING, numBurning);
+        statistics.put(CellStates.FireStates.EMPTY, numEmpty);
     }
 
 

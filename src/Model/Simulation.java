@@ -2,6 +2,7 @@ package Model;
 
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * Abstract representation of a Simulation
@@ -18,6 +19,8 @@ public abstract class Simulation {
     protected EnumMap statistics;
     protected Map view;
 
+    protected Random random;
+
 
     public Simulation(int numRows, int numColumns, Map initialState) {
         if (initialState.size() != numRows * numColumns) {
@@ -26,6 +29,7 @@ public abstract class Simulation {
         this.numRows = numRows;
         this.numColumns = numColumns;
         this.numCells = numRows * numColumns;
+        this.random = new Random();
 
         initializeStatistics();
         initializeView();
