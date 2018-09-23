@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<data game="game">
+    <type>wator</type>
+    <threshold>0.5</threshold>
+    <ratio1>.5</ratio1>
+    <ratio2>0.1</ratio2>
+    <fishRate>4</fishRate>
+    <sharkRate>2</sharkRate>
+    <width>400</width>
+    <length>600</length>
+    <numRows>5</numRows>
+    <numColumns>5</numColumns>
+    <frames_per_sec>3</frames_per_sec>
+</data>
