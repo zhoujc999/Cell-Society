@@ -12,7 +12,7 @@ public class SegregationSimulation extends Simulation {
     private double satisfactionThreshold;
     private int numEmptyCells;
 
-    public SegregationSimulation(int numRows, int numColumns, Map<Point, CellStates.SegregrationStates> initialState, double threshold) {
+    public SegregationSimulation(int numRows, int numColumns, Map<Point, CellStates.SegregationStates> initialState, double threshold) {
         super(numRows, numColumns, initialState);
         this.satisfactionThreshold = threshold;
         initializeCellsThreshold();
@@ -31,11 +31,11 @@ public class SegregationSimulation extends Simulation {
         numEmptyCells = 0;
         for (Map.Entry entry : initialParam.entrySet()) {
             Point position = (Point) entry.getKey();
-            CellStates.SegregrationStates state = (CellStates.SegregrationStates) entry.getValue();
+            CellStates.SegregationStates state = (CellStates.SegregationStates) entry.getValue();
             if (grid.getMatrix().get(position) != null) {
                 throw new IllegalArgumentException("InitialState Duplicate Point Error");
             }
-            if (state == CellStates.SegregrationStates.EMPTY) {
+            if (state == CellStates.SegregationStates.EMPTY) {
                 grid.addEmptyPosition(position);
                 numEmptyCells++;
             }
@@ -57,7 +57,7 @@ public class SegregationSimulation extends Simulation {
         statistics.put(CellStates.SegregationMoods.DISSATISFIED, 0);
     }
     protected void initializeView() {
-        this.view = new HashMap<Point, CellStates.SegregrationStates>();
+        this.view = new HashMap<Point, CellStates.SegregationStates>();
     }
 
     public void step() {
