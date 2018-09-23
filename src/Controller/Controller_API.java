@@ -111,9 +111,9 @@ public class Controller_API{
         myTime.play();
     }
 
-    public void apply(Map<String, String> attributes){
-        setUp(attributes);
-    }
+ //   public void apply(Map<String, String> attributes){
+  //      setUp(attributes);
+   // }
 
     public void reset() {
         stop();
