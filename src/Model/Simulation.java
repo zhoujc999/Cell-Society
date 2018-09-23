@@ -40,7 +40,7 @@ public abstract class Simulation {
 
     protected abstract void initializeGrid();
 
-    protected abstract void initializeCells(Map<Point, ? extends Enum> m);
+    protected abstract void initializeCells(Map<Point, Integer> m);
 
     protected void initializeAllNeighbors(){
         for (Cell cell: grid.getMatrix().values()) {
