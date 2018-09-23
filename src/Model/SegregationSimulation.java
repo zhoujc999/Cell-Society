@@ -86,7 +86,7 @@ public class SegregationSimulation extends Simulation {
                 numDissatisfied++;
             }
             if (entry.getValue().stateChanged) {
-                view.put(entry.getKey(), entry.getValue().currentState);
+                view.put(entry.getKey(), entry.getValue().currentState.ordinal());
             }
         }
         statistics.put(CellStates.SegregationMoods.SATISFIED, numSatisfied - numEmptyCells);
