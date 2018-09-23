@@ -64,17 +64,18 @@ public class Controller_API{
         myMap = simulationMap(numRows,numColumns,cellRatio,emptyRatio);
         mySimulation = getSimulation(numRows, numColumns,type, threshold);
 
-//        if(myView==null){
-            myView = new CellGridPane(gridPane);
-            myView.create(attributes, mySimulation);
-//        }
+        myView = new CellGridPane(gridPane);
+        myView.create(attributes, mySimulation);
 
 
-        var frame = new KeyFrame(Duration.millis(1000/(speed+SPEEDBUFF)),e->step((double)(1.0/(speed+SPEEDBUFF))));
-        myTime = new Timeline();
-        myTime.setCycleCount(Timeline.INDEFINITE);
-        myTime.getKeyFrames().add(frame);
-        myTime.play();
+        if(myTime==null){
+            var frame = new KeyFrame(Duration.millis(1000/(speed+SPEEDBUFF)),e->step((double)(1.0/(speed+SPEEDBUFF))));
+            myTime = new Timeline();
+            myTime.setCycleCount(Timeline.INDEFINITE);
+            myTime.getKeyFrames().add(frame);
+            myTime.play();
+        }
+
 
         //build a new simulation*/
 
@@ -97,6 +98,11 @@ public class Controller_API{
         myView.render(mySimulation.getView());
     }
 
+    public void animationStep(){
+        step(0.0);
+        stop();
+    }
+
     public void stop() {
         myTime.stop();
     }
@@ -114,12 +120,6 @@ public class Controller_API{
         setUp(originalAttributes);
         stop();
     }
-
-//    private void end() {
-//        //myView.endGreeting();
-//        //pause for a while
-//        myStage.close();
-//    }
 
     private FileChooser makeChooser(String extension) {
         var result = new FileChooser();
