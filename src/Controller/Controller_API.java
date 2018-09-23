@@ -76,6 +76,14 @@ public class Controller_API{
 
     }
 
+    private void create(Map<String, String> map){
+        for(String s: map.keySet())
+        {
+            originalAttributes.put(s,map.get(s));
+        }
+        setUp(originalAttributes);
+    }
+
     private void step(double elapsedTime) {
         //ask mySimulation to update
         mySimulation.step();
