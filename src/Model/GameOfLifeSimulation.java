@@ -81,7 +81,7 @@ public class GameOfLifeSimulation extends Simulation {
                 numDead++;
             }
             if (entry.getValue().stateChanged) {
-                view.put(entry.getKey(), entry.getValue().currentState);
+                view.put(entry.getKey(), entry.getValue().currentState.ordinal());
             }
         }
         statistics.put(CellStates.GameOfLifeStates.LIVE, numLive);
