@@ -90,9 +90,9 @@ public class FireSimulation extends Simulation {
             else if (cell.currentState == CellStates.FireStates.EMPTY) {
                 numEmpty++;
             }
-            if (entry.getValue().stateChanged) {
-                view.put(entry.getKey(), entry.getValue().currentState.ordinal());
-            }
+
+            view.put(entry.getKey(), entry.getValue().currentState.ordinal());
+
         }
         statistics.put(CellStates.FireStates.TREE, numTree);
         statistics.put(CellStates.FireStates.BURNING, numBurning);
