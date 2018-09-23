@@ -40,7 +40,7 @@ public class Controller_API{
     {
         this.gridPane =gridPane;
     }
-    public void start() throws Exception {
+    public void start(){
         var dataFile = myChooser.showOpenDialog(null);
 
         XMLParser parser = new XMLParser("game");
@@ -64,8 +64,11 @@ public class Controller_API{
         myMap = simulationMap(numRows,numColumns,cellRatio,emptyRatio);
         mySimulation = getSimulation(numRows, numColumns,type, threshold);
 
-        myView = new CellGridPane(gridPane);
-        myView.create(attributes, mySimulation);
+//        if(myView==null){
+            myView = new CellGridPane(gridPane);
+            myView.create(attributes, mySimulation);
+//        }
+
 
         var frame = new KeyFrame(Duration.millis(1000/(speed+SPEEDBUFF)),e->step((double)(1.0/(speed+SPEEDBUFF))));
         myTime = new Timeline();
