@@ -52,9 +52,9 @@ public class SegregationSimulation extends Simulation {
     }
 
     protected void initializeStatistics() {
-        this.statistics = new EnumMap<CellStates.SegregrationMoods, Integer>(CellStates.SegregrationMoods.class);
-        statistics.put(CellStates.SegregrationMoods.SATISFIED, 0);
-        statistics.put(CellStates.SegregrationMoods.DISSATISFIED, 0);
+        this.statistics = new EnumMap<CellStates.SegregationMoods, Integer>(CellStates.SegregationMoods.class);
+        statistics.put(CellStates.SegregationMoods.SATISFIED, 0);
+        statistics.put(CellStates.SegregationMoods.DISSATISFIED, 0);
     }
     protected void initializeView() {
         this.view = new HashMap<Point, CellStates.SegregrationStates>();
@@ -89,8 +89,8 @@ public class SegregationSimulation extends Simulation {
                 view.put(entry.getKey(), entry.getValue().currentState);
             }
         }
-        statistics.put(CellStates.SegregrationMoods.SATISFIED, numSatisfied - numEmptyCells);
-        statistics.put(CellStates.SegregrationMoods.DISSATISFIED, numDissatisfied);
+        statistics.put(CellStates.SegregationMoods.SATISFIED, numSatisfied - numEmptyCells);
+        statistics.put(CellStates.SegregationMoods.DISSATISFIED, numDissatisfied);
     }
 
 
