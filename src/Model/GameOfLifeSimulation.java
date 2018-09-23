@@ -60,9 +60,9 @@ public class GameOfLifeSimulation extends Simulation {
         }
 
         for (Cell cell: grid.getMatrix().values()) {
-            if (cell.stateChanged) {
+//            if (cell.stateChanged) {
                 cell.updateState();
-            }
+//            }
         }
     }
 
@@ -80,9 +80,9 @@ public class GameOfLifeSimulation extends Simulation {
             else if (cell.currentState == CellStates.GameOfLifeStates.DEAD) {
                 numDead++;
             }
-            if (entry.getValue().stateChanged) {
-                view.put(entry.getKey(), entry.getValue().currentState.ordinal());
-            }
+//            if (entry.getValue().stateChanged) {
+                view.put(entry.getKey(), entry.getValue().currentState);
+//            }
         }
         statistics.put(CellStates.GameOfLifeStates.LIVE, numLive);
         statistics.put(CellStates.GameOfLifeStates.DEAD, numDead);

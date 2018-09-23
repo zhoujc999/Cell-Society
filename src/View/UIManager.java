@@ -7,6 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 /*
     UIManager is a class that keeps track of all UI elements and handle their actions
@@ -26,21 +28,19 @@ public class UIManager {
     @FXML
     public GridPane gridPane;
 
+    private Controller_API controller;
+    private static final int MAX_FPS = 30;
+    private static final String DEFAULT_SIZE = "20";
+
     // this method will be called automatically by the FXML loader
     public void initialize() throws Exception{
         forceInputToBeNumeric(widthTextField);
         forceInputToBeNumeric(heightTextField);
-        Controller_API controller = new Controller_API(gridPane);
+        controller = new Controller_API(gridPane);
        // CellGridPane societyGridPane = new CellGridPane(gridPane);
         controller.start();
     }
 
-    // you can get the updated value from the user input fields from this method
-    public void handleApplyButtonAction(){
-        System.out.println(widthTextField.getText());
-        System.out.println(heightTextField.getText());
-        System.out.println(slider.getValue());
-    }
     // restrict the textfield to contain only numbers
     private void forceInputToBeNumeric(TextField tf) {
         tf.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -69,20 +69,36 @@ public class UIManager {
         }
     }
 
+    // you can get the updated value from the user input fields from this method
+    public void handleApplyButtonAction(){
+        Map<String, String> attributes = new HashMap<>();
+        attributes.put("numRows", getOrDefaultValue(heightTextField.getText()) );
+        attributes.put("numColumns", getOrDefaultValue(heightTextField.getText()) );
+        attributes.put("frames_per_sec", String.valueOf((int)((slider.getValue()/100)*MAX_FPS)));
+        gridPane.getChildren().clear();
+        controller.update(attributes);
+    }
+
     public void handleStartButtonAction(){
-        System.out.println("Testing");
+        controller.resume();
     }
 
     public void handleStopButtonAction(){
-
+        controller.stop();
     }
 
     public void handleResetButtonAction(){
-
+        controller.reset();
     }
 
     public void handleStepButtonAction(){
 
+    }
+
+    // if the input is empty, use default value
+    private String getOrDefaultValue(String s){
+        if(s.length()==0) return DEFAULT_SIZE;
+        else return s;
     }
 
     public GridPane getGridPane(){

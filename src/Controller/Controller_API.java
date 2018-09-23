@@ -25,14 +25,16 @@ import static javafx.application.Application.launch;
 
 public class Controller_API{
     public static final String DATA_FILE_EXTENSION = "*.xml";
+    public static final int SPEEDBUFF = 1;
     private FileChooser myChooser = makeChooser(DATA_FILE_EXTENSION);
 
     private int frames_per_sec;
     private Timeline myTime;
     private CellGridPane myView;
     private Simulation mySimulation;
-    private Stage myStage;
     private GridPane gridPane;
+    private Map<String, String> originalAttributes;
+    private Map<Point, Integer> myMap;
 
     public Controller_API(GridPane gridPane)
     {
@@ -43,26 +45,29 @@ public class Controller_API{
 
         XMLParser parser = new XMLParser("game");
         Map<String, String> attributes = parser.getAttribute(dataFile);
-
+        originalAttributes = attributes;
         setUp(attributes);
     }
 
 
-    private void setUp(Map<String, String> attributes) throws Exception{
+    public void setUp(Map<String, String> attributes){
         //retrieve parameters needed to build a new Simulation
 
         int numRows = Integer.parseInt(attributes.get("numRows"));
         int numColumns = Integer.parseInt(attributes.get("numColumns"));
-        double cellRatio = Double.parseDouble(attributes.get("ratio1"));
-        double emptyRatio = Double.parseDouble(attributes.get("ratio2"));
+        double cellRatio = Double.parseDouble(attributes.getOrDefault("ratio1", "0.5"));
+        double emptyRatio = Double.parseDouble(attributes.getOrDefault("ratio2", "0.5"));
         int speed = Integer.parseInt(attributes.get("frames_per_sec"));
+        double threshold = Double.parseDouble(attributes.getOrDefault("threshold", "0.5"));
         String type = attributes.get("type");
-        mySimulation = golSimulation(numRows, numColumns, cellRatio);
+
+        myMap = simulationMap(numRows,numColumns,cellRatio,emptyRatio);
+        mySimulation = getSimulation(numRows, numColumns,type, threshold);
 
         myView = new CellGridPane(gridPane);
         myView.create(attributes, mySimulation);
 
-        var frame = new KeyFrame(Duration.millis(1000/speed),e->step((double)(1.0/speed)));
+        var frame = new KeyFrame(Duration.millis(1000/(speed+SPEEDBUFF)),e->step((double)(1.0/(speed+SPEEDBUFF))));
         myTime = new Timeline();
         myTime.setCycleCount(Timeline.INDEFINITE);
         myTime.getKeyFrames().add(frame);
@@ -70,6 +75,14 @@ public class Controller_API{
 
         //build a new simulation*/
 
+    }
+
+    public void update(Map<String, String> map){
+        for(String s: map.keySet())
+        {
+            originalAttributes.put(s,map.get(s));
+        }
+        setUp(originalAttributes);
     }
 
     private void step(double elapsedTime) {
@@ -89,16 +102,21 @@ public class Controller_API{
         myTime.play();
     }
 
-    public void reset(String type, int size, double Ratio) {
-        //Simulation initialSimulation = Simulation(size, ratio, type);
-        //myView.create(mainStage, xmlObj, initialSimulation);
+    public void apply(Map<String, String> attributes){
+        setUp(attributes);
     }
 
-    private void end() {
-        //myView.endGreeting();
-        //pause for a while
-        myStage.close();
+    public void reset() {
+        stop();
+        setUp(originalAttributes);
+        stop();
     }
+
+//    private void end() {
+//        //myView.endGreeting();
+//        //pause for a while
+//        myStage.close();
+//    }
 
     private FileChooser makeChooser(String extension) {
         var result = new FileChooser();
@@ -108,24 +126,41 @@ public class Controller_API{
         return result;
     }
 
-    private Simulation golSimulation(int numRows, int numColumns, double cellRatio) {
-        Map<Point, CellStates.GameOfLifeStates> initialState = new HashMap<Point, CellStates.GameOfLifeStates>();
+    Simulation getSimulation(int numRows, int numCols, String type, double threshold){
+        Simulation simulation = null;
+        switch (type){
+            case "gameOfLife":
+                simulation = new GameOfLifeSimulation(numRows,numCols,myMap);
+                break;
+            case "segregation":
+                simulation = new SegregationSimulation(numRows,numCols,myMap, threshold);
+                break;
+            case "fire":
+                simulation = new FireSimulation(numRows,numCols,myMap, threshold);
+                break;
+        }
+        return simulation;
+    }
+    private Map<Point, Integer> simulationMap(int numRows, int numColumns, double cellRatio, double emptyRatio) {
+        Map<Point, Integer> initialState = new HashMap<>();
 
-//        Random r = new Random();
-//        for (int i = 0; i < numColumns; i++) {
-//            for (int j = 0; j < numRows; j++) {
-//                Point p = new Point(i, j);
-//                CellStates.GameOfLifeStates state;
-//                double level = r.nextDouble();
-//                if (level < cellRatio)
-//                    state = CellStates.GameOfLifeStates.DEAD;
-//                else
-//                    state = CellStates.GameOfLifeStates.DEAD;
-//                initialState.put(p, state);
-//            }
-//        }
+        Random r = new Random();
+        for (int i = 0; i < numColumns; i++) {
+            for (int j = 0; j < numRows; j++) {
+                Point p = new Point(i, j);
+                int state;
+                double level = r.nextDouble();
+                if (level < emptyRatio)
+                    state = 2;
+                else if (level < emptyRatio+(1-emptyRatio)*cellRatio)
+                    state = 0;
+                else
+                    state = 1;
+                initialState.put(p, state);
+            }
+        }
 
-        int rowIndex = 0;
+        /*int rowIndex = 0;
         int colIndex = 0;
         for(int i = 0; i < 25; i++){
             if(colIndex >= 5){
@@ -137,9 +172,9 @@ public class Controller_API{
             }
             else initialState.put(new Point(rowIndex, colIndex), CellStates.GameOfLifeStates.DEAD);
             colIndex++;
-        }
+        }*/
 
-        return new GameOfLifeSimulation(numRows, numColumns, initialState);
+        return initialState;
     }
 
     public void setMyView(CellGridPane myView){
