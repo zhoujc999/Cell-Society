@@ -31,8 +31,8 @@ public class Controller_API{
     private Timeline myTime;
     private CellGridPane myView;
     private Simulation mySimulation;
-    private Stage myStage;
     private GridPane gridPane;
+    private Map<String, String> originalAttributes;
 
     public Controller_API(GridPane gridPane)
     {
@@ -43,18 +43,18 @@ public class Controller_API{
 
         XMLParser parser = new XMLParser("game");
         Map<String, String> attributes = parser.getAttribute(dataFile);
-
+        originalAttributes = attributes;
         setUp(attributes);
     }
 
 
-    private void setUp(Map<String, String> attributes) throws Exception{
+    public void setUp(Map<String, String> attributes){
         //retrieve parameters needed to build a new Simulation
 
         int numRows = Integer.parseInt(attributes.get("numRows"));
         int numColumns = Integer.parseInt(attributes.get("numColumns"));
-        double cellRatio = Double.parseDouble(attributes.get("ratio1"));
-        double emptyRatio = Double.parseDouble(attributes.get("ratio2"));
+        double cellRatio = Double.parseDouble(attributes.getOrDefault("ratio1", "0.5"));
+        double emptyRatio = Double.parseDouble(attributes.getOrDefault("ratio2", "0.5"));
         int speed = Integer.parseInt(attributes.get("frames_per_sec"));
         String type = attributes.get("type");
         mySimulation = golSimulation(numRows, numColumns, cellRatio);
@@ -79,6 +79,7 @@ public class Controller_API{
 
         //pass the new Simulation to myView
         myView.render(mySimulation.getView());
+        System.out.println("called step");
     }
 
     public void stop() {
@@ -89,16 +90,21 @@ public class Controller_API{
         myTime.play();
     }
 
-    public void reset(String type, int size, double Ratio) {
-        //Simulation initialSimulation = Simulation(size, ratio, type);
-        //myView.create(mainStage, xmlObj, initialSimulation);
+    public void apply(Map<String, String> attributes){
+        setUp(attributes);
     }
 
-    private void end() {
-        //myView.endGreeting();
-        //pause for a while
-        myStage.close();
+    public void reset() {
+        stop();
+        setUp(originalAttributes);
+        stop();
     }
+
+//    private void end() {
+//        //myView.endGreeting();
+//        //pause for a while
+//        myStage.close();
+//    }
 
     private FileChooser makeChooser(String extension) {
         var result = new FileChooser();

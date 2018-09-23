@@ -46,10 +46,10 @@
     </HBox>
 
     <HBox spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="2" alignment="CENTER">
-        <Button text="Start"/>
-        <Button text="Stop"/>
-        <Button text="Reset"/>
-        <Button text="Step"/>
+        <Button text="Start" onAction="#handleStartButtonAction"/>
+        <Button text="Stop" onAction="#handleStopButtonAction"/>
+        <Button text="Reset" onAction="#handleResetButtonAction"/>
+        <Button text="Step" onAction="#handleStepButtonAction"/>
         <Button text="Choose a file..."
                 onAction="#handleChooseAFileAction"/>
     </HBox>

@@ -7,5 +7,5 @@
     <length>600</length>
     <numRows>5</numRows>
     <numColumns>5</numColumns>
-    <frames_per_sec>60</frames_per_sec>
+    <frames_per_sec>3</frames_per_sec>
 </data>
