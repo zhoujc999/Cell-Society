@@ -25,6 +25,7 @@ import static javafx.application.Application.launch;
 
 public class Controller_API{
     public static final String DATA_FILE_EXTENSION = "*.xml";
+    public static final int SPEEDBUFF = 1;
     private FileChooser myChooser = makeChooser(DATA_FILE_EXTENSION);
 
     private int frames_per_sec;
@@ -66,7 +67,7 @@ public class Controller_API{
         myView = new CellGridPane(gridPane);
         myView.create(attributes, mySimulation);
 
-        var frame = new KeyFrame(Duration.millis(1000/speed),e->step((double)(1.0/speed)));
+        var frame = new KeyFrame(Duration.millis(1000/(speed+SPEEDBUFF)),e->step((double)(1.0/(speed+SPEEDBUFF))));
         myTime = new Timeline();
         myTime.setCycleCount(Timeline.INDEFINITE);
         myTime.getKeyFrames().add(frame);
@@ -76,7 +77,7 @@ public class Controller_API{
 
     }
 
-    private void create(Map<String, String> map){
+    public void update(Map<String, String> map){
         for(String s: map.keySet())
         {
             originalAttributes.put(s,map.get(s));
