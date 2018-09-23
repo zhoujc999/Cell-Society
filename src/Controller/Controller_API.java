@@ -59,10 +59,12 @@ public class Controller_API{
         double emptyRatio = Double.parseDouble(attributes.getOrDefault("ratio2", "0.5"));
         int speed = Integer.parseInt(attributes.get("frames_per_sec"));
         double threshold = Double.parseDouble(attributes.getOrDefault("threshold", "0.5"));
+        int fishRate = Integer.parseInt(attributes.getOrDefault("fishRate","0"));
+        int sharkRate = Integer.parseInt(attributes.getOrDefault("sharkRate","0"));
         String type = attributes.get("type");
 
         myMap = simulationMap(numRows,numColumns,cellRatio,emptyRatio);
-        mySimulation = getSimulation(numRows, numColumns,type, threshold);
+        mySimulation = getSimulation(numRows, numColumns,type, threshold, fishRate, sharkRate);
 
 //        if(myView==null){
             myView = new CellGridPane(gridPane);
@@ -129,7 +131,7 @@ public class Controller_API{
         return result;
     }
 
-    Simulation getSimulation(int numRows, int numCols, String type, double threshold){
+    Simulation getSimulation(int numRows, int numCols, String type, double threshold, int fishRate, int sharkRate){
         Simulation simulation = null;
         switch (type){
             case "gameOfLife":
@@ -140,6 +142,9 @@ public class Controller_API{
                 break;
             case "fire":
                 simulation = new FireSimulation(numRows,numCols,myMap, threshold);
+                break;
+            case "wator":
+                simulation = new WatorSimulation(numRows,numCols,myMap,fishRate,sharkRate);
                 break;
         }
         return simulation;
