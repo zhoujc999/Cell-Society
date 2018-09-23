@@ -30,6 +30,8 @@ public class CellGridPane {
     public void create(Map<String, String> attributes, Simulation initialSimulation){
         width = Integer.parseInt(attributes.get("width"));
         height = Integer.parseInt(attributes.get("length"));
+
+
         initialize(width, height, initialSimulation);
     }
 
