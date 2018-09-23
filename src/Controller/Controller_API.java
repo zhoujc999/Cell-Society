@@ -125,8 +125,10 @@ public class Controller_API{
                 break;
             case "segregation":
                 return new SegregationSimulation(numRows,numCols,myMap, threshold);
+                break;
             case "fire":
-                return new FireSimulation(numRows, threshold)
+                return new FireSimulation(numRows, threshold);
+                break;
 
         }
 
