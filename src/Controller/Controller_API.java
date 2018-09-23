@@ -119,19 +119,19 @@ public class Controller_API{
     }
 
     Simulation getSimulation(int numRows, int numCols, String type, double threshold){
+        Simulation simulation = null;
         switch (type){
             case "gameOfLife":
-                return new GameOfLifeSimulation(numRows,numCols,myMap);
+                simulation = new GameOfLifeSimulation(numRows,numCols,myMap);
                 break;
             case "segregation":
-                return new SegregationSimulation(numRows,numCols,myMap, threshold);
+                simulation = new SegregationSimulation(numRows,numCols,myMap, threshold);
                 break;
             case "fire":
-                return new FireSimulation(numRows, threshold);
+                simulation = new FireSimulation(numRows,numCols,myMap, threshold);
                 break;
-
         }
-
+        return simulation;
     }
     private Map<Point, Integer> simulationMap(int numRows, int numColumns, double cellRatio, double emptyRatio) {
         Map<Point, Integer> initialState = new HashMap<>();
