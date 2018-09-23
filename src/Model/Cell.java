@@ -101,7 +101,8 @@ public abstract class Cell {
         if (nextState != currentState) {
             currentState = nextState;
             stateChanged = true;
-        } else {
+        }
+        else {
             stateChanged = false;
         }
 
