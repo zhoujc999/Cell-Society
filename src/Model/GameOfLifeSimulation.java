@@ -32,7 +32,6 @@ public class GameOfLifeSimulation extends Simulation {
      * initialize Cells and put them on grid
      */
     protected void initializeCells(Map<Point, ? extends Enum> initialParam) {
-//        System.out.println(initialParam.size());
         for (Map.Entry entry : initialParam.entrySet()) {
             Point position = (Point) entry.getKey();
             if (grid.getMatrix().get(position) != null) {
@@ -41,7 +40,6 @@ public class GameOfLifeSimulation extends Simulation {
             GameOfLifeCell cell = new GameOfLifeCell(position, (GameOfLifeGrid) grid, (CellStates.GameOfLifeStates) entry.getValue());
             grid.getMatrix().put(position, cell);
         }
-//        System.out.println(grid.getMatrix());
     }
 
     protected void initializeStatistics() {
@@ -71,17 +69,18 @@ public class GameOfLifeSimulation extends Simulation {
         int numDead = 0;
         int numLive = 0;
         view.clear();
-        for (Map.Entry<Point, Cell> entry: grid.getMatrix().entrySet()) {
+        for (Map.Entry<Point, ? extends Cell> entry: grid.getMatrix().entrySet()) {
             GameOfLifeCell cell = (GameOfLifeCell) entry.getValue();
+//            System.out.println(cell.neighbors);
             if (cell.currentState == CellStates.GameOfLifeStates.LIVE) {
                 numLive++;
             }
             else if (cell.currentState == CellStates.GameOfLifeStates.DEAD) {
                 numDead++;
             }
-//            if (entry.getValue().stateChanged) {
+            if (entry.getValue().stateChanged) {
                 view.put(entry.getKey(), entry.getValue().currentState);
-//            }
+            }
         }
         statistics.put(CellStates.GameOfLifeStates.LIVE, numLive);
         statistics.put(CellStates.GameOfLifeStates.DEAD, numDead);

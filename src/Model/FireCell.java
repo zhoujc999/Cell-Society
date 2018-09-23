@@ -1,14 +1,10 @@
 package Model;
 
-import java.util.Random;
-
 public class FireCell extends Cell {
     private double probCatchFire;
-    private Random random;
-    public FireCell(Point position, FireGrid grid, CellStates.FireStates state, double probCatchFire, Random random) {
+    public FireCell(Point position, FireGrid grid, CellStates.FireStates state) {
         super(position, grid, state);
-        this.probCatchFire = probCatchFire;
-        this.random = random;
+
     }
 
     public void initializeNeighbors() {
@@ -22,6 +18,9 @@ public class FireCell extends Cell {
         }
     }
 
+    public void setProbCatchFire(double probCatchFire) {
+        this.probCatchFire = probCatchFire;
+    }
 
     @Override
     public void calculateNextState() {
