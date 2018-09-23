@@ -17,7 +17,7 @@ public class GameOfLifeSimulation extends Simulation {
     private static final boolean COLUMN_WRAP = false;
 
 
-    public GameOfLifeSimulation(int numRows, int numColumns, Map<Point, CellStates.GameOfLifeStates> initialState) {
+    public GameOfLifeSimulation(int numRows, int numColumns, Map<Point, Integer> initialState) {
         super(numRows, numColumns, initialState);
     }
 
