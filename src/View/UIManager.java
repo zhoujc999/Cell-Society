@@ -41,14 +41,6 @@ public class UIManager {
         controller.start();
     }
 
-    // you can get the updated value from the user input fields from this method
-    public void handleApplyButtonAction(){
-        Map<String, String> attributes = new HashMap<>();
-        attributes.put("numRows", getOrDefaultValue(heightTextField.getText()) );
-        attributes.put("numColumns", getOrDefaultValue(heightTextField.getText()) );
-        attributes.put("frames_per_sec", String.valueOf((int)(slider.getValue()/100)*MAX_FPS));
-        controller.update(attributes);
-    }
     // restrict the textfield to contain only numbers
     private void forceInputToBeNumeric(TextField tf) {
         tf.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -75,6 +67,16 @@ public class UIManager {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    // you can get the updated value from the user input fields from this method
+    public void handleApplyButtonAction(){
+        Map<String, String> attributes = new HashMap<>();
+        attributes.put("numRows", getOrDefaultValue(heightTextField.getText()) );
+        attributes.put("numColumns", getOrDefaultValue(heightTextField.getText()) );
+        attributes.put("frames_per_sec", String.valueOf((int)((slider.getValue()/100)*MAX_FPS)));
+        gridPane.getChildren().clear();
+        controller.update(attributes);
     }
 
     public void handleStartButtonAction(){

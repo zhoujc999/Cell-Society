@@ -92,7 +92,6 @@ public class Controller_API{
 
         //pass the new Simulation to myView
         myView.render(mySimulation.getView());
-        System.out.println("called step");
     }
 
     public void stop() {

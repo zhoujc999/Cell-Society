@@ -15,7 +15,8 @@ import java.util.Map;
 
 public class CellGridPane {
 
-    private static final int CELL_SIZE = 10;
+//    private static final int CELL_SIZE = 10;
+//    private static final int GRID_WIDTH = 800;
     private static final int MAX_FPS = 30;
     private GridPane gridPane;
     private int width;
@@ -24,20 +25,22 @@ public class CellGridPane {
 
     public CellGridPane(GridPane gridPane){
         this.gridPane = gridPane;
+//        System.out.println(gridPane.getBoundsInParent().getWidth());
     }
 
 
     public void create(Map<String, String> attributes, Simulation initialSimulation){
         width = Integer.parseInt(attributes.get("width"));
         height = Integer.parseInt(attributes.get("length"));
+
         initialize(width, height, initialSimulation);
     }
 
     private void initialize(int width, int height, Simulation simulation){
-
+        gridPane.getChildren().clear();
         rects = new Rectangle[width*height];
         for(int i = 0; i < rects.length; i++){
-            rects[i] = new Rectangle(CELL_SIZE,CELL_SIZE);
+            rects[i] = new Rectangle(30,30);
         }
 
         simulation.render();
@@ -74,6 +77,7 @@ public class CellGridPane {
     public void render(Map<Point, CellStates.GameOfLifeStates> updatedMap){
 
         int index = 0;
+        System.out.println(updatedMap);
         for(Point p: updatedMap.keySet()){
             if(updatedMap.get(p) == CellStates.GameOfLifeStates.LIVE){
                 rects[index].setFill(Color.BLACK);
