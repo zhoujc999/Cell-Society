@@ -47,7 +47,7 @@ public class UIManager {
         attributes.put("numRows", getOrDefaultValue(heightTextField.getText()) );
         attributes.put("numColumns", getOrDefaultValue(heightTextField.getText()) );
         attributes.put("frames_per_sec", String.valueOf((int)(slider.getValue()/100)*MAX_FPS));
-        controller.setUp(attributes);
+        controller.update(attributes);
     }
     // restrict the textfield to contain only numbers
     private void forceInputToBeNumeric(TextField tf) {
