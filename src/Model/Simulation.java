@@ -22,7 +22,7 @@ public abstract class Simulation {
     protected Random random;
 
 
-    public Simulation(int numRows, int numColumns, Map initialState) {
+    public Simulation(int numRows, int numColumns, Map<Point, Integer> initialState) {
         if (initialState.size() != numRows * numColumns) {
             throw new IllegalArgumentException("InitialState - Number of Points Error");
         }

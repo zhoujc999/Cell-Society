@@ -12,7 +12,7 @@ public class SegregationSimulation extends Simulation {
     private double satisfactionThreshold;
     private int numEmptyCells;
 
-    public SegregationSimulation(int numRows, int numColumns, Map<Point, CellStates.SegregationStates> initialState, double threshold) {
+    public SegregationSimulation(int numRows, int numColumns, Map<Point, Integer> initialState, double threshold) {
         super(numRows, numColumns, initialState);
         this.satisfactionThreshold = threshold;
         initializeCellsThreshold();

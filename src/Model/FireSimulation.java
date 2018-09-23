@@ -11,7 +11,7 @@ public class FireSimulation extends Simulation {
     private double probCatchFire;
 
 
-    public FireSimulation(int numRows, int numColumns, Map<Point, CellStates.FireStates> initialState, double proCatchFire) {
+    public FireSimulation(int numRows, int numColumns, Map<Point, Integer> initialState, double proCatchFire) {
 
         super(numRows, numColumns, initialState);
         this.probCatchFire = proCatchFire;
