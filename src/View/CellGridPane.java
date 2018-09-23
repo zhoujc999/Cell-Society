@@ -59,17 +59,27 @@ public class CellGridPane {
 
         // add time line
     }
-
-    public void render(Map<Point, CellStates.GameOfLifeStates> updatedMap){
-
+//            if((rowIndex==2&&colIndex==2)||(rowIndex==2&&colIndex==3)||(rowIndex==3&&colIndex==4)||(rowIndex==1&&colIndex==1)||(rowIndex==3&&colIndex==3)){
+//
+//            if((rowIndex==2&&colIndex==2)){
+//                map.put(new Point(rowIndex, colIndex), CellStates.FireStates.BURNING);
+//            }
+//            else map.put(new Point(rowIndex, colIndex), CellStates.GameOfLifeStates.DEAD);
+//            colIndex++;
+//        FireSimulation fireSimulation = new FireSimulation(width, height, )
+    public void render(Map<Point, Integer> updatedMap){
         int index = 0;
 //        System.out.println(updatedMap);
 //        System.out.println(updatedMap.size());
         for(Point p: updatedMap.keySet()){
-            if(updatedMap.get(p) == CellStates.GameOfLifeStates.LIVE){
-                rects[index].setFill(Color.BLACK);
+            if(updatedMap.get(p) == 0){
+                rects[index].setFill(Color.BLUE);
             }
-            else{
+            else if(updatedMap.get(p) == 1){
+                rects[index].setFill(Color.PINK);
+            }
+            else
+            {
                 rects[index].setFill(Color.WHITE);
             }
             index++;
