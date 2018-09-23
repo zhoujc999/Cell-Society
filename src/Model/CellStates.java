@@ -18,7 +18,7 @@ public class CellStates {
         EMPTY;
     }
 
-    public enum SegregrationMood {
+    public enum SegregrationMoods {
         SATISFIED,
         DISSATISFIED;
     }
@@ -29,6 +29,10 @@ public class CellStates {
         EMPTY;
     }
 
-
+    public enum WatorStates {
+        SHARK,
+        FISH,
+        EMPTY;
+    }
 
 }
