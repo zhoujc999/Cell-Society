@@ -33,8 +33,14 @@ public class Controller_API{
     public static final String GAME_TYPE = "game";
     public static final String GAME_OF_LIFE = "gameOfLife";
     public static final String SEGREGATION = "segregation";
+    public static final String WATOR = "wator";
     public static final String FIRE = "fire";
+    public static final String SHARK_RATE = "sharkRate";
+    public static final String DEFAULT_SHARK_RATE = "5";
+    public static final String FISH_RATE = "fishRate";
+    public static final String DEFAULT_FISH_RATE = "50";
 
+    public static final String FILE_CHOOSER_PROMPT = "Choose data file";
     private FileChooser myChooser = makeChooser(DATA_FILE_EXTENSION);
     private Timeline myTime;
     private CellGridPane myView;
@@ -67,14 +73,16 @@ public class Controller_API{
         int speed = Integer.parseInt(attributes.get(FPS));
         double threshold = Double.parseDouble(attributes.getOrDefault(THRESHOLD, DEFAULT_RATIO));
         String type = attributes.get(TYPE);
+        int sharkRate = Integer.parseInt(attributes.getOrDefault(SHARK_RATE, DEFAULT_SHARK_RATE));
+        int fishRate = Integer.parseInt(attributes.getOrDefault(FISH_RATE, DEFAULT_FISH_RATE));
 
         if(isReset){
-            mySimulation = getSimulation(numRows, numColumns,type, threshold, beginningStageMap);
+            mySimulation = getSimulation(numRows, numColumns,type, threshold, beginningStageMap, fishRate, sharkRate);
         }
         else {
             myMap = simulationMap(numRows, numColumns, cellRatio, emptyRatio);
             beginningStageMap = new HashMap<>(myMap);
-            mySimulation = getSimulation(numRows, numColumns, type, threshold, myMap);
+            mySimulation = getSimulation(numRows, numColumns, type, threshold, myMap, fishRate, sharkRate);
         }
 
         myView = new CellGridPane(gridPane);
@@ -136,13 +144,13 @@ public class Controller_API{
 
     private FileChooser makeChooser(String extension) {
         var result = new FileChooser();
-        result.setTitle("choose data file");
+        result.setTitle(FILE_CHOOSER_PROMPT);
         result.setInitialDirectory(new File(System.getProperty("user.dir")));
         result.getExtensionFilters().setAll(new FileChooser.ExtensionFilter("Text files", extension));
         return result;
     }
 
-    Simulation getSimulation(int numRows, int numCols, String type, double threshold, int fishRate, int sharkRate){
+    Simulation getSimulation(int numRows, int numCols, String type, double threshold, Map<Point, Integer> myMap, int fishRate, int sharkRate){
         Simulation simulation = null;
         switch (type){
             case GAME_OF_LIFE:
@@ -154,7 +162,7 @@ public class Controller_API{
             case FIRE:
                 simulation = new FireSimulation(numRows,numCols,myMap, threshold);
                 break;
-            case "wator":
+            case WATOR:
                 simulation = new WatorSimulation(numRows,numCols,myMap,fishRate,sharkRate);
                 break;
         }
