@@ -142,7 +142,7 @@ public class Controller_API{
         return result;
     }
 
-    private Simulation getSimulation(int numRows, int numCols, String type, double threshold, Map<Point, Integer> myMap){
+    Simulation getSimulation(int numRows, int numCols, String type, double threshold, int fishRate, int sharkRate){
         Simulation simulation = null;
         switch (type){
             case GAME_OF_LIFE:
@@ -153,6 +153,9 @@ public class Controller_API{
                 break;
             case FIRE:
                 simulation = new FireSimulation(numRows,numCols,myMap, threshold);
+                break;
+            case "wator":
+                simulation = new WatorSimulation(numRows,numCols,myMap,fishRate,sharkRate);
                 break;
         }
         return simulation;
