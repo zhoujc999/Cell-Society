@@ -92,7 +92,6 @@ public class FireSimulation extends Simulation {
             }
 
             view.put(entry.getKey(), entry.getValue().currentState.ordinal());
-
         }
         statistics.put(CellStates.FireStates.TREE, numTree);
         statistics.put(CellStates.FireStates.BURNING, numBurning);

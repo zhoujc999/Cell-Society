@@ -104,7 +104,9 @@ public abstract class Grid {
      * @param y y-coordinate
      */
     public Cell getCell(int x, int y) {
-        return matrix.get(new Point(x, y));
+        int newX = gridColumnWrap(x);
+        int newY = gridRowWrap(y);
+        return matrix.get(new Point(newX, newY));
     }
 
     /**
@@ -112,16 +114,8 @@ public abstract class Grid {
      * @param position
      */
     protected Cell getCell(Point position) {
-        return matrix.get(position);
+        return getCell(position.getX(), position.getY());
     }
 
-    protected void addEmptyPosition(Point p) {
-    }
-
-    protected void swapPositions(Point position) {
-    }
-
-    protected void setSwapQuota(int quota) {
-    }
 
 }

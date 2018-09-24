@@ -85,7 +85,6 @@ public class SegregationSimulation extends Simulation {
             else {
                 numDissatisfied++;
             }
-
             view.put(entry.getKey(), entry.getValue().currentState.ordinal());
 
         }
