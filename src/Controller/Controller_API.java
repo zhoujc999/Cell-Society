@@ -87,6 +87,7 @@ public class Controller_API{
             myTime.getKeyFrames().add(frame);
             myTime.play();
         }
+
     }
 
     public void update(Map<String, String> map){
@@ -128,8 +129,9 @@ public class Controller_API{
     }
 
     public void reset() {
+        stop();
         setUp(originalAttributes, true);
-        myTime.play();
+        animationStep();
     }
 
     private FileChooser makeChooser(String extension) {
