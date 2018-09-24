@@ -16,7 +16,6 @@ public class SegregationSimulation extends Simulation {
         super(numRows, numColumns, initialState);
         this.satisfactionThreshold = threshold;
         initializeCellsThreshold();
-        this.grid.setSwapQuota(numEmptyCells);
     }
 
 
@@ -36,7 +35,8 @@ public class SegregationSimulation extends Simulation {
                 throw new IllegalArgumentException("InitialState Duplicate Point Error");
             }
             if (state == CellStates.SegregationStates.EMPTY) {
-                grid.addEmptyPosition(position);
+                SegregationGrid g = (SegregationGrid) this.grid;
+                g.addEmptyPosition(position);
                 numEmptyCells++;
             }
             SegregationCell cell = new SegregationCell(position, (SegregationGrid) grid, state, satisfactionThreshold);
@@ -61,7 +61,6 @@ public class SegregationSimulation extends Simulation {
     }
 
     public void step() {
-        this.grid.setSwapQuota(numEmptyCells);
         for (Cell cell: grid.getMatrix().values()) {
             cell.calculateNextState();
         }
@@ -85,7 +84,6 @@ public class SegregationSimulation extends Simulation {
             else {
                 numDissatisfied++;
             }
-
             view.put(entry.getKey(), entry.getValue().currentState.ordinal());
 
         }

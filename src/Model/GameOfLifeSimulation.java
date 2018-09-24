@@ -60,9 +60,7 @@ public class GameOfLifeSimulation extends Simulation {
         }
 
         for (Cell cell: grid.getMatrix().values()) {
-//            if (cell.stateChanged) {
-                cell.updateState();
-//            }
+            cell.updateState();
         }
     }
 
