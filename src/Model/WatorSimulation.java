@@ -57,7 +57,7 @@ public class WatorSimulation extends Simulation {
     }
 
     protected void initializeView() {
-        this.view = new HashMap<Point, CellStates.WatorStates>();
+        this.view = new HashMap<Point, Integer>();
     }
 
     public void step() {
@@ -88,7 +88,7 @@ public class WatorSimulation extends Simulation {
             else if (cell.currentState == CellStates.WatorStates.EMPTY) {
                 numEmpty++;
             }
-            view.put(entry.getKey(), entry.getValue().currentState);
+            view.put(entry.getKey(), entry.getValue().currentState.ordinal());
 
         }
         statistics.put(CellStates.WatorStates.FISH, numFish);
