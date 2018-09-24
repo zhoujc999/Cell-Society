@@ -7,14 +7,14 @@ public class WatorGrid extends Grid {
     }
 
     public void changeNeighborState(Point position, CellStates.WatorStates outcome) {
-        WatorCell passiveCell = (WatorCell) matrix.get(position);
+        WatorCell passiveCell = (WatorCell) getCell(position);
         passiveCell.setNextState(outcome);
         passiveCell.initializeNeighborsNeighbors();
     }
 
     public void swapPositions(Point current, Point destination) {
-        SegregationCell activeCell = (SegregationCell) matrix.get(current);
-        SegregationCell passiveCell = (SegregationCell) matrix.get(destination);
+        WatorCell activeCell = (WatorCell) getCell(current);
+        WatorCell passiveCell = (WatorCell) getCell(destination);
         activeCell.setNextState(passiveCell.getCurrentState());
         passiveCell.setNextState(activeCell.getCurrentState());
         activeCell.initializeNeighborsNeighbors();

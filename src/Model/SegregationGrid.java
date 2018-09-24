@@ -15,14 +15,15 @@ public class SegregationGrid extends Grid {
         emptyPositions.add(p);
     }
 
-    protected void swapPositions(Point currentPosition) {
+    protected void swapPositions(Point current) {
         if (emptyPositions.size() > 0) {
-            SegregationCell activeCell = (SegregationCell) matrix.get(currentPosition);
-            SegregationCell passiveCell = (SegregationCell) matrix.get(emptyPositions.remove(random.nextInt(emptyPositions.size())));
-            activeCell.setNextState(CellStates.SegregationStates.EMPTY);
-            passiveCell.setNextState(activeCell.getCurrentState());
-            addEmptyPosition(currentPosition);
-
+            Point destination = emptyPositions.remove(random.nextInt(emptyPositions.size()));
+            super.swapPositions(current, destination);
+            addEmptyPosition(current);
+            getCell(current).initializeNeighbors();
+            ((SegregationCell) getCell(current)).initializeNeighborsNeighbors();
+            getCell(destination).initializeNeighbors();
+            ((SegregationCell) getCell(destination)).initializeNeighborsNeighbors();
         }
     }
 

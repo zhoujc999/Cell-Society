@@ -58,7 +58,6 @@ public class WatorSimulation extends Simulation {
             cell.calculateNextState();
         }
         for (Cell cell: grid.getMatrix().values()) {
-            WatorCell c = (WatorCell) cell;
             cell.updateState();
             if (cell.stateChanged) {
                 ((WatorCell) cell).resetTurn();
@@ -82,7 +81,7 @@ public class WatorSimulation extends Simulation {
             else if (cell.currentState == CellStates.WatorStates.EMPTY) {
                 numEmpty++;
             }
-            view.put(entry.getKey(), entry.getValue().currentState.ordinal());
+            view.put(entry.getKey(), entry.getValue().currentState);
 
         }
         statistics.put(CellStates.WatorStates.FISH, numFish);

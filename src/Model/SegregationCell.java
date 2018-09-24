@@ -52,12 +52,17 @@ public class SegregationCell extends Cell {
         }
     }
 
+    public void initializeNeighborsNeighbors() {
+        for (Cell neighbor : neighbors) {
+            neighbor.initializeNeighbors();
+        }
+    }
+
     @Override
     public void calculateNextState() {
         determineSatisfied();
         if (!satisfied) {
-            SegregationGrid g = (SegregationGrid) this.grid;
-            g.swapPositions(position);
+            ((SegregationGrid) this.grid).swapPositions(position);
         }
     }
 

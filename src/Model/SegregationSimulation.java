@@ -35,8 +35,7 @@ public class SegregationSimulation extends Simulation {
                 throw new IllegalArgumentException("InitialState Duplicate Point Error");
             }
             if (state == CellStates.SegregationStates.EMPTY) {
-                SegregationGrid g = (SegregationGrid) this.grid;
-                g.addEmptyPosition(position);
+                ((SegregationGrid) this.grid).addEmptyPosition(position);
                 numEmptyCells++;
             }
             SegregationCell cell = new SegregationCell(position, (SegregationGrid) grid, state, satisfactionThreshold);
@@ -46,8 +45,7 @@ public class SegregationSimulation extends Simulation {
 
     protected void initializeCellsThreshold() {
         for (Cell cell : this.grid.getMatrix().values()) {
-            SegregationCell c = (SegregationCell) cell;
-            c.setSatisfactionThreshold(this.satisfactionThreshold);
+            ((SegregationCell) cell).setSatisfactionThreshold(this.satisfactionThreshold);
         }
     }
 
@@ -66,10 +64,10 @@ public class SegregationSimulation extends Simulation {
         }
         for (Cell cell: grid.getMatrix().values()) {
             cell.updateState();
-            if (cell.stateChanged) {
-                cell.initializeNeighbors();
-                cell.initializeNeighborsNeighbors();
-            }
+//            if (cell.stateChanged) {
+//                cell.initializeNeighbors();
+//                cell.initializeNeighborsNeighbors();
+//            }
         }
     }
     public void render() {
