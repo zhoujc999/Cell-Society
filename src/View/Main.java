@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 
 public class Main extends Application {
@@ -17,7 +19,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource(FXML_FILE));
+        ResourceBundle bundle = ResourceBundle.getBundle("Resource.UILabel");
+        Parent root = FXMLLoader.load(getClass().getResource(FXML_FILE), bundle);
 
         primaryStage.setTitle(TITLE);
         Scene scene = new Scene(root, WIDTH, HEIGHT);

@@ -31,13 +31,11 @@ public class Controller_API{
     public static final String THRESHOLD = "threshold";
     public static final String TYPE = "type";
     public static final String GAME_TYPE = "game";
-
     public static final String GAME_OF_LIFE = "gameOfLife";
     public static final String SEGREGATION = "segregation";
     public static final String FIRE = "fire";
 
     private FileChooser myChooser = makeChooser(DATA_FILE_EXTENSION);
-
     private Timeline myTime;
     private CellGridPane myView;
     private Simulation mySimulation;
@@ -50,6 +48,7 @@ public class Controller_API{
     {
         this.gridPane =gridPane;
     }
+
     public void start(){
         var dataFile = myChooser.showOpenDialog(null);
 
@@ -59,9 +58,7 @@ public class Controller_API{
         setUp(attributes, false);
     }
 
-
     public void setUp(Map<String, String> attributes, boolean isReset){
-
         //retrieve parameters needed to build a new Simulation
         int numRows = Integer.parseInt(attributes.get(NUM_ROW_ATTR));
         int numColumns = Integer.parseInt(attributes.get(NUM_COL_ATTR));
@@ -90,7 +87,6 @@ public class Controller_API{
             myTime.getKeyFrames().add(frame);
             myTime.play();
         }
-
     }
 
     public void update(Map<String, String> map){
