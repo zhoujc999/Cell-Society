@@ -1,14 +1,10 @@
 package View;
 
 import Controller.Controller_API;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.stage.FileChooser;
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,6 +30,7 @@ public class UIManager {
     private Controller_API controller;
     private static final int MAX_FPS = 30;
     private static final String DEFAULT_SIZE = "20";
+    private static final int HUNDRED = 100;
     private int oldNumRows;
     private int oldNumCols;
     private int oldFPS;
@@ -43,7 +40,6 @@ public class UIManager {
         forceInputToBeNumeric(widthTextField);
         forceInputToBeNumeric(heightTextField);
         controller = new Controller_API(gridPane);
-       // CellGridPane societyGridPane = new CellGridPane(gridPane);
         controller.start();
     }
 
@@ -64,20 +60,18 @@ public class UIManager {
     // you can get the updated value from the user input fields from this method
     public void handleApplyButtonAction(){
         Map<String, String> attributes = new HashMap<>();
-        attributes.put("numRows", getOrDefaultValue(heightTextField.getText()) );
-        attributes.put("numColumns", getOrDefaultValue(widthTextField.getText()) );
-        attributes.put("frames_per_sec", String.valueOf((int)((slider.getValue()/100)*MAX_FPS)));
-//        IntegerProperty integerProperty = new SimpleIntegerProperty((int)((slider.getValue()/100)*MAX_FPS));
-//        integerProperty.bindBidirectional(controller.getSpeedProperty());
+        attributes.put(Controller_API.NUM_ROW_ATTR, getOrDefaultValue(heightTextField.getText()) );
+        attributes.put(Controller_API.NUM_COL_ATTR, getOrDefaultValue(widthTextField.getText()) );
+        attributes.put(Controller_API.FPS, String.valueOf((int)((slider.getValue()/HUNDRED)*MAX_FPS)));
         if(oldNumCols!=Integer.parseInt(widthTextField.getText())||oldNumRows!=Integer.parseInt(heightTextField.getText())){
             oldNumCols = Integer.parseInt(widthTextField.getText());
             oldNumRows = Integer.parseInt(heightTextField.getText());
             gridPane.getChildren().clear();
             controller.update(attributes);
         }
-        else if(oldFPS!=(int)((slider.getValue()/100)*MAX_FPS)){
-            oldFPS = (int)((slider.getValue()/100)*MAX_FPS);
-            controller.updateFPS((int)((slider.getValue()/100)*MAX_FPS));
+        else if(oldFPS!=(int)((slider.getValue()/HUNDRED)*MAX_FPS)){
+            oldFPS = (int)((slider.getValue()/HUNDRED)*MAX_FPS);
+            controller.updateFPS((int)((slider.getValue()/HUNDRED)*MAX_FPS));
         }
     }
 
@@ -101,10 +95,6 @@ public class UIManager {
     private String getOrDefaultValue(String s){
         if(s.length()==0) return DEFAULT_SIZE;
         else return s;
-    }
-
-    public GridPane getGridPane(){
-        return gridPane;
     }
 
 }

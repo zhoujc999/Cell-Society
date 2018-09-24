@@ -21,6 +21,21 @@ import javafx.util.Duration;
 public class Controller_API{
     public static final String DATA_FILE_EXTENSION = "*.xml";
     public static final int SPEEDBUFF = 1;
+    public static final String NUM_ROW_ATTR = "numRows";
+    public static final String NUM_COL_ATTR = "numColumns";
+    public static final String CELL_RATIO = "ratio1";
+    public static final String EMPTY_RATIO = "ratio2";
+    public static final String DEFAULT_RATIO = "0.5";
+    public static final String FPS = "frames_per_sec";
+    public static final double FPS_DIVISION = 1000.0;
+    public static final String THRESHOLD = "threshold";
+    public static final String TYPE = "type";
+    public static final String GAME_TYPE = "game";
+
+    public static final String GAME_OF_LIFE = "gameOfLife";
+    public static final String SEGREGATION = "segregation";
+    public static final String FIRE = "fire";
+
     private FileChooser myChooser = makeChooser(DATA_FILE_EXTENSION);
 
     private Timeline myTime;
@@ -38,7 +53,7 @@ public class Controller_API{
     public void start(){
         var dataFile = myChooser.showOpenDialog(null);
 
-        XMLParser parser = new XMLParser("game");
+        XMLParser parser = new XMLParser(GAME_TYPE);
         Map<String, String> attributes = parser.getAttribute(dataFile);
         originalAttributes = attributes;
         setUp(attributes, false);
@@ -48,13 +63,13 @@ public class Controller_API{
     public void setUp(Map<String, String> attributes, boolean isReset){
 
         //retrieve parameters needed to build a new Simulation
-        int numRows = Integer.parseInt(attributes.get("numRows"));
-        int numColumns = Integer.parseInt(attributes.get("numColumns"));
-        double cellRatio = Double.parseDouble(attributes.getOrDefault("ratio1", "0.5"));
-        double emptyRatio = Double.parseDouble(attributes.getOrDefault("ratio2", "0.5"));
-        int speed = Integer.parseInt(attributes.get("frames_per_sec"));
-        double threshold = Double.parseDouble(attributes.getOrDefault("threshold", "0.5"));
-        String type = attributes.get("type");
+        int numRows = Integer.parseInt(attributes.get(NUM_ROW_ATTR));
+        int numColumns = Integer.parseInt(attributes.get(NUM_COL_ATTR));
+        double cellRatio = Double.parseDouble(attributes.getOrDefault(CELL_RATIO, DEFAULT_RATIO));
+        double emptyRatio = Double.parseDouble(attributes.getOrDefault(EMPTY_RATIO, DEFAULT_RATIO));
+        int speed = Integer.parseInt(attributes.get(FPS));
+        double threshold = Double.parseDouble(attributes.getOrDefault(THRESHOLD, DEFAULT_RATIO));
+        String type = attributes.get(TYPE);
 
         if(isReset){
             mySimulation = getSimulation(numRows, numColumns,type, threshold, beginningStageMap);
@@ -69,7 +84,7 @@ public class Controller_API{
         myView.create(attributes, mySimulation);
 
         if(myTime==null){
-            var frame = new KeyFrame(Duration.millis(1000/(speed+SPEEDBUFF)),e->step());
+            var frame = new KeyFrame(Duration.millis(FPS_DIVISION/(speed+SPEEDBUFF)),e->step());
             myTime = new Timeline();
             myTime.setCycleCount(Timeline.INDEFINITE);
             myTime.getKeyFrames().add(frame);
@@ -89,7 +104,7 @@ public class Controller_API{
     public void updateFPS(int updatedFPS){
         myTime.stop();
         myTime.getKeyFrames().clear();
-        var frame = new KeyFrame(Duration.millis(1000/(updatedFPS+SPEEDBUFF)),e->step());
+        var frame = new KeyFrame(Duration.millis(FPS_DIVISION/(updatedFPS+SPEEDBUFF)),e->step());
         myTime.getKeyFrames().add(frame);
         myTime.play();
     }
@@ -132,13 +147,13 @@ public class Controller_API{
     private Simulation getSimulation(int numRows, int numCols, String type, double threshold, Map<Point, Integer> myMap){
         Simulation simulation = null;
         switch (type){
-            case "gameOfLife":
+            case GAME_OF_LIFE:
                 simulation = new GameOfLifeSimulation(numRows,numCols,myMap);
                 break;
-            case "segregation":
+            case SEGREGATION:
                 simulation = new SegregationSimulation(numRows,numCols,myMap, threshold);
                 break;
-            case "fire":
+            case FIRE:
                 simulation = new FireSimulation(numRows,numCols,myMap, threshold);
                 break;
         }
