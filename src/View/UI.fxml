@@ -18,20 +18,20 @@
               fx:id="gridPane"/>
     </HBox>
 
-    <Label text="Width:" minWidth="50"
+    <Label text="%WidthButtonLabel" minWidth="50"
            GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 
     <TextField fx:id="widthTextField" maxWidth="50"
                GridPane.columnIndex="2" GridPane.rowIndex="0"/>
 
-    <Label text="Height:" minWidth="50"
+    <Label text="%HeightButtonLabel" minWidth="50"
            GridPane.columnIndex="3" GridPane.rowIndex="0"/>
 
     <TextField fx:id="heightTextField" maxWidth="50"
                GridPane.columnIndex="4" GridPane.rowIndex="0"/>
 
     <HBox GridPane.columnIndex="1" GridPane.rowIndex="1">
-        <Label text="Speed:"/>
+        <Label text="%SpeedSliderLabel"/>
     </HBox>
     <HBox alignment="TOP_CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1"
           GridPane.columnSpan="2">
@@ -41,16 +41,16 @@
 
     <HBox spacing="10" alignment="TOP_CENTER"
           GridPane.columnIndex="4" GridPane.rowIndex="1">
-        <Button text="Apply"
+        <Button text="%ApplyButtonLabel"
                 onAction="#handleApplyButtonAction"/>
     </HBox>
 
     <HBox spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="2" alignment="CENTER">
-        <Button text="Start" onAction="#handleStartButtonAction"/>
-        <Button text="Stop" onAction="#handleStopButtonAction"/>
-        <Button text="Reset" onAction="#handleResetButtonAction"/>
-        <Button text="Step" onAction="#handleStepButtonAction"/>
-        <Button text="Choose a file..."
+        <Button text="%StartButtonLabel" onAction="#handleStartButtonAction"/>
+        <Button text="%StopButtonLabel" onAction="#handleStopButtonAction"/>
+        <Button text="%ResetButtonLabel" onAction="#handleResetButtonAction"/>
+        <Button text="%StepButtonLabel" onAction="#handleStepButtonAction"/>
+        <Button text="%FileChooserButtonLabel"
                 onAction="#handleChooseAFileAction"/>
     </HBox>
 

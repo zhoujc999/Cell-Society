@@ -6,17 +6,24 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.util.Objects;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 
 public class Main extends Application {
 
+    public static final String TITLE = "Cell Society";
+    public static final int WIDTH = 800;
+    public static final int HEIGHT = 800;
+    public static final String FXML_FILE = "UI.fxml";
+
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("UI.fxml"));
+        ResourceBundle bundle = ResourceBundle.getBundle("Resource.UILabel");
+        Parent root = FXMLLoader.load(getClass().getResource(FXML_FILE), bundle);
 
-        primaryStage.setTitle("Hello World");
-        Scene scene = new Scene(root, 800, 800);
+        primaryStage.setTitle(TITLE);
+        Scene scene = new Scene(root, WIDTH, HEIGHT);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

@@ -5,14 +5,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.stage.FileChooser;
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
 /*
     UIManager is a class that keeps track of all UI elements and handle their actions
     @author xp19
+    @author sz165
  */
 
 public class UIManager {
@@ -31,13 +30,16 @@ public class UIManager {
     private Controller_API controller;
     private static final int MAX_FPS = 30;
     private static final String DEFAULT_SIZE = "20";
+    private static final int HUNDRED = 100;
+    private int oldNumRows;
+    private int oldNumCols;
+    private int oldFPS;
 
     // this method will be called automatically by the FXML loader
-    public void initialize() throws Exception{
+    public void initialize(){
         forceInputToBeNumeric(widthTextField);
         forceInputToBeNumeric(heightTextField);
         controller = new Controller_API(gridPane);
-       // CellGridPane societyGridPane = new CellGridPane(gridPane);
         controller.start();
     }
 
@@ -52,32 +54,25 @@ public class UIManager {
 
     // you can get the file chosen from this method
     public void handleChooseAFileAction(){
-//        FileChooser fileChooser = new FileChooser();
-//        fileChooser.setInitialDirectory(new File("."));
-//        File selectedFile = fileChooser.showOpenDialog(null);
-//
-//        if (selectedFile == null) { return; }
-//
-//        try {
-//            // we obtain the path to the selected file
-//            System.out.println(selectedFile.getName());
-//            System.out.println(selectedFile.getAbsolutePath());
-//            // we can now do whatever we need with this file
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
         controller.start();
     }
 
     // you can get the updated value from the user input fields from this method
     public void handleApplyButtonAction(){
         Map<String, String> attributes = new HashMap<>();
-        attributes.put("numRows", getOrDefaultValue(heightTextField.getText()) );
-        attributes.put("numColumns", getOrDefaultValue(heightTextField.getText()) );
-        attributes.put("frames_per_sec", String.valueOf((int)((slider.getValue()/100)*MAX_FPS)));
-        gridPane.getChildren().clear();
-        controller.update(attributes);
+        attributes.put(Controller_API.NUM_ROW_ATTR, getOrDefaultValue(heightTextField.getText()) );
+        attributes.put(Controller_API.NUM_COL_ATTR, getOrDefaultValue(widthTextField.getText()) );
+        attributes.put(Controller_API.FPS, String.valueOf((int)((slider.getValue()/HUNDRED)*MAX_FPS)));
+        if(oldNumCols!=Integer.parseInt(widthTextField.getText())||oldNumRows!=Integer.parseInt(heightTextField.getText())){
+            oldNumCols = Integer.parseInt(widthTextField.getText());
+            oldNumRows = Integer.parseInt(heightTextField.getText());
+            gridPane.getChildren().clear();
+            controller.update(attributes);
+        }
+        else if(oldFPS!=(int)((slider.getValue()/HUNDRED)*MAX_FPS)){
+            oldFPS = (int)((slider.getValue()/HUNDRED)*MAX_FPS);
+            controller.updateFPS((int)((slider.getValue()/HUNDRED)*MAX_FPS));
+        }
     }
 
     public void handleStartButtonAction(){
@@ -100,10 +95,6 @@ public class UIManager {
     private String getOrDefaultValue(String s){
         if(s.length()==0) return DEFAULT_SIZE;
         else return s;
-    }
-
-    public GridPane getGridPane(){
-        return gridPane;
     }
 
 }
