@@ -24,6 +24,10 @@ public class WatorCell extends Cell {
         this.sharkTurnsToBreed = fishTurnsToBreed;
     }
 
+    public void resetTurn() {
+        turn = 0;
+    }
+
     public void initializeNeighbors() {
         fishNeighborPositions.clear();
         emptyNeighborPositions.clear();
@@ -32,10 +36,10 @@ public class WatorCell extends Cell {
             for (Directions.FourDirections direction : Directions.FourDirections.values()) {
                 neighborPosition = position.add(direction.getDirection());
                 if (!grid.outOfBounds(neighborPosition)) {
-                    if (grid.getCell(neighborPosition).getCurrentState() == CellStates.WatorStates.EMPTY) {
+                    if (grid.getCell(neighborPosition).getNextState() == CellStates.WatorStates.EMPTY) {
                         emptyNeighborPositions.add(neighborPosition);
                     }
-                    else if (grid.getCell(neighborPosition).getCurrentState() == CellStates.WatorStates.FISH) {
+                    else if (grid.getCell(neighborPosition).getNextState() == CellStates.WatorStates.FISH) {
                         fishNeighborPositions.add(neighborPosition);
                     }
                 }
@@ -45,20 +49,23 @@ public class WatorCell extends Cell {
 
     @Override
     public void calculateNextState() {
+        WatorGrid g = (WatorGrid) this.grid;
         switch ((CellStates.WatorStates) currentState) {
             case SHARK:
                 if (fishNeighborPositions.size() != 0) {
-                    eat();
+                    eat(g);
                 }
                 else {
-                    move();
+                    move(g);
                 }
-                reproduce();
+                reproduceShark(g);
+                turn++;
                 break;
 
             case FISH:
-                move();
-                reproduce();
+                move(g);
+                reproduceFish(g);
+                turn++;
                 break;
 
             case EMPTY:
@@ -68,19 +75,28 @@ public class WatorCell extends Cell {
     }
 
 
-    private void eat() {
+    private void eat(WatorGrid g) {
         Point victimPosition = (Point) fishNeighborPositions.remove(random.nextInt(fishNeighborPositions.size()));
-        grid.changeNeighborState(victimPosition, CellStates.WatorStates.EMPTY);
+        g.changeNeighborState(victimPosition, CellStates.WatorStates.EMPTY);
     }
 
-    private void move() {
-        Point emptyPosition = (Point) fishNeighborPositions.remove(random.nextInt(fishNeighborPositions.size()));
-        grid.swapPositions(position, emptyPosition);
-
+    private void move(WatorGrid g) {
+        Point emptyPosition = (Point) emptyNeighborPositions.remove(random.nextInt(emptyNeighborPositions.size()));
+        g.swapPositions(position, emptyPosition);
     }
 
-    private void reproduce() {
+    private void reproduceShark(WatorGrid g) {
+        if (turn == sharkTurnsToBreed && emptyNeighborPositions.size() != 0) {
+            Point emptyPosition = (Point) emptyNeighborPositions.remove(random.nextInt(emptyNeighborPositions.size()));
+            g.changeNeighborState(emptyPosition, CellStates.WatorStates.SHARK);
+        }
+    }
 
+    private void reproduceFish(WatorGrid g) {
+        if (turn == fishTurnsToBreed && emptyNeighborPositions.size() != 0) {
+            Point emptyPosition = (Point) emptyNeighborPositions.remove(random.nextInt(emptyNeighborPositions.size()));
+            g.changeNeighborState(emptyPosition, CellStates.WatorStates.FISH);
+        }
     }
 
 }

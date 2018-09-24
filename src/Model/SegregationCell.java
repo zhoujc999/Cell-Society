@@ -56,7 +56,8 @@ public class SegregationCell extends Cell {
     public void calculateNextState() {
         determineSatisfied();
         if (!satisfied) {
-            this.grid.swapPositions(position);
+            SegregationGrid g = (SegregationGrid) this.grid;
+            g.swapPositions(position);
         }
     }
 

@@ -53,9 +53,16 @@ public class CellStates {
     }
 
     public enum WatorStates {
-        SHARK,
         FISH,
+        SHARK,
         EMPTY;
+        private static WatorStates [] cachedValues = null;
+        public static WatorStates fromInt(int i) {
+            if(WatorStates.cachedValues == null) {
+                WatorStates.cachedValues = WatorStates.values();
+            }
+            return WatorStates.cachedValues[i];
+        }
     }
 
 }
