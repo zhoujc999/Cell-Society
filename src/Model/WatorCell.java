@@ -1,6 +1,13 @@
 package Model;
 
 import java.util.ArrayList;
+/**
+ * Abstract representation of a Wa-Tor Cell.
+ *
+ * @author jz192
+ */
+
+
 
 public class WatorCell extends Cell {
     private ArrayList<Point> fishNeighborPositions;
@@ -45,7 +52,7 @@ public class WatorCell extends Cell {
         }
 
     }
-    
+
     public void initializeNeighborsNeighbors() {
         for (Point p : fishNeighborPositions) {
             grid.getCell(p).initializeNeighbors();

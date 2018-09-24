@@ -1,5 +1,12 @@
 package Model;
 
+/**
+ * Abstract representation of directions. Includes method that returns the direction vector.
+ *
+ * @author jz192
+ */
+
+
 public class Directions {
     public enum EightDirections {
         NW (-1, -1),

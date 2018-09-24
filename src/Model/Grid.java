@@ -121,11 +121,6 @@ public abstract class Grid {
         matrix.put(getPosition(position), cell);
     }
 
-    /**
-     * get Cell with Point
-     * @param position
-     */
-
 
 
     public void swapPositions(Point current, Point destination) {

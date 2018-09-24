@@ -2,6 +2,13 @@ package Model;
 
 import java.util.ArrayList;
 
+/**
+ * Abstract representation of a grid for segregation simulation.
+ *
+ * @author jz192
+ */
+
+
 public class SegregationGrid extends Grid {
     private ArrayList<Point> emptyPositions;
 

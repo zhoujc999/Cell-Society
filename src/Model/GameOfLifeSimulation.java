@@ -5,7 +5,6 @@ import java.util.Map;
 
 /**
  * Abstract representation of the Game of Life Simulation
- * After
  *
  * @author jz192
  */

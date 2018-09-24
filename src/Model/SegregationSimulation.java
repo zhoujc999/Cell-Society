@@ -4,6 +4,14 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Abstract representation of the Segregation Simulation
+ *
+ * @author jz192
+ */
+
+
+
 public class SegregationSimulation extends Simulation {
     //    No wrap arounds for Game of Life
     private static final boolean ROW_WRAP = false;

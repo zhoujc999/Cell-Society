@@ -1,5 +1,11 @@
 package Model;
 
+/**
+ * Abstract representation of a GameOfLife Cell.
+ *
+ * @author jz192
+ */
+
 
 public class GameOfLifeCell extends Cell {
 

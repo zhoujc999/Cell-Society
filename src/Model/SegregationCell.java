@@ -1,5 +1,13 @@
 package Model;
 
+
+/**
+ * Abstract representation of a Segregation Cell.
+ *
+ * @author jz192
+ */
+
+
 public class SegregationCell extends Cell {
 
     private double satisfactionThreshold;

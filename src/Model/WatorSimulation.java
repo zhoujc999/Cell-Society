@@ -4,6 +4,13 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * Abstract representation of the Wa-Tor Simulation.
+ *
+ * @author jz192
+ */
+
 public class WatorSimulation extends Simulation {
     private static final boolean ROW_WRAP = true;
     private static final boolean COLUMN_WRAP = true;
