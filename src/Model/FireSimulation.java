@@ -1,5 +1,13 @@
 package Model;
 
+/**
+ * Fire Simulation instantiates the grid and cells from the input map. It returns the state of the simulation through <code> render()</code> and <code>getView()</code>
+ *
+ *
+ * @author jz192
+ */
+
+
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;

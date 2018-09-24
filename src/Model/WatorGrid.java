@@ -1,5 +1,13 @@
 package Model;//package Model;
 
+/**
+ * Abstract representation of the grid for Wa-Tor.
+ *
+ * @author jz192
+ */
+
+
+
 public class WatorGrid extends Grid {
 
     public WatorGrid(int numRows, int numColumns, boolean rowWrap, boolean columnWrap) {
@@ -7,18 +15,17 @@ public class WatorGrid extends Grid {
     }
 
     public void changeNeighborState(Point position, CellStates.WatorStates outcome) {
-        WatorCell passiveCell = (WatorCell) matrix.get(position);
+        WatorCell passiveCell = (WatorCell) getCell(position);
         passiveCell.setNextState(outcome);
         passiveCell.initializeNeighborsNeighbors();
     }
 
     public void swapPositions(Point current, Point destination) {
-        SegregationCell activeCell = (SegregationCell) matrix.get(current);
-        SegregationCell passiveCell = (SegregationCell) matrix.get(destination);
-        activeCell.setNextState(passiveCell.getCurrentState());
-        passiveCell.setNextState(activeCell.getCurrentState());
-        activeCell.initializeNeighborsNeighbors();
-        passiveCell.initializeNeighborsNeighbors();
+        super.swapPositions(current, destination);
+        getCell(current).initializeNeighbors();
+        ((WatorCell) getCell(current)).initializeNeighborsNeighbors();
+        getCell(destination).initializeNeighbors();
+        ((WatorCell) getCell(destination)).initializeNeighborsNeighbors();
     }
 
 }

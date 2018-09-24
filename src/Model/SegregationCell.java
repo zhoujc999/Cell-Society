@@ -1,5 +1,13 @@
 package Model;
 
+
+/**
+ * Abstract representation of a Segregation Cell.
+ *
+ * @author jz192
+ */
+
+
 public class SegregationCell extends Cell {
 
     private double satisfactionThreshold;
@@ -52,12 +60,17 @@ public class SegregationCell extends Cell {
         }
     }
 
+    public void initializeNeighborsNeighbors() {
+        for (Cell neighbor : neighbors) {
+            neighbor.initializeNeighbors();
+        }
+    }
+
     @Override
     public void calculateNextState() {
         determineSatisfied();
         if (!satisfied) {
-            SegregationGrid g = (SegregationGrid) this.grid;
-            g.swapPositions(position);
+            ((SegregationGrid) this.grid).swapPositions(position);
         }
     }
 

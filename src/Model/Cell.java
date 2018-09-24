@@ -52,11 +52,6 @@ public abstract class Cell {
 
     public abstract void initializeNeighbors();
 
-    public void initializeNeighborsNeighbors() {
-        for (Cell neighbor : neighbors) {
-            neighbor.initializeNeighbors();
-        }
-    }
 
     public void clearNeighors() {
         this.neighbors.clear();
@@ -107,6 +102,7 @@ public abstract class Cell {
         }
 
     }
+
 
     @Override
     public String toString() {

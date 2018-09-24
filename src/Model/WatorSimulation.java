@@ -4,6 +4,13 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * Abstract representation of the Wa-Tor Simulation.
+ *
+ * @author jz192
+ */
+
 public class WatorSimulation extends Simulation {
     private static final boolean ROW_WRAP = true;
     private static final boolean COLUMN_WRAP = true;
@@ -58,7 +65,6 @@ public class WatorSimulation extends Simulation {
             cell.calculateNextState();
         }
         for (Cell cell: grid.getMatrix().values()) {
-            WatorCell c = (WatorCell) cell;
             cell.updateState();
             if (cell.stateChanged) {
                 ((WatorCell) cell).resetTurn();
@@ -82,7 +88,7 @@ public class WatorSimulation extends Simulation {
             else if (cell.currentState == CellStates.WatorStates.EMPTY) {
                 numEmpty++;
             }
-            view.put(entry.getKey(), entry.getValue().currentState.ordinal());
+            view.put(entry.getKey(), entry.getValue().currentState);
 
         }
         statistics.put(CellStates.WatorStates.FISH, numFish);

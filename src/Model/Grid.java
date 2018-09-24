@@ -103,19 +103,32 @@ public abstract class Grid {
      * @param x x-coordinate
      * @param y y-coordinate
      */
-    public Cell getCell(int x, int y) {
+    public Point getPosition(int x, int y) {
         int newX = gridColumnWrap(x);
         int newY = gridRowWrap(y);
-        return matrix.get(new Point(newX, newY));
+        return new Point(newX, newY);
     }
 
-    /**
-     * get Cell with Point
-     * @param position
-     */
-    protected Cell getCell(Point position) {
-        return getCell(position.getX(), position.getY());
+    public Point getPosition(Point position) {
+        return getPosition(position.getX(), position.getY());
+    }
+
+    public Cell getCell(Point position) {
+        return matrix.get(getPosition(position));
+    }
+
+    public void setCell(Point position, Cell cell) {
+        matrix.put(getPosition(position), cell);
     }
 
 
+
+    public void swapPositions(Point current, Point destination) {
+        Cell activeCell = getCell(current);
+        Cell passiveCell = getCell(destination);
+        setCell(current, passiveCell);
+        activeCell.setPosition(destination);
+        setCell(destination, activeCell);
+        passiveCell.setPosition(current);
+    }
 }

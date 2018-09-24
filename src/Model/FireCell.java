@@ -1,5 +1,13 @@
 package Model;
 
+/**
+ * Abstract representation of a Fire Cell.
+ *
+ * @author jz192
+ */
+
+
+
 public class FireCell extends Cell {
     private double probCatchFire;
     public FireCell(Point position, FireGrid grid, CellStates.FireStates state) {
