@@ -40,7 +40,7 @@ public class Controller_API{
     {
         this.gridPane =gridPane;
     }
-    public void start() throws Exception {
+    public void start(){
         var dataFile = myChooser.showOpenDialog(null);
 
         XMLParser parser = new XMLParser("game");
@@ -59,19 +59,25 @@ public class Controller_API{
         double emptyRatio = Double.parseDouble(attributes.getOrDefault("ratio2", "0.5"));
         int speed = Integer.parseInt(attributes.get("frames_per_sec"));
         double threshold = Double.parseDouble(attributes.getOrDefault("threshold", "0.5"));
+        int fishRate = Integer.parseInt(attributes.getOrDefault("fishRate","0"));
+        int sharkRate = Integer.parseInt(attributes.getOrDefault("sharkRate","0"));
         String type = attributes.get("type");
 
         myMap = simulationMap(numRows,numColumns,cellRatio,emptyRatio);
-        mySimulation = getSimulation(numRows, numColumns,type, threshold);
+        mySimulation = getSimulation(numRows, numColumns,type, threshold, fishRate, sharkRate);
 
         myView = new CellGridPane(gridPane);
         myView.create(attributes, mySimulation);
 
-        var frame = new KeyFrame(Duration.millis(1000/(speed+SPEEDBUFF)),e->step((double)(1.0/(speed+SPEEDBUFF))));
-        myTime = new Timeline();
-        myTime.setCycleCount(Timeline.INDEFINITE);
-        myTime.getKeyFrames().add(frame);
-        myTime.play();
+
+        if(myTime==null){
+            var frame = new KeyFrame(Duration.millis(1000/(speed+SPEEDBUFF)),e->step((double)(1.0/(speed+SPEEDBUFF))));
+            myTime = new Timeline();
+            myTime.setCycleCount(Timeline.INDEFINITE);
+            myTime.getKeyFrames().add(frame);
+            myTime.play();
+        }
+
 
         //build a new simulation*/
 
@@ -94,6 +100,11 @@ public class Controller_API{
         myView.render(mySimulation.getView());
     }
 
+    public void animationStep(){
+        step(0.0);
+        stop();
+    }
+
     public void stop() {
         myTime.stop();
     }
@@ -102,21 +113,13 @@ public class Controller_API{
         myTime.play();
     }
 
-    public void apply(Map<String, String> attributes){
-        setUp(attributes);
-    }
+ //   public void apply(Map<String, String> attributes){
+  //      setUp(attributes);
+   // }
 
     public void reset() {
-        stop();
         setUp(originalAttributes);
-        stop();
     }
-
-//    private void end() {
-//        //myView.endGreeting();
-//        //pause for a while
-//        myStage.close();
-//    }
 
     private FileChooser makeChooser(String extension) {
         var result = new FileChooser();
@@ -126,7 +129,7 @@ public class Controller_API{
         return result;
     }
 
-    Simulation getSimulation(int numRows, int numCols, String type, double threshold){
+    Simulation getSimulation(int numRows, int numCols, String type, double threshold, int fishRate, int sharkRate){
         Simulation simulation = null;
         switch (type){
             case "gameOfLife":
@@ -137,6 +140,9 @@ public class Controller_API{
                 break;
             case "fire":
                 simulation = new FireSimulation(numRows,numCols,myMap, threshold);
+                break;
+            case "wator":
+                simulation = new WatorSimulation(numRows,numCols,myMap,fishRate,sharkRate);
                 break;
         }
         return simulation;
