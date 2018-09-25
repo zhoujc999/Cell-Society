@@ -108,7 +108,7 @@ public class WatorCell extends Cell {
         if (turn == sharkTurnsToBreed && emptyNeighborPositions.size() != 0) {
             Point emptyPosition = emptyNeighborPositions.get(random.nextInt(emptyNeighborPositions.size()));
             g.changeNeighborState(emptyPosition, CellStates.WatorStates.SHARK);
-            turn = 0;
+            resetTurn();
         }
     }
 
@@ -116,7 +116,7 @@ public class WatorCell extends Cell {
         if (turn == fishTurnsToBreed && emptyNeighborPositions.size() != 0) {
             Point emptyPosition = emptyNeighborPositions.get(random.nextInt(emptyNeighborPositions.size()));
             g.changeNeighborState(emptyPosition, CellStates.WatorStates.FISH);
-            turn = 0;
+            resetTurn();
         }
     }
 
