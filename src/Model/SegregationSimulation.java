@@ -1,4 +1,4 @@
-package Model;
+package Model;//package Model;
 
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -24,6 +24,7 @@ public class SegregationSimulation extends Simulation {
         super(numRows, numColumns, initialState);
         this.satisfactionThreshold = threshold;
         initializeCellsThreshold();
+        render();
     }
 
 
@@ -72,13 +73,10 @@ public class SegregationSimulation extends Simulation {
         }
         for (Cell cell: grid.getMatrix().values()) {
             cell.updateState();
-//            if (cell.stateChanged) {
-//                cell.initializeNeighbors();
-//                cell.initializeNeighborsNeighbors();
-//            }
         }
+        render();
     }
-    public void render() {
+    protected void render() {
         int numSatisfied = 0;
         int numDissatisfied = 0;
         view.clear();

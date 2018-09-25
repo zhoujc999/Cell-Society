@@ -1,4 +1,4 @@
-package Model;//package Model;
+package Model;//package Model;//package Model;
 
 /**
  * Abstract representation of the grid for Wa-Tor.
@@ -15,17 +15,18 @@ public class WatorGrid extends Grid {
     }
 
     public void changeNeighborState(Point position, CellStates.WatorStates outcome) {
-        WatorCell passiveCell = (WatorCell) getCell(position);
-        passiveCell.setNextState(outcome);
-        passiveCell.resetTurn();
-        passiveCell.initializeNeighborsNeighbors();
+        int fishTurnsToBreed = ((WatorCell) getCell(position)).getFishTurnsToBreed();
+        int sharkTurnsToBreed = ((WatorCell) getCell(position)).getSharkTurnsToBreed();
+        setCell(position, new WatorCell(position, this, outcome, fishTurnsToBreed, sharkTurnsToBreed));
+        ((WatorCell) getCell(position)).initializeNeighbors();
+        ((WatorCell) getCell(position)).initializeNeighborsNeighbors();
     }
 
     public void swapPositions(Point current, Point destination) {
         super.swapPositions(current, destination);
-        getCell(current).initializeNeighbors();
+        ((WatorCell) getCell(current)).initializeNeighbors();
         ((WatorCell) getCell(current)).initializeNeighborsNeighbors();
-        getCell(destination).initializeNeighbors();
+        ((WatorCell) getCell(destination)).initializeNeighbors();
         ((WatorCell) getCell(destination)).initializeNeighborsNeighbors();
     }
 

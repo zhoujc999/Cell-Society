@@ -117,7 +117,6 @@ public class Controller_API{
     private void step() {
         //ask mySimulation to update
         mySimulation.step();
-        mySimulation.render();
 
         //pass the new Simulation to myView
         myView.render(mySimulation.getView());

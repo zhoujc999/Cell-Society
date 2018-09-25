@@ -1,4 +1,4 @@
-package Model;
+package Model;//package Model;
 
 import java.util.ArrayList;
 
@@ -27,10 +27,6 @@ public class SegregationGrid extends Grid {
             Point destination = emptyPositions.remove(random.nextInt(emptyPositions.size()));
             super.swapPositions(current, destination);
             addEmptyPosition(current);
-            getCell(current).initializeNeighbors();
-            ((SegregationCell) getCell(current)).initializeNeighborsNeighbors();
-            getCell(destination).initializeNeighbors();
-            ((SegregationCell) getCell(destination)).initializeNeighborsNeighbors();
         }
     }
 

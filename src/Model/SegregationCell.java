@@ -1,4 +1,4 @@
-package Model;
+package Model;//package Model;
 
 
 /**
@@ -11,8 +11,6 @@ package Model;
 public class SegregationCell extends Cell {
 
     private double satisfactionThreshold;
-    private int numRedNeighbors;
-    private int numBlueNeighbors;
     private boolean satisfied;
 
     public SegregationCell(Point position, SegregationGrid grid, CellStates.SegregationStates state, double satisfactionThreshold) {
@@ -38,14 +36,17 @@ public class SegregationCell extends Cell {
         return satisfied;
     }
 
-    public void initializeNeighbors() {
-        neighbors.clear();
-        numRedNeighbors = 0;
-        numBlueNeighbors = 0;
-        if (currentState != CellStates.SegregationStates.EMPTY) {
+
+
+
+    @Override
+    public void calculateNextState() {
+        if (getCurrentState() != CellStates.SegregationStates.EMPTY) {
+            int numRedNeighbors = 0;
+            int numBlueNeighbors = 0;
             Point neighborPosition;
             for (Directions.EightDirections direction : Directions.EightDirections.values()) {
-                neighborPosition = position.add(direction.getDirection());
+                neighborPosition = getPosition().add(direction.getDirection());
                 if (!grid.outOfBounds(neighborPosition)) {
                     SegregationCell neighbor = (SegregationCell) grid.getCell(neighborPosition);
                     if (neighbor.currentState == CellStates.SegregationStates.RED) {
@@ -54,39 +55,32 @@ public class SegregationCell extends Cell {
                     else if (neighbor.currentState == CellStates.SegregationStates.BLUE) {
                         numBlueNeighbors++;
                     }
-                    neighbors.add(grid.getCell(neighborPosition));
                 }
             }
-        }
-    }
+            determineSatisfied(numRedNeighbors, numBlueNeighbors);
 
-    public void initializeNeighborsNeighbors() {
-        for (Cell neighbor : neighbors) {
-            neighbor.initializeNeighbors();
         }
     }
 
     @Override
-    public void calculateNextState() {
-        determineSatisfied();
+    protected void updateState() {
         if (!satisfied) {
             ((SegregationGrid) this.grid).swapPositions(position);
         }
     }
 
-
-    private void determineSatisfied() {
+    private void determineSatisfied(int numRed, int numBlue) {
         double satisfaction;
-        if (numRedNeighbors + numBlueNeighbors == 0 || currentState == CellStates.SegregationStates.EMPTY) {
-            satisfied = true;
-        }
-        else if (currentState == CellStates.SegregationStates.RED) {
-            satisfaction = (double) numRedNeighbors / (numBlueNeighbors + numRedNeighbors);
-            satisfied = satisfaction >= satisfactionThreshold;
-        }
-        else if (currentState == CellStates.SegregationStates.BLUE) {
-            satisfaction = (double) numBlueNeighbors / (numBlueNeighbors + numRedNeighbors);
-            satisfied = satisfaction >= satisfactionThreshold;
+        setSatisfed(true);
+        if (numRed + numBlue > 0) {
+            if (currentState == CellStates.SegregationStates.RED) {
+                satisfaction = (double) numRed / (numBlue + numRed);
+                setSatisfed(satisfaction >= satisfactionThreshold);
+            }
+            else if (currentState == CellStates.SegregationStates.BLUE) {
+                satisfaction = (double) numBlue / (numBlue + numRed);
+                setSatisfed(satisfaction >= satisfactionThreshold);
+            }
         }
     }
 

@@ -1,4 +1,4 @@
-package Model;
+package Model;//package Model;
 
 /**
  * Abstract representation of a Fire Cell.
@@ -15,23 +15,12 @@ public class FireCell extends Cell {
 
     }
 
-    public void initializeNeighbors() {
-        neighbors.clear();
-        Point neighborPosition;
-        for (Directions.FourDirections direction : Directions.FourDirections.values()) {
-            neighborPosition = position.add(direction.getDirection());
-            if (!grid.outOfBounds(neighborPosition)) {
-                neighbors.add(grid.getCell(neighborPosition));
-            }
-        }
-    }
-
     public void setProbCatchFire(double probCatchFire) {
         this.probCatchFire = probCatchFire;
     }
 
     @Override
-    public void calculateNextState() {
+    protected void calculateNextState() {
         switch ((CellStates.FireStates) currentState) {
             case BURNING:
                 nextState = CellStates.FireStates.EMPTY;
@@ -41,9 +30,12 @@ public class FireCell extends Cell {
                 break;
             case TREE:
                 boolean burningNeighbors = false;
-                for (Cell neighbor : neighbors) {
-                    if (neighbor.getCurrentState() == CellStates.FireStates.BURNING) {
-                        burningNeighbors = true;
+                for (Directions.FourDirections direction : Directions.FourDirections.values()) {
+                    Point neighborPosition = getPosition().add(direction.getDirection());
+                    if (!grid.outOfBounds(neighborPosition)) {
+                        if (grid.getCell(neighborPosition).getCurrentState() == CellStates.FireStates.BURNING) {
+                            burningNeighbors = true;
+                        }
                     }
                 }
                 if (burningNeighbors && random.nextDouble() < probCatchFire) {
@@ -52,8 +44,14 @@ public class FireCell extends Cell {
                 else {
                     nextState = CellStates.FireStates.TREE;
                 }
-
         }
+    }
 
+
+    @Override
+    protected void updateState() {
+        if (nextState != currentState) {
+            currentState = nextState;
+        }
     }
 }

@@ -14,38 +14,41 @@ public class GameOfLifeCell extends Cell {
     }
 
 
-    public void initializeNeighbors() {
-        neighbors.clear();
+    /**
+     * calculates and sets the next state of the cell
+     */
+    @Override
+    protected void calculateNextState() {
+        int numOfLiveNeighbors = 0;
         Point neighborPosition;
         for (Directions.EightDirections direction : Directions.EightDirections.values()) {
-            neighborPosition = position.add(direction.getDirection());
+            neighborPosition = getPosition().add(direction.getDirection());
             if (!grid.outOfBounds(neighborPosition)) {
-                neighbors.add(grid.getCell(neighborPosition));
-            }
-        }
-    }
-
-
-    @Override
-    public void calculateNextState() {
-        int numOfLiveNeighbors = 0;
-        for (Cell neighbor : neighbors) {
-            if (neighbor.getCurrentState() == CellStates.GameOfLifeStates.LIVE) {
-                numOfLiveNeighbors++;
+                if (grid.getCell(neighborPosition).getCurrentState() == CellStates.GameOfLifeStates.LIVE) {
+                    numOfLiveNeighbors++;
+                }
             }
         }
 
         switch ((CellStates.GameOfLifeStates) currentState) {
             case LIVE:
                 if (numOfLiveNeighbors < 2 || numOfLiveNeighbors > 3) {
-                    nextState = CellStates.GameOfLifeStates.DEAD;
+                    setNextState(CellStates.GameOfLifeStates.DEAD);
                 }
                 break;
             case DEAD:
                 if (numOfLiveNeighbors == 3) {
-                    nextState = CellStates.GameOfLifeStates.LIVE;
+                    setNextState(CellStates.GameOfLifeStates.LIVE);
                 }
                 break;
+        }
+
+    }
+
+    @Override
+    protected void updateState() {
+        if (nextState != currentState) {
+            currentState = nextState;
         }
 
     }

@@ -1,7 +1,6 @@
 package Model;
 
 
-import java.util.HashSet;
 import java.util.Random;
 
 
@@ -16,10 +15,8 @@ import java.util.Random;
 public abstract class Cell {
     protected Point position;
     protected Grid grid;
-    protected HashSet<Cell> neighbors;
     protected Enum currentState;
     protected Enum nextState;
-    protected boolean stateChanged;
     protected Random random;
 
     /**
@@ -30,10 +27,8 @@ public abstract class Cell {
     protected Cell(Point position, Grid grid, Enum state) {
         this.position = position;
         this.grid = grid;
-        this.neighbors = new HashSet<>();
         this.currentState = state;
         this.nextState = state;
-        this.stateChanged = true;
         this.random = new Random();
     }
 
@@ -42,66 +37,45 @@ public abstract class Cell {
      *
      * @return the cell's neighbours
      */
-    public HashSet<Cell> getNeighbors() {
-        return this.neighbors;
-    }
-
-    public void setNeighbors(HashSet<Cell> neighbors) {
-        this.neighbors = neighbors;
-    }
-
-    public abstract void initializeNeighbors();
 
 
-    public void clearNeighors() {
-        this.neighbors.clear();
-    }
 
-    public Point getPosition() {
+    protected Point getPosition() {
         return this.position;
     }
 
-    public void setPosition(Point position) {
+    protected void setPosition(Point position) {
         this.position = position;
     }
 
     /**
      * @param state sets the state of the cell
      */
-    public void setCurrentState(Enum state) {
+    protected void setCurrentState(Enum state) {
         this.currentState = state;
     }
 
-    public Enum getCurrentState() {
+    protected Enum getCurrentState() {
         return this.currentState;
     }
 
 
-    public void setNextState(Enum state) {
+    protected void setNextState(Enum state) {
         this.nextState = state;
     }
 
-    public Enum getNextState() {
+    protected Enum getNextState() {
         return this.nextState;
     }
     /**
      * calculate and update nextState variable
      */
-    public abstract void calculateNextState();
+    protected abstract void calculateNextState();
 
     /**
      * update currentState variable
      */
-    public void updateState() {
-        if (nextState != currentState) {
-            currentState = nextState;
-            stateChanged = true;
-        }
-        else {
-            stateChanged = false;
-        }
-
-    }
+    protected abstract void updateState();
 
 
     @Override

@@ -18,6 +18,7 @@ public class GameOfLifeSimulation extends Simulation {
 
     public GameOfLifeSimulation(int numRows, int numColumns, Map<Point, Integer> initialState) {
         super(numRows, numColumns, initialState);
+        render();
     }
 
 
@@ -61,10 +62,11 @@ public class GameOfLifeSimulation extends Simulation {
         for (Cell cell: grid.getMatrix().values()) {
             cell.updateState();
         }
+        render();
     }
 
 
-    public void render() {
+    protected void render() {
         int numDead = 0;
         int numLive = 0;
         view.clear();

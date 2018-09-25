@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <data game="game">
     <type>segregation</type>
-    <threshold>0.5</threshold>
-    <ratio1>.5</ratio1>
-    <ratio2>0.1</ratio2>
+    <threshold>0.67</threshold>
+    <ratio1>0.6</ratio1>
+    <ratio2>0.5</ratio2>
     <width>400</width>
     <length>600</length>
     <numRows>5</numRows>

@@ -42,15 +42,15 @@ public abstract class Grid {
     /**
      * @return matrix
      */
-    public Map<Point, Cell> getMatrix() {
+    protected Map<Point, Cell> getMatrix() {
         return matrix;
     }
 
-    public int getNumRows() {
+    protected int getNumRows() {
         return numRows;
     }
 
-    public int getNumCols() {
+    protected int getNumColumns() {
         return numColumns;
     }
 
@@ -86,7 +86,7 @@ public abstract class Grid {
     /**
      *@return true if x, y is out of bounds
      */
-    public boolean outOfBounds(int x, int y) {
+    protected boolean outOfBounds(int x, int y) {
         if (!rowWrap && (y < 0 || y >= numRows)) {
             return true;
         }
@@ -96,10 +96,8 @@ public abstract class Grid {
         return false;
     }
 
-    public boolean outOfBounds(Point position) {
-        int x = position.getX();
-        int y = position.getY();
-        return outOfBounds(x, y);
+    protected boolean outOfBounds(Point position) {
+        return outOfBounds(position.getX(), position.getY());
     }
 
     /**
@@ -107,27 +105,25 @@ public abstract class Grid {
      * @param x x-coordinate
      * @param y y-coordinate
      */
-    public Point getPosition(int x, int y) {
-        int newX = gridColumnWrap(x);
-        int newY = gridRowWrap(y);
-        return new Point(newX, newY);
+    protected Point getPosition(int x, int y) {
+        return new Point(gridColumnWrap(x), gridRowWrap(y));
     }
 
-    public Point getPosition(Point position) {
+    protected Point getPosition(Point position) {
         return getPosition(position.getX(), position.getY());
     }
 
-    public Cell getCell(Point position) {
+    protected Cell getCell(Point position) {
         return matrix.get(getPosition(position));
     }
 
-    public void setCell(Point position, Cell cell) {
+    protected void setCell(Point position, Cell cell) {
         matrix.put(getPosition(position), cell);
     }
 
 
 
-    public void swapPositions(Point current, Point destination) {
+    protected void swapPositions(Point current, Point destination) {
         Cell activeCell = getCell(current);
         Cell passiveCell = getCell(destination);
         setCell(current, passiveCell);

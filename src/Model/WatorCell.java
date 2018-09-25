@@ -1,4 +1,4 @@
-package Model;
+package Model;//package Model;
 
 import java.util.ArrayList;
 
@@ -11,11 +11,13 @@ import java.util.ArrayList;
 
 
 public class WatorCell extends Cell {
+
     private ArrayList<Point> fishNeighborPositions;
     private ArrayList<Point> emptyNeighborPositions;
     private int fishTurnsToBreed;
     private int sharkTurnsToBreed;
     private int turn;
+
     public WatorCell(Point position, WatorGrid grid, CellStates.WatorStates state, int fishTurnsToBreed, int sharkTurnsToBreed) {
         super(position, grid, state);
         this.fishNeighborPositions = new ArrayList<>();
@@ -25,18 +27,26 @@ public class WatorCell extends Cell {
         this.turn = 0;
     }
 
-    public void setFishTurnsToBreed(int fishTurnsToBreed) {
+    protected int getFishTurnsToBreed() {
+        return fishTurnsToBreed;
+    }
+
+    protected int getSharkTurnsToBreed() {
+        return sharkTurnsToBreed;
+    }
+
+    protected void setFishTurnsToBreed(int fishTurnsToBreed) {
         this.fishTurnsToBreed = fishTurnsToBreed;
     }
-    public void setSharkTurnsToBreed(int fishTurnsToBreed) {
+    protected void setSharkTurnsToBreed(int fishTurnsToBreed) {
         this.sharkTurnsToBreed = fishTurnsToBreed;
     }
 
-    public void resetTurn() {
+    protected void resetTurn() {
         turn = 0;
     }
 
-    public void initializeNeighbors() {
+    protected void initializeNeighbors() {
         fishNeighborPositions.clear();
         emptyNeighborPositions.clear();
         Point neighborPosition;
@@ -54,12 +64,13 @@ public class WatorCell extends Cell {
 
     }
 
-    public void initializeNeighborsNeighbors() {
-        for (Point p : fishNeighborPositions) {
-            grid.getCell(p).initializeNeighbors();
-        }
-        for (Point p : emptyNeighborPositions) {
-            grid.getCell(p).initializeNeighbors();
+    protected void initializeNeighborsNeighbors() {
+        Point neighborPosition;
+        for (Directions.FourDirections direction : Directions.FourDirections.values()) {
+            neighborPosition = position.add(direction.getDirection());
+            if (!grid.outOfBounds(neighborPosition)) {
+                ((WatorCell) grid.getCell(neighborPosition)).initializeNeighbors();
+            }
         }
     }
 
@@ -79,18 +90,17 @@ public class WatorCell extends Cell {
                 break;
 
             case FISH:
-//                System.out.println(emptyNeighborPositions);
                 move(g);
                 reproduceFish(g);
                 turn++;
                 break;
-
-            case EMPTY:
-
-                break;
         }
     }
 
+    @Override
+    protected void updateState() {
+
+    }
 
     private void eat(WatorGrid g) {
         Point victimPosition = fishNeighborPositions.get(random.nextInt(fishNeighborPositions.size()));

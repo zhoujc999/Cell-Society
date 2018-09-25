@@ -1,4 +1,4 @@
-package Model;//package Model;
+package Model;//package Model;//package Model;
 
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -12,6 +12,7 @@ import java.util.Map;
  */
 
 public class WatorSimulation extends Simulation {
+
     private static final boolean ROW_WRAP = true;
     private static final boolean COLUMN_WRAP = true;
 
@@ -22,7 +23,9 @@ public class WatorSimulation extends Simulation {
         super(numRows, numColumns, initialState);
         this.fishTurnsToBreed = fishTurnsToBreed;
         this.sharkTurnsToBreed = sharkTurnsToBreed;
+        initializeAllNeighbors();
         initializeTurns();
+        render();
     }
 
     protected void initializeGrid() {
@@ -41,11 +44,16 @@ public class WatorSimulation extends Simulation {
         }
     }
 
+    protected void initializeAllNeighbors() {
+        for (Cell cell: grid.getMatrix().values()) {
+            ((WatorCell) cell).initializeNeighbors();
+        }
+    }
+
     protected void initializeTurns() {
         for (Cell cell : this.grid.getMatrix().values()) {
-            WatorCell c = (WatorCell) cell;
-            c.setFishTurnsToBreed(this.fishTurnsToBreed);
-            c.setSharkTurnsToBreed(this.sharkTurnsToBreed);
+            ((WatorCell) cell).setFishTurnsToBreed(this.fishTurnsToBreed);
+            ((WatorCell) cell).setSharkTurnsToBreed(this.sharkTurnsToBreed);
         }
     }
 
@@ -57,16 +65,14 @@ public class WatorSimulation extends Simulation {
     }
 
     protected void initializeView() {
-        this.view = new HashMap<Point, Integer>();
+        this.view = new HashMap<Point, CellStates.WatorStates>();
     }
 
     public void step() {
         for (Cell cell: grid.getMatrix().values()) {
             cell.calculateNextState();
         }
-        for (Cell cell: grid.getMatrix().values()) {
-            cell.updateState();
-        }
+        render();
     }
 
     public void render() {

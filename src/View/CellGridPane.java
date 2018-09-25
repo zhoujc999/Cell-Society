@@ -39,7 +39,6 @@ public class CellGridPane {
             rects[i] = new Rectangle(MAX_GRID_WIDTH/numCols,MAX_GRID_HEIGHT/numRows);
         }
 
-        simulation.render();
         Map<Point, CellStates.GameOfLifeStates> myMap = simulation.getView();
 
         int index = 0;
