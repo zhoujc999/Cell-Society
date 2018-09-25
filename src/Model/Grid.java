@@ -58,25 +58,29 @@ public abstract class Grid {
      * calculates the actual row with wrap around
      */
     private int gridRowWrap(int row) {
-        int wrapRow;
+        int remainder = row % numRows;
         if (row < 0) {
-            wrapRow = numRows + (row % numRows);
+            if (remainder < 0) {
+                return numRows + remainder;
+            }
+            else return 0;
         }
         else {
-            wrapRow = 0 + (row % numRows);
+            return remainder;
         }
-        return wrapRow;
     }
 
     private int gridColumnWrap(int column) {
-        int wrapColumn;
+        int remainder = column % numColumns;
         if (column < 0) {
-            wrapColumn = numColumns + (column % numColumns);
+            if (remainder < 0) {
+                return numColumns + remainder;
+            }
+            else return 0;
         }
         else {
-            wrapColumn = 0 + (column % numColumns);
+            return remainder;
         }
-        return wrapColumn;
     }
 
     /**

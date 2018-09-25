@@ -66,9 +66,6 @@ public class WatorSimulation extends Simulation {
         }
         for (Cell cell: grid.getMatrix().values()) {
             cell.updateState();
-            if (cell.stateChanged) {
-                ((WatorCell) cell).resetTurn();
-            }
         }
     }
 
