@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+
 /**
  * Abstract representation of a Wa-Tor Cell.
  *
@@ -78,7 +79,7 @@ public class WatorCell extends Cell {
                 break;
 
             case FISH:
-                System.out.println(emptyNeighborPositions);
+//                System.out.println(emptyNeighborPositions);
                 move(g);
                 reproduceFish(g);
                 turn++;
@@ -92,28 +93,30 @@ public class WatorCell extends Cell {
 
 
     private void eat(WatorGrid g) {
-        Point victimPosition = (Point) fishNeighborPositions.get(random.nextInt(fishNeighborPositions.size()));
+        Point victimPosition = fishNeighborPositions.get(random.nextInt(fishNeighborPositions.size()));
         g.changeNeighborState(victimPosition, CellStates.WatorStates.EMPTY);
     }
 
     private void move(WatorGrid g) {
         if (emptyNeighborPositions.size() != 0) {
-            Point emptyPosition = (Point) emptyNeighborPositions.get(random.nextInt(emptyNeighborPositions.size()));
+            Point emptyPosition = emptyNeighborPositions.get(random.nextInt(emptyNeighborPositions.size()));
             g.swapPositions(position, emptyPosition);
         }
     }
 
     private void reproduceShark(WatorGrid g) {
         if (turn == sharkTurnsToBreed && emptyNeighborPositions.size() != 0) {
-            Point emptyPosition = (Point) emptyNeighborPositions.get(random.nextInt(emptyNeighborPositions.size()));
+            Point emptyPosition = emptyNeighborPositions.get(random.nextInt(emptyNeighborPositions.size()));
             g.changeNeighborState(emptyPosition, CellStates.WatorStates.SHARK);
+            turn = 0;
         }
     }
 
     private void reproduceFish(WatorGrid g) {
         if (turn == fishTurnsToBreed && emptyNeighborPositions.size() != 0) {
-            Point emptyPosition = (Point) emptyNeighborPositions.get(random.nextInt(emptyNeighborPositions.size()));
+            Point emptyPosition = emptyNeighborPositions.get(random.nextInt(emptyNeighborPositions.size()));
             g.changeNeighborState(emptyPosition, CellStates.WatorStates.FISH);
+            turn = 0;
         }
     }
 
