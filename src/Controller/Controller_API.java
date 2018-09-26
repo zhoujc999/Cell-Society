@@ -1,6 +1,7 @@
 package Controller;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.chart.LineChart;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import View.*;
@@ -49,10 +50,13 @@ public class Controller_API{
     private Map<String, String> originalAttributes;
     private Map<Point, Integer> myMap;
     private Map<Point, Integer> beginningStageMap;
+    private LineChart lineChart;
+    private StatsGraph statsGraph;
 
-    public Controller_API(GridPane gridPane)
+    public Controller_API(GridPane gridPane, LineChart lineChart)
     {
-        this.gridPane =gridPane;
+        this.gridPane = gridPane;
+        this.lineChart = lineChart;
     }
 
     public void start(){
@@ -85,7 +89,7 @@ public class Controller_API{
             mySimulation = getSimulation(numRows, numColumns, type, threshold, myMap, fishRate, sharkRate);
         }
 
-        myView = new CellGridPane(gridPane);
+        myView = new CellGridPane(gridPane, statsGraph);
         myView.create(attributes, mySimulation);
 
         if(myTime==null){
@@ -103,6 +107,7 @@ public class Controller_API{
         {
             originalAttributes.put(s,map.get(s));
         }
+        statsGraph.clear();
         setUp(originalAttributes, false);
     }
 
@@ -138,6 +143,7 @@ public class Controller_API{
 
     public void reset() {
         stop();
+        statsGraph.clear();
         setUp(originalAttributes, true);
         animationStep();
     }
@@ -155,12 +161,15 @@ public class Controller_API{
         switch (type){
             case GAME_OF_LIFE:
                 simulation = new GameOfLifeSimulation(numRows,numCols,myMap);
+                statsGraph = new GameOfLifeStatsGraph(lineChart);
                 break;
             case SEGREGATION:
                 simulation = new SegregationSimulation(numRows,numCols,myMap, threshold);
+                statsGraph = new SegregationStatsGraph(lineChart);
                 break;
             case FIRE:
                 simulation = new FireSimulation(numRows,numCols,myMap, threshold);
+                statsGraph = new FireStatsGraph(lineChart);
                 break;
             case WATOR:
                 simulation = new WatorSimulation(numRows,numCols,myMap,fishRate,sharkRate);

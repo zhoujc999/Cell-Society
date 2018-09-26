@@ -49,11 +49,9 @@ public class UIManager {
     public void initialize(){
         forceInputToBeNumeric(widthTextField);
         forceInputToBeNumeric(heightTextField);
-        XYChart.Series series = new XYChart.Series<Number, Number>();
-        series.getData().add(new XYChart.Data(1, 23));
-        lineChart.getData().add(series);
-        series.getData().add(new XYChart.Data(2, 78));
-        controller = new Controller_API(gridPane);
+        //TODO: have to think about how to get around this line
+//        statsGraph = new StatsGraph(lineChart);
+        controller = new Controller_API(gridPane, lineChart);
         controller.start();
     }
 

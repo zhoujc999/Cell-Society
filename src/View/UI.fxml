@@ -9,7 +9,6 @@
 <?import javafx.scene.control.Slider?>
 
 <?import javafx.scene.chart.LineChart?>
-<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <GridPane fx:controller="View.UIManager"
           xmlns:fx="http://javafx.com/fxml" alignment="CENTER" hgap="10" vgap="10"
@@ -57,9 +56,10 @@
                 onAction="#handleChooseAFileAction"/>
     </HBox>
 
-    <LineChart fx:id="lineChart" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="4" maxHeight="100">
+    <LineChart fx:id="lineChart" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="4"
+               maxHeight="100"  createSymbols="false" legendVisible="true">
         <xAxis>
-            <NumberAxis fx:id="xAxis" side="BOTTOM" />
+            <NumberAxis fx:id="xAxis" side="BOTTOM" tickLabelsVisible="false" tickMarkVisible="false" minorTickVisible="false"/>
         </xAxis>
         <yAxis>
             <NumberAxis fx:id="yAxis" side="LEFT" />

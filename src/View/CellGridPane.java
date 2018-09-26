@@ -20,9 +20,15 @@ public class CellGridPane {
     private int numRows;
     private int numCols;
     private Rectangle[] rects;
+    private StatsGraph statsGraph;
 
-    public CellGridPane(GridPane gridPane){
+//    public CellGridPane(GridPane gridPane){
+//        this.gridPane = gridPane;
+//    }
+
+    public CellGridPane(GridPane gridPane, StatsGraph statsGraph){
         this.gridPane = gridPane;
+        this.statsGraph = statsGraph;
     }
 
     public void create(Map<String, String> attributes, Simulation initialSimulation){
@@ -65,6 +71,6 @@ public class CellGridPane {
 
     public void getStatistics(Map<CellStates, Integer> map){
         System.out.println(map);
-
+        statsGraph.add(map);
     }
 }
