@@ -2,6 +2,10 @@ package View;
 
 import Controller.Controller_API;
 import javafx.fxml.FXML;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -25,7 +29,13 @@ public class UIManager {
     @FXML
     private Slider slider;
     @FXML
-    public GridPane gridPane;
+    private GridPane gridPane;
+    @FXML
+    private LineChart lineChart;
+    @FXML
+    private NumberAxis xAxis;
+    @FXML
+    private NumberAxis yAxis;
 
     private Controller_API controller;
     private static final int MAX_FPS = 30;
@@ -39,6 +49,10 @@ public class UIManager {
     public void initialize(){
         forceInputToBeNumeric(widthTextField);
         forceInputToBeNumeric(heightTextField);
+        XYChart.Series series = new XYChart.Series<Number, Number>();
+        series.getData().add(new XYChart.Data(1, 23));
+        lineChart.getData().add(series);
+        series.getData().add(new XYChart.Data(2, 78));
         controller = new Controller_API(gridPane);
         controller.start();
     }

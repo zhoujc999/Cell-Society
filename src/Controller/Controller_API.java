@@ -120,6 +120,7 @@ public class Controller_API{
 
         //pass the new Simulation to myView
         myView.render(mySimulation.getView());
+        myView.getStatistics(mySimulation.getStatistics());
     }
 
     public void animationStep(){

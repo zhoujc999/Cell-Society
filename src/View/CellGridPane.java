@@ -21,7 +21,6 @@ public class CellGridPane {
     private int numCols;
     private Rectangle[] rects;
 
-
     public CellGridPane(GridPane gridPane){
         this.gridPane = gridPane;
     }
@@ -39,16 +38,10 @@ public class CellGridPane {
             rects[i] = new Rectangle(MAX_GRID_WIDTH/numCols,MAX_GRID_HEIGHT/numRows);
         }
 
-        Map<Point, CellStates.GameOfLifeStates> myMap = simulation.getView();
+        Map<Point, CellStates> myMap = simulation.getView();
 
         int index = 0;
         for(Point p: myMap.keySet()){
-            if(myMap.get(p) == CellStates.GameOfLifeStates.LIVE){
-                rects[index].setFill(Color.BLACK);
-            }
-            else{
-                rects[index].setFill(Color.WHITE);
-            }
             gridPane.add(rects[index++], p.getY(), p.getX());
         }
     }
@@ -68,5 +61,10 @@ public class CellGridPane {
             }
             index++;
         }
+    }
+
+    public void getStatistics(Map<CellStates, Integer> map){
+        System.out.println(map);
+
     }
 }
