@@ -1,10 +1,17 @@
 package View;
 
 import Controller.Controller_API;
+import Model.Grid;
 import javafx.fxml.FXML;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,13 +26,21 @@ public class UIManager {
     // fields with @FXML annotation are automatically populated to reference the UI element
     // with the same name as its id in fxml
     @FXML
+    private GridPane layoutGridPane;
+    @FXML
     private TextField widthTextField;
     @FXML
     private TextField heightTextField;
     @FXML
     private Slider slider;
     @FXML
-    public GridPane gridPane;
+    private GridPane gridPane;
+    @FXML
+    private LineChart lineChart;
+    @FXML
+    private NumberAxis xAxis;
+    @FXML
+    private NumberAxis yAxis;
 
     private Controller_API controller;
     private static final int MAX_FPS = 30;
@@ -39,8 +54,11 @@ public class UIManager {
     public void initialize(){
         forceInputToBeNumeric(widthTextField);
         forceInputToBeNumeric(heightTextField);
-        controller = new Controller_API(gridPane);
+        //TODO: have to think about how to get around this line
+//        statsGraph = new StatsGraph(lineChart);
+        controller = new Controller_API(gridPane, lineChart);
         controller.start();
+//        layoutGridPane.getChildr
     }
 
     // restrict the textfield to contain only numbers
