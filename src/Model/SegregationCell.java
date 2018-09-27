@@ -12,11 +12,15 @@ public class SegregationCell extends Cell {
 
     private double satisfactionThreshold;
     private boolean satisfied;
+    private int numRedNeighbors;
+    private int numBlueNeighbors;
 
     public SegregationCell(Point position, SegregationGrid grid, CellStates.SegregationStates state, double satisfactionThreshold) {
         super(position, grid,state);
         this.satisfactionThreshold = satisfactionThreshold;
         this.satisfied = true;
+        this.numRedNeighbors = 0;
+        this.numBlueNeighbors = 0;
     }
 
 
@@ -42,23 +46,26 @@ public class SegregationCell extends Cell {
     @Override
     public void calculateNextState() {
         if (getCurrentState() != CellStates.SegregationStates.EMPTY) {
-            int numRedNeighbors = 0;
-            int numBlueNeighbors = 0;
+            numRedNeighbors = 0;
+            numBlueNeighbors = 0;
             Point neighborPosition;
             for (Directions.EightDirections direction : Directions.EightDirections.values()) {
                 neighborPosition = getPosition().add(direction.getDirection());
-                if (!grid.outOfBounds(neighborPosition)) {
-                    SegregationCell neighbor = (SegregationCell) grid.getCell(neighborPosition);
-                    if (neighbor.currentState == CellStates.SegregationStates.RED) {
-                        numRedNeighbors++;
-                    }
-                    else if (neighbor.currentState == CellStates.SegregationStates.BLUE) {
-                        numBlueNeighbors++;
-                    }
-                }
+                countNeighborType(neighborPosition);
             }
             determineSatisfied(numRedNeighbors, numBlueNeighbors);
+        }
+    }
 
+    private void countNeighborType(Point p) {
+        if (!grid.outOfBounds(p)) {
+            SegregationCell neighbor = (SegregationCell) grid.getCell(p);
+            if (neighbor.currentState == CellStates.SegregationStates.RED) {
+                numRedNeighbors++;
+            }
+            else if (neighbor.currentState == CellStates.SegregationStates.BLUE) {
+                numBlueNeighbors++;
+            }
         }
     }
 

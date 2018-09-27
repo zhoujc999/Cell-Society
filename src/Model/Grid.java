@@ -83,13 +83,7 @@ public abstract class Grid {
      *@return true if x, y is out of bounds
      */
     protected boolean outOfBounds(int x, int y) {
-        if (!rowWrap && (y < 0 || y >= numRows)) {
-            return true;
-        }
-        if (!columnWrap && (x < 0 || x >= numColumns)) {
-            return true;
-        }
-        return false;
+        return (!rowWrap && (y < 0 || y >= numRows)) || (!columnWrap && (x < 0 || x >= numColumns));
     }
 
     protected boolean outOfBounds(Point position) {
