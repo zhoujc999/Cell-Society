@@ -29,21 +29,7 @@ public class FireCell extends Cell {
                 nextState = CellStates.FireStates.EMPTY;
                 break;
             case TREE:
-                boolean burningNeighbors = false;
-                for (Directions.FourDirections direction : Directions.FourDirections.values()) {
-                    Point neighborPosition = getPosition().add(direction.getDirection());
-                    if (!grid.outOfBounds(neighborPosition)) {
-                        if (grid.getCell(neighborPosition).getCurrentState() == CellStates.FireStates.BURNING) {
-                            burningNeighbors = true;
-                        }
-                    }
-                }
-                if (burningNeighbors && random.nextDouble() < probCatchFire) {
-                    nextState = CellStates.FireStates.BURNING;
-                }
-                else {
-                    nextState = CellStates.FireStates.TREE;
-                }
+                nextState = catchFire();
         }
     }
 
@@ -54,4 +40,22 @@ public class FireCell extends Cell {
             currentState = nextState;
         }
     }
+
+    private CellStates.FireStates catchFire() {
+        boolean burningNeighbors = false;
+        for (Directions.FourDirections direction : Directions.FourDirections.values()) {
+            Point neighborPosition = getPosition().add(direction.getDirection());
+            if (!grid.outOfBounds(neighborPosition) && grid.getCell(neighborPosition).getCurrentState() == CellStates.FireStates.BURNING) {
+                burningNeighbors = true;
+            }
+        }
+        if (burningNeighbors && random.nextDouble() < probCatchFire) {
+            return CellStates.FireStates.BURNING;
+        }
+        else {
+            return CellStates.FireStates.TREE;
+        }
+    }
 }
+
+
