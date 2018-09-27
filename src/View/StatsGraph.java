@@ -12,7 +12,7 @@ public abstract class StatsGraph {
         this.lineChart = lineChart;
     }
 
-    public abstract void add(Map<CellStates, Integer> stats);
+    public abstract void update(Map<CellStates, Integer> stats);
 
     public void clear(){
         lineChart.getData().clear();

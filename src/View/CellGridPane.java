@@ -1,76 +1,19 @@
 package View;
 
-import Controller.Controller_API;
-import Model.*;
-import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import Model.CellStates;
+import Model.Point;
+import Model.Simulation;
 
 import java.util.Map;
 
-/*
-    @author xp19 This class represents the gridpane that displays cell simulation
- */
+public interface CellGridPane {
 
-public class CellGridPane {
+    void create(Map<String, String> attributes, Simulation initialSimulation);
 
-    private static final double MAX_GRID_WIDTH = 400.0;
-    private static final double MAX_GRID_HEIGHT = 400.0;
-    private GridPane gridPane;
-    private int numRows;
-    private int numCols;
-    private Rectangle[] rects;
-    private StatsGraph statsGraph;
+    void initialize(int numRows, int numCols, Simulation simulation);
 
-//    public CellGridPane(GridPane gridPane){
-//        this.gridPane = gridPane;
-//    }
+    void render(Map<Point, Integer> updatedMap);
 
-    public CellGridPane(GridPane gridPane, StatsGraph statsGraph){
-        this.gridPane = gridPane;
-        this.statsGraph = statsGraph;
-    }
+    void updateStatsGraph(Map<CellStates, Integer> map);
 
-    public void create(Map<String, String> attributes, Simulation initialSimulation){
-        numRows = Integer.parseInt(attributes.get(Controller_API.NUM_ROW_ATTR));
-        numCols = Integer.parseInt(attributes.get(Controller_API.NUM_COL_ATTR));
-        initialize(numRows, numCols, initialSimulation);
-    }
-
-    private void initialize(int numRows, int numCols, Simulation simulation){
-        gridPane.getChildren().clear();
-        rects = new Rectangle[numRows*numCols];
-        for(int i = 0; i < rects.length; i++){
-            rects[i] = new Rectangle(MAX_GRID_WIDTH/numCols,MAX_GRID_HEIGHT/numRows);
-        }
-
-        Map<Point, CellStates> myMap = simulation.getView();
-
-        int index = 0;
-        for(Point p: myMap.keySet()){
-            gridPane.add(rects[index++], p.getY(), p.getX());
-        }
-    }
-
-    public void render(Map<Point, Integer> updatedMap){
-        int index = 0;
-        for(Point p: updatedMap.keySet()){
-            if(updatedMap.get(p) == 0){
-                rects[index].setFill(Color.BLUE);
-            }
-            else if(updatedMap.get(p) == 1){
-                rects[index].setFill(Color.PINK);
-            }
-            else
-            {
-                rects[index].setFill(Color.WHITE);
-            }
-            index++;
-        }
-    }
-
-    public void getStatistics(Map<CellStates, Integer> map){
-        System.out.println(map);
-        statsGraph.add(map);
-    }
 }

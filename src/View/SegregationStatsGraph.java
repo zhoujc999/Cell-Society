@@ -20,7 +20,7 @@ public class SegregationStatsGraph extends StatsGraph{
     }
 
     @Override
-    public void add(Map<CellStates, Integer> stats) {
+    public void update(Map<CellStates, Integer> stats) {
         seriesUnsatisfied.getData().add(new XYChart.Data(time, stats.get(CellStates.SegregationMoods.DISSATISFIED)));
         seriesSatisfied.getData().add(new XYChart.Data(time, stats.get(CellStates.SegregationMoods.SATISFIED)));
         time++;

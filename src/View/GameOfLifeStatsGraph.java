@@ -21,7 +21,7 @@ public class GameOfLifeStatsGraph extends StatsGraph {
     }
 
     @Override
-    public void add(Map<CellStates, Integer> stats) {
+    public void update(Map<CellStates, Integer> stats) {
         seriesLive.getData().add(new XYChart.Data(time, stats.get(CellStates.GameOfLifeStates.LIVE)));
         seriesDead.getData().add(new XYChart.Data(time, stats.get(CellStates.GameOfLifeStates.DEAD)));
         time++;

@@ -23,7 +23,7 @@ public class FireStatsGraph extends StatsGraph {
     }
 
     @Override
-    public void add(Map<CellStates, Integer> stats) {
+    public void update(Map<CellStates, Integer> stats) {
         seriesBurning.getData().add(new XYChart.Data(time, stats.get(CellStates.FireStates.BURNING)));
         seriesTree.getData().add(new XYChart.Data(time, stats.get(CellStates.FireStates.TREE)));
         seriesEmpty.getData().add(new XYChart.Data(time, stats.get(CellStates.FireStates.EMPTY)));

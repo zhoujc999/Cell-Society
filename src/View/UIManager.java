@@ -1,6 +1,7 @@
 package View;
 
 import Controller.Controller_API;
+import Model.Grid;
 import javafx.fxml.FXML;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
@@ -9,6 +10,8 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,6 +25,8 @@ public class UIManager {
 
     // fields with @FXML annotation are automatically populated to reference the UI element
     // with the same name as its id in fxml
+    @FXML
+    private GridPane layoutGridPane;
     @FXML
     private TextField widthTextField;
     @FXML
@@ -53,6 +58,7 @@ public class UIManager {
 //        statsGraph = new StatsGraph(lineChart);
         controller = new Controller_API(gridPane, lineChart);
         controller.start();
+//        layoutGridPane.getChildr
     }
 
     // restrict the textfield to contain only numbers
