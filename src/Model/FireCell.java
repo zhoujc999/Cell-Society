@@ -1,4 +1,4 @@
-package Model;//package Model;
+package Model;
 
 /**
  * Abstract representation of a Fire Cell.
