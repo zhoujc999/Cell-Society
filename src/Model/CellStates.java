@@ -65,4 +65,18 @@ public class CellStates {
         }
     }
 
+
+    public enum RPSStates {
+        WHITE,
+        RED,
+        GREEN,
+        BLUE;
+        private static RPSStates [] cachedValues = null;
+        public static RPSStates fromInt(int i) {
+            if(RPSStates.cachedValues == null) {
+                RPSStates.cachedValues = RPSStates.values();
+            }
+            return RPSStates.cachedValues[i];
+        }
+    }
 }

@@ -35,10 +35,10 @@ public class WatorSimulation extends Simulation {
     protected void initializeCells(Map<Point, Integer> initialParam) {
         for (Map.Entry entry : initialParam.entrySet()) {
             Point position = (Point) entry.getKey();
-            CellStates.WatorStates state = CellStates.WatorStates.fromInt((int) entry.getValue());
             if (grid.getMatrix().get(position) != null) {
                 throw new IllegalArgumentException("InitialState Duplicate Point Error");
             }
+            CellStates.WatorStates state = CellStates.WatorStates.fromInt((int) entry.getValue());
             WatorCell cell = new WatorCell(position, (WatorGrid) grid, state, fishTurnsToBreed, sharkTurnsToBreed);
             grid.getMatrix().put(position, cell);
         }
