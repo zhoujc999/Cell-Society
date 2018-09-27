@@ -38,6 +38,7 @@ public class WatorCell extends Cell {
     protected void setFishTurnsToBreed(int fishTurnsToBreed) {
         this.fishTurnsToBreed = fishTurnsToBreed;
     }
+
     protected void setSharkTurnsToBreed(int fishTurnsToBreed) {
         this.sharkTurnsToBreed = fishTurnsToBreed;
     }
@@ -79,7 +80,7 @@ public class WatorCell extends Cell {
         WatorGrid g = (WatorGrid) this.grid;
         switch ((CellStates.WatorStates) currentState) {
             case SHARK:
-                if (fishNeighborPositions.size() != 0) {
+                if (!fishNeighborPositions.isEmpty()) {
                     eat(g);
                 }
                 else {
@@ -108,14 +109,14 @@ public class WatorCell extends Cell {
     }
 
     private void move(WatorGrid g) {
-        if (emptyNeighborPositions.size() != 0) {
+        if (!emptyNeighborPositions.isEmpty()) {
             Point emptyPosition = emptyNeighborPositions.get(random.nextInt(emptyNeighborPositions.size()));
             g.swapPositions(position, emptyPosition);
         }
     }
 
     private void reproduceShark(WatorGrid g) {
-        if (turn == sharkTurnsToBreed && emptyNeighborPositions.size() != 0) {
+        if (turn == sharkTurnsToBreed && !emptyNeighborPositions.isEmpty()) {
             Point emptyPosition = emptyNeighborPositions.get(random.nextInt(emptyNeighborPositions.size()));
             g.changeNeighborState(emptyPosition, CellStates.WatorStates.SHARK);
             resetTurn();
@@ -123,7 +124,7 @@ public class WatorCell extends Cell {
     }
 
     private void reproduceFish(WatorGrid g) {
-        if (turn == fishTurnsToBreed && emptyNeighborPositions.size() != 0) {
+        if (turn == fishTurnsToBreed && !emptyNeighborPositions.isEmpty()) {
             Point emptyPosition = emptyNeighborPositions.get(random.nextInt(emptyNeighborPositions.size()));
             g.changeNeighborState(emptyPosition, CellStates.WatorStates.FISH);
             resetTurn();

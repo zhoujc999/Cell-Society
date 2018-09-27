@@ -59,27 +59,23 @@ public abstract class Grid {
      */
     private int gridRowWrap(int row) {
         int remainder = row % numRows;
-        if (row < 0) {
-            if (remainder < 0) {
-                return numRows + remainder;
-            }
-            else return 0;
-        }
-        else {
+        if (row < 0 && remainder < 0) {
+            return numRows + remainder;
+        } else if (row > 0) {
             return remainder;
+        } else {
+            return 0;
         }
     }
 
     private int gridColumnWrap(int column) {
         int remainder = column % numColumns;
-        if (column < 0) {
-            if (remainder < 0) {
-                return numColumns + remainder;
-            }
-            else return 0;
-        }
-        else {
+        if (column < 0 && remainder < 0) {
+            return numColumns + remainder;
+        } else if (column > 0) {
             return remainder;
+        } else {
+            return 0;
         }
     }
 

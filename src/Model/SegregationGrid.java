@@ -23,7 +23,7 @@ public class SegregationGrid extends Grid {
     }
 
     protected void swapPositions(Point current) {
-        if (emptyPositions.size() > 0) {
+        if (!emptyPositions.isEmpty()) {
             Point destination = emptyPositions.remove(random.nextInt(emptyPositions.size()));
             super.swapPositions(current, destination);
             addEmptyPosition(current);
