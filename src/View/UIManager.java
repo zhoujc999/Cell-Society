@@ -36,6 +36,8 @@ public class UIManager {
     @FXML
     private GridPane gridPane;
     @FXML
+    private Pane pane;
+    @FXML
     private LineChart lineChart;
     @FXML
     private NumberAxis xAxis;
@@ -58,6 +60,9 @@ public class UIManager {
 //        statsGraph = new StatsGraph(lineChart);
         controller = new Controller_API(gridPane, lineChart);
         controller.start();
+
+        HexCellGridPane test = new HexCellGridPane(pane);
+        test.createEasy(10,10);
 //        layoutGridPane.getChildr
     }
 

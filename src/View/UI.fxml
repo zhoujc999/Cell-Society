@@ -66,5 +66,10 @@
         </yAxis>
     </LineChart>
 
+    <HBox GridPane.rowIndex="0" GridPane.columnIndex="5" GridPane.rowSpan="2" >
+        <Pane
+                fx:id="pane"/>
+    </HBox>
+
 </GridPane>
 

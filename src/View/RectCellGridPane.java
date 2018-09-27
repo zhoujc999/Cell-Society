@@ -15,11 +15,11 @@ import java.util.Map;
 
 public class RectCellGridPane implements CellGridPane{
 
-    private static final double MAX_GRID_WIDTH = 400.0;
-    private static final double MAX_GRID_HEIGHT = 400.0;
+//    private static final double MAX_GRID_WIDTH = 400.0;
+//    private static final double MAX_GRID_HEIGHT = 400.0;
     private GridPane gridPane;
-    private int numRows;
-    private int numCols;
+//    private int numRows;
+//    private int numCols;
     private Rectangle[] rects;
     private StatsGraph statsGraph;
 
@@ -30,8 +30,8 @@ public class RectCellGridPane implements CellGridPane{
 
     @Override
     public void create(Map<String, String> attributes, Simulation initialSimulation){
-        numRows = Integer.parseInt(attributes.get(Controller_API.NUM_ROW_ATTR));
-        numCols = Integer.parseInt(attributes.get(Controller_API.NUM_COL_ATTR));
+        int numRows = Integer.parseInt(attributes.get(Controller_API.NUM_ROW_ATTR));
+        int numCols = Integer.parseInt(attributes.get(Controller_API.NUM_COL_ATTR));
         initialize(numRows, numCols, initialSimulation);
     }
 
