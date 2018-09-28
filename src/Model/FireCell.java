@@ -1,4 +1,4 @@
-package Model;
+package Model;//package Model;
 
 /**
  * Abstract representation of a Fire Cell.
@@ -10,9 +10,9 @@ package Model;
 
 public class FireCell extends Cell {
     private double probCatchFire;
-    public FireCell(Point position, FireGrid grid, CellStates.FireStates state) {
+    public FireCell(Point position, FireGrid grid, CellStates.FireStates state, double probCatchFire) {
         super(position, grid, state);
-
+        this.probCatchFire = probCatchFire;
     }
 
     public void setProbCatchFire(double probCatchFire) {
@@ -29,7 +29,21 @@ public class FireCell extends Cell {
                 nextState = CellStates.FireStates.EMPTY;
                 break;
             case TREE:
-                nextState = catchFire();
+                boolean burningNeighbors = false;
+                for (Directions.FourDirections direction : Directions.FourDirections.values()) {
+                    Point neighborPosition = getPosition().add(direction.getDirection());
+                    if (!grid.outOfBounds(neighborPosition)) {
+                        if (grid.getCell(neighborPosition).getCurrentState() == CellStates.FireStates.BURNING) {
+                            burningNeighbors = true;
+                        }
+                    }
+                }
+                if (burningNeighbors && random.nextDouble() < probCatchFire) {
+                    nextState = CellStates.FireStates.BURNING;
+                }
+                else {
+                    nextState = CellStates.FireStates.TREE;
+                }
         }
     }
 
@@ -40,22 +54,4 @@ public class FireCell extends Cell {
             currentState = nextState;
         }
     }
-
-    private CellStates.FireStates catchFire() {
-        boolean burningNeighbors = false;
-        for (Directions.FourDirections direction : Directions.FourDirections.values()) {
-            Point neighborPosition = getPosition().add(direction.getDirection());
-            if (!grid.outOfBounds(neighborPosition) && grid.getCell(neighborPosition).getCurrentState() == CellStates.FireStates.BURNING) {
-                burningNeighbors = true;
-            }
-        }
-        if (burningNeighbors && random.nextDouble() < probCatchFire) {
-            return CellStates.FireStates.BURNING;
-        }
-        else {
-            return CellStates.FireStates.TREE;
-        }
-    }
 }
-
-

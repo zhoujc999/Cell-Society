@@ -1,79 +1,115 @@
 package Model;
+
+import java.util.ArrayList;
+
+public class RPSCell extends Cell {
+    private ArrayList<RPSCell> neighbors;
+    private int maxHit;
+    private int currentHitCount;
+    private int nextHitCount;
+    private boolean firstHit;
+
+    public RPSCell(Point position, RPSGrid grid, CellStates.RPSStates state, int maxHit) {
+        super(position, grid, state);
+        this.maxHit = maxHit;
+        this.currentHitCount = 0;
+        this.nextHitCount = 0;
+        this.neighbors = new ArrayList<>();
+    }
+
+    protected void gotHit() {
+        if (firstHit && currentHitCount < maxHit) {
+            nextHitCount++;
+        }
+        firstHit = false;
+    }
+
+
+
+
+    protected boolean isDead() {
+        return currentHitCount == maxHit;
+    }
+
+    protected int getCurrentHitCount() {
+        return currentHitCount;
+    }
+
+    protected void setNextHitCount(int count) {
+        this.nextHitCount = count;
+    }
 //
-//import java.util.ArrayList;
-//
-//public class RPSCell extends Cell {
-//    private ArrayList<RPSCell> neighbors;
-//    private int maxHit;
-//    private int currentHitCount;
-//    private int nextHitCount;
-//
-//    public RPSCell(Point position, RPSGrid grid, CellStates.RPSStates state, int maxHit) {
-//        super(position, grid, state);
-//        this.maxHit = maxHit;
-//        this.currentHitCount = 0;
-//        this.nextHitCount = 0;
-//        this.neighbors = new ArrayList<>();
+//    protected int getMaxLife() {
+//        return maxHit;
 //    }
-//
-//
-////    protected void setCurrentTurnLife(int currentHitCount) {
-////        this.currentHitCount = currentHitCount;
-////    }
-////
-//    protected void gotHit() {
-//        if (currentHitCount < maxHit) {
-//            currentHitCount++;
-//        }
-//    }
-////
-////    protected boolean isDead() {
-////        return currentHitCount == 0;
-////    }
-////
-////    protected int getMaxLife() {
-////        return maxHit;
-////    }
-//
-//    protected void setMaxHit(int maxHit) {
-//        this.maxHit = maxHit;
-//    }
-//
-//    @Override
-//    public void calculateNextState() {
-//        neighbors.clear();
-//        Point neighborPosition;
-//        for (Directions.EightDirections direction : Directions.EightDirections.values()) {
-//            neighborPosition = getPosition().add(direction.getDirection());
-//            if (!grid.outOfBounds(neighborPosition)) {
-//                neighbors.add((RPSCell) grid.getCell(neighborPosition));
-//            }
-//        }
-//
-//        RPSCell neighbor = neighbors.get(random.nextInt(neighbors.size()));
-//        switch ((CellStates.RPSStates) currentState) {
-//            case RED:
-//                if (neighbor.getCurrentState() == CellStates.RPSStates.BLUE) {
-//                    attack(neighbor);
-//                }
-//                break;
-//            case GREEN:
-//
-//
-//                break;
-//            case BLUE:
-//
-//
-//                break;
-//        }
-//    }
-//
-//    @Override
-//    protected void updateState() {
-//
-//    }
-//
-//    private void attack(RPSCell cell) {
-//        cell.gotHit();
-//    }
-//}
+
+    protected void setMaxHit(int maxHit) {
+        this.maxHit = maxHit;
+    }
+
+    @Override
+    public void calculateNextState() {
+        neighbors.clear();
+        Point neighborPosition;
+        for (Directions.EightDirections direction : Directions.EightDirections.values()) {
+            neighborPosition = getPosition().add(direction.getDirection());
+            if (!grid.outOfBounds(neighborPosition)) {
+                neighbors.add((RPSCell) grid.getCell(neighborPosition));
+            }
+        }
+
+        RPSCell neighbor = neighbors.get(random.nextInt(neighbors.size()));
+        switch ((CellStates.RPSStates) currentState) {
+            case RED:
+                if (neighbor.getCurrentState() == CellStates.RPSStates.BLUE) {
+                    attack(neighbor);
+                }
+                else if (neighbor.getCurrentState() == CellStates.RPSStates.WHITE) {
+                    stain(neighbor);
+                }
+                break;
+            case GREEN:
+                if (neighbor.getCurrentState() == CellStates.RPSStates.RED) {
+                    attack(neighbor);
+                }
+                else if (neighbor.getCurrentState() == CellStates.RPSStates.WHITE) {
+                    stain(neighbor);
+                }
+                break;
+            case BLUE:
+                if (neighbor.getCurrentState() == CellStates.RPSStates.GREEN) {
+                    attack(neighbor);
+                }
+                else if (neighbor.getCurrentState() == CellStates.RPSStates.WHITE) {
+                    stain(neighbor);
+                }
+                break;
+        }
+    }
+
+    @Override
+    protected void updateState() {
+        currentState = nextState;
+        currentHitCount = nextHitCount;
+        firstHit = true;
+
+
+
+
+    }
+
+    private void attack(RPSCell cell) {
+        cell.gotHit();
+        if (cell.isDead()) {
+            cell.setNextState(getCurrentState());
+            cell.setNextHitCount(getCurrentHitCount());
+            nextHitCount--;
+        }
+    }
+
+    private void stain(RPSCell cell) {
+        cell.setNextState(getCurrentState());
+        cell.setNextHitCount(getCurrentHitCount() + 1);
+    }
+
+}

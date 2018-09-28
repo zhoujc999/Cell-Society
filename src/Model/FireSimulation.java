@@ -1,4 +1,4 @@
-package Model;
+package Model;//package Model;
 
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -38,7 +38,7 @@ public class FireSimulation extends Simulation {
             if (grid.getMatrix().get(position) != null) {
                 throw new IllegalArgumentException("InitialState Duplicate Point Error");
             }
-            FireCell cell = new FireCell(position, (FireGrid) grid, CellStates.FireStates.fromInt((int) entry.getValue()));
+            FireCell cell = new FireCell(position, (FireGrid) grid, CellStates.FireStates.fromInt((int) entry.getValue()), probCatchFire);
             super.grid.getMatrix().put(position, cell);
         }
     }
