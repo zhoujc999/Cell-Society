@@ -16,7 +16,7 @@
     <padding><Insets /></padding>
 
     <HBox GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.rowSpan="2" >
-        <GridPane
+        <Pane
               fx:id="gridPane"/>
     </HBox>
 

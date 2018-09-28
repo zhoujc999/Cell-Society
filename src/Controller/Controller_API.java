@@ -2,7 +2,6 @@ package Controller;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.chart.LineChart;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import View.*;
@@ -45,16 +44,18 @@ public class Controller_API{
     public static final String FILE_CHOOSER_PROMPT = "Choose data file";
     private FileChooser myChooser = makeChooser(DATA_FILE_EXTENSION);
     private Timeline myTime;
-    private RectCellGridPane myView;
+//    private RectCellGridPaneOld myView;
+    private CellGridPane myView;
     private Simulation mySimulation;
-    private GridPane gridPane;
+//    private GridPane gridPane;
+    private Pane gridPane;
     private Map<String, String> originalAttributes;
     private Map<Point, Integer> myMap;
     private Map<Point, Integer> beginningStageMap;
     private LineChart lineChart;
     private StatsGraph statsGraph;
 
-    public Controller_API(GridPane gridPane, LineChart lineChart)
+    public Controller_API(Pane gridPane, LineChart lineChart)
     {
         this.gridPane = gridPane;
         this.lineChart = lineChart;
@@ -90,7 +91,7 @@ public class Controller_API{
             mySimulation = getSimulation(numRows, numColumns, type, threshold, myMap, fishRate, sharkRate);
         }
 
-        myView = new RectCellGridPane(gridPane, statsGraph);
+        myView = new HexCellGridPane(gridPane, statsGraph);
         myView.create(attributes, mySimulation);
 
         if(myTime==null){
