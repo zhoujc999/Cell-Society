@@ -7,6 +7,7 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -40,6 +41,8 @@ public class UIManager {
     @FXML
     private LineChart lineChart;
     @FXML
+    private ComboBox dropDownMenu;
+    @FXML
     private NumberAxis xAxis;
     @FXML
     private NumberAxis yAxis;
@@ -56,6 +59,7 @@ public class UIManager {
     public void initialize(){
         forceInputToBeNumeric(widthTextField);
         forceInputToBeNumeric(heightTextField);
+        dropDownMenu.getSelectionModel().selectFirst();
         //TODO: have to think about how to get around this line
 //        statsGraph = new StatsGraph(lineChart);
         controller = new Controller_API(gridPane, lineChart);
@@ -95,6 +99,11 @@ public class UIManager {
             oldFPS = (int)((slider.getValue()/HUNDRED)*MAX_FPS);
             controller.updateFPS((int)((slider.getValue()/HUNDRED)*MAX_FPS));
         }
+    }
+
+    public void changeCellShape(){
+        System.out.println(dropDownMenu.getSelectionModel().getSelectedItem().toString());
+        controller.changeCellShape(dropDownMenu.getSelectionModel().getSelectedItem().toString());
     }
 
     public void handleStartButtonAction(){

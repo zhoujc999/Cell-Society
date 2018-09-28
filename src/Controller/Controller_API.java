@@ -124,7 +124,6 @@ public class Controller_API{
     private void step() {
         //ask mySimulation to update
         mySimulation.step();
-
         //pass the new Simulation to myView
         myView.render(mySimulation.getView());
         myView.updateStatsGraph(mySimulation.getStatistics());
@@ -180,7 +179,6 @@ public class Controller_API{
         return simulation;
     }
 
-
     private Map<Point, Integer> simulationMap(int numRows, int numColumns, double cellRatio, double emptyRatio) {
         Map<Point, Integer> initialState = new HashMap<>();
 
@@ -201,6 +199,10 @@ public class Controller_API{
         }
 
         return initialState;
+    }
+
+    public void changeCellShape(String s){
+
     }
 
 }
