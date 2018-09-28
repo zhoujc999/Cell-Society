@@ -34,7 +34,7 @@ public class UIManager {
     @FXML
     private Slider slider;
     @FXML
-    private GridPane gridPane;
+    private Pane gridPane;
     @FXML
     private Pane pane;
     @FXML
@@ -60,10 +60,6 @@ public class UIManager {
 //        statsGraph = new StatsGraph(lineChart);
         controller = new Controller_API(gridPane, lineChart);
         controller.start();
-
-        HexCellGridPane test = new HexCellGridPane(pane);
-        test.createEasy(10,10);
-//        layoutGridPane.getChildr
     }
 
     // restrict the textfield to contain only numbers
@@ -82,9 +78,12 @@ public class UIManager {
 
     // you can get the updated value from the user input fields from this method
     public void handleApplyButtonAction(){
+        if(heightTextField.getText().length()==0||widthTextField.getText().length()==0){
+            return;
+        }
         Map<String, String> attributes = new HashMap<>();
-        attributes.put(Controller_API.NUM_ROW_ATTR, getOrDefaultValue(heightTextField.getText()) );
-        attributes.put(Controller_API.NUM_COL_ATTR, getOrDefaultValue(widthTextField.getText()) );
+        attributes.put(Controller_API.NUM_ROW_ATTR, heightTextField.getText() );
+        attributes.put(Controller_API.NUM_COL_ATTR, widthTextField.getText() );
         attributes.put(Controller_API.FPS, String.valueOf((int)((slider.getValue()/HUNDRED)*MAX_FPS)));
         if(oldNumCols!=Integer.parseInt(widthTextField.getText())||oldNumRows!=Integer.parseInt(heightTextField.getText())){
             oldNumCols = Integer.parseInt(widthTextField.getText());

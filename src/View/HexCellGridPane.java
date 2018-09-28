@@ -11,22 +11,22 @@ import javafx.scene.shape.Polygon;
 
 import java.util.Map;
 
-public class HexCellGridPane implements CellGridPane {
+public class HexCellGridPane extends CellGridPane {
 
     private final static double HEX_RAD_DELTA = Math.PI / 3;
     private final static int SIDES = 6;
     private final static double COS30 = Math.sqrt(3) / 2;
     private Pane pane;
-    private Polygon[] grid;
+    private Polygon[][] grid;
     private StatsGraph statsGraph;
 
-    public HexCellGridPane(Pane pane){
-        this.pane = pane;
-    }
+//    public HexCellGridPane(Pane pane){
+//        this.pane = pane;
+//    }
 
     public HexCellGridPane(Pane pane, StatsGraph statsGraph){
+        super(statsGraph);
         this.pane = pane;
-        this.statsGraph = statsGraph;
     }
 
     private Polygon createCell(double centerX, double centerY, double radius, Paint color) {
@@ -44,28 +44,28 @@ public class HexCellGridPane implements CellGridPane {
     }
 
 
-    public void createEasy(int numRows, int numCols){
-        double radius = MAX_GRID_WIDTH / (1.5 * numCols);
-        double dY = radius * COS30;
-        int counter = 0;
-
-        grid = new Polygon[numRows*numCols];
-
-        for (int r = 0; r < numRows; r++) {
-            double offsetY  = 2 * dY * r + radius;
-            for (int c = 0; c < numCols; c++) {
-                Polygon hex = createCell(
-                        1.5 * radius * c + radius,
-                        (c & 1) == 0 ? offsetY : offsetY + dY,
-                        radius,
-                        Color.PINK);
-
-                pane.getChildren().add(hex);
-                grid[counter] = hex;
-                counter++;
-            }
-        }
-    }
+//    public void createEasy(int numRows, int numCols){
+//        double radius = MAX_GRID_WIDTH / (1.5 * numCols);
+//        double dY = radius * COS30;
+//        int counter = 0;
+//
+//        grid = new Polygon[numRows*numCols];
+//
+//        for (int r = 0; r < numRows; r++) {
+//            double offsetY  = 2 * dY * r + radius;
+//            for (int c = 0; c < numCols; c++) {
+//                Polygon hex = createCell(
+//                        1.5 * radius * c + radius,
+//                        (c & 1) == 0 ? offsetY : offsetY + dY,
+//                        radius,
+//                        Color.PINK);
+//
+//                pane.getChildren().add(hex);
+//                grid[counter] = hex;
+//                counter++;
+//            }
+//        }
+//    }
 
     @Override
     public void create(Map<String, String> attributes, Simulation initialSimulation) {
@@ -80,9 +80,8 @@ public class HexCellGridPane implements CellGridPane {
         pane.getChildren().clear();
         double radius = MAX_GRID_WIDTH / (1.5 * numCols);
         double dY = radius * COS30;
-        int counter = 0;
 
-        grid = new Polygon[numRows*numCols];
+        grid = new Polygon[numRows][numCols];
 
         for (int r = 0; r < numRows; r++) {
             double offsetY  = 2 * dY * r + radius;
@@ -94,19 +93,13 @@ public class HexCellGridPane implements CellGridPane {
                         Color.PINK);
 
                 pane.getChildren().add(hex);
-                grid[counter] = hex;
-                counter++;
+                grid[r][c] = hex;
             }
         }
     }
 
-    @Override
     public void render(Map<Point, Integer> updatedMap) {
-
+        render(updatedMap, grid);
     }
 
-    @Override
-    public void updateStatsGraph(Map<CellStates, Integer> map) {
-
-    }
 }
