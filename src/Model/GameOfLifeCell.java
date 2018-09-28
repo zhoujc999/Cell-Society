@@ -19,7 +19,17 @@ public class GameOfLifeCell extends Cell {
      */
     @Override
     protected void calculateNextState() {
-        int numOfLiveNeighbors = getnumOfLiveNeighbors();
+        int numOfLiveNeighbors = 0;
+        Point neighborPosition;
+        for (Directions.EightDirections direction : Directions.EightDirections.values()) {
+            neighborPosition = getPosition().add(direction.getDirection());
+            if (!grid.outOfBounds(neighborPosition)) {
+                if (grid.getCell(neighborPosition).getCurrentState() == CellStates.GameOfLifeStates.LIVE) {
+                    numOfLiveNeighbors++;
+                }
+            }
+        }
+
         switch ((CellStates.GameOfLifeStates) currentState) {
             case LIVE:
                 if (numOfLiveNeighbors < 2 || numOfLiveNeighbors > 3) {
@@ -32,6 +42,7 @@ public class GameOfLifeCell extends Cell {
                 }
                 break;
         }
+
     }
 
     @Override
@@ -42,15 +53,4 @@ public class GameOfLifeCell extends Cell {
 
     }
 
-    private int getnumOfLiveNeighbors() {
-        int numOfLiveNeighbors = 0;
-        Point neighborPosition;
-        for (Directions.EightDirections direction : Directions.EightDirections.values()) {
-            neighborPosition = getPosition().add(direction.getDirection());
-            if (!grid.outOfBounds(neighborPosition) && grid.getCell(neighborPosition).getCurrentState() == CellStates.GameOfLifeStates.LIVE) {
-                    numOfLiveNeighbors++;
-                }
-            }
-        return numOfLiveNeighbors;
-    }
 }
