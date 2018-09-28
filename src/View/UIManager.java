@@ -7,14 +7,13 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 /*
     UIManager is a class that keeps track of all UI elements and handle their actions
@@ -83,6 +82,7 @@ public class UIManager {
     // you can get the updated value from the user input fields from this method
     public void handleApplyButtonAction(){
         if(heightTextField.getText().length()==0||widthTextField.getText().length()==0){
+            showWarningDialog();
             return;
         }
         Map<String, String> attributes = new HashMap<>();
@@ -126,6 +126,18 @@ public class UIManager {
     private String getOrDefaultValue(String s){
         if(s.length()==0) return DEFAULT_SIZE;
         else return s;
+    }
+
+    private void showWarningDialog(){
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Required input field");
+        alert.setHeaderText("Don't leave the number input fields blank");
+        alert.setContentText("Please enter some values");
+
+//        if (result.get() == ButtonType.OK){
+//            Animal currentAnimal = (Animal) ButtonCell.this.getTableView().getItems().get(ButtonCell.this.getIndex());
+//            data.remove(currentAnimal);
+//        }
     }
 
 }
