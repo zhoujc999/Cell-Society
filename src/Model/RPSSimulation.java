@@ -12,6 +12,7 @@ public class RPSSimulation extends Simulation {
 
     public RPSSimulation(int numRows, int numColumns, Map<Point, Integer> initialState, int maxHit) {
         super(numRows, numColumns, initialState);
+        initializeAllNeighbors();
         this.maxHit = maxHit;
         initializeMaxHit();
         render();
@@ -33,6 +34,11 @@ public class RPSSimulation extends Simulation {
         }
     }
 
+    protected void initializeAllNeighbors() {
+        for (Cell cell: grid.getMatrix().values()) {
+            ((RPSCell) cell).initializeNeighbors();
+        }
+    }
 
     protected void initializeMaxHit() {
         for (Cell cell : this.grid.getMatrix().values()) {
@@ -84,7 +90,7 @@ public class RPSSimulation extends Simulation {
                 numWhite++;
             }
 
-            view.put(entry.getKey(), entry.getValue().currentState.ordinal());
+            view.put(entry.getKey(), entry.getValue().currentState);
         }
         statistics.put(CellStates.RPSStates.BLUE, numBlue);
         statistics.put(CellStates.RPSStates.GREEN, numGreen);

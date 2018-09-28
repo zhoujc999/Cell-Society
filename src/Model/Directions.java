@@ -55,12 +55,13 @@ public class Directions {
     }
 
     public enum SixDirections {
+        NW (-1, -1),
         N (0, -1),
         NE (1, -1),
         W (-1, 0),
         E (1, 0),
-        SW (-1, 1),
         S (0, 1);
+
 
         // declaring private variable for getting values
         private Point vector;

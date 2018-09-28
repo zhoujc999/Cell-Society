@@ -17,14 +17,23 @@ public class RPSCell extends Cell {
         this.neighbors = new ArrayList<>();
     }
 
+    protected void initializeNeighbors() {
+        neighbors.clear();
+        Point neighborPosition;
+        for (Directions.EightDirections direction : Directions.EightDirections.values()) {
+            neighborPosition = getPosition().add(direction.getDirection());
+            if (!grid.outOfBounds(neighborPosition)) {
+                neighbors.add((RPSCell) grid.getCell(neighborPosition));
+            }
+        }
+    }
+
     protected void gotHit() {
         if (firstHit && currentHitCount < maxHit) {
             nextHitCount++;
         }
         firstHit = false;
     }
-
-
 
 
     protected boolean isDead() {
@@ -49,15 +58,6 @@ public class RPSCell extends Cell {
 
     @Override
     public void calculateNextState() {
-        neighbors.clear();
-        Point neighborPosition;
-        for (Directions.EightDirections direction : Directions.EightDirections.values()) {
-            neighborPosition = getPosition().add(direction.getDirection());
-            if (!grid.outOfBounds(neighborPosition)) {
-                neighbors.add((RPSCell) grid.getCell(neighborPosition));
-            }
-        }
-
         RPSCell neighbor = neighbors.get(random.nextInt(neighbors.size()));
         switch ((CellStates.RPSStates) currentState) {
             case RED:
