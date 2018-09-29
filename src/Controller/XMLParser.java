@@ -61,7 +61,7 @@ public class XMLParser {
             var xmlDocument = DOCUMENT_BUILDER.parse(xmlFile);
             return xmlDocument.getDocumentElement();
         }
-        catch (SAXException | IOException e) {
+        catch (SAXException | IOException | IllegalArgumentException e) {
             throw new XMLException(e);
         }
     }

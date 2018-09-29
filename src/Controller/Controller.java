@@ -6,9 +6,9 @@ import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import View.*;
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.lang.reflect.Array;
+import java.util.*;
+
 import Model.Simulation;
 import Model.*;
 
@@ -44,6 +44,7 @@ public class Controller {
     public static final String FISH_RATE = "fishRate";
     public static final String DEFAULT_FISH_RATE = "50";
     public static final String DEFAULT_SETUP = "defaultSetup";
+    public static final HashSet<String> VALID_TYPES = new HashSet<>(Arrays.asList(FIRE,WATOR,RPS, GAME_OF_LIFE,SEGREGATION));
 
     public static final String FILE_CHOOSER_PROMPT = "Choose data file";
     private FileChooser myChooser = makeChooser(DATA_FILE_EXTENSION);
@@ -76,28 +77,8 @@ public class Controller {
 
     public void setUp(Map<String, String> attributes, boolean isReset){
         //retrieve parameters needed to build a new Simulation
-        int numRows = Integer.parseInt(attributes.get(NUM_ROW_ATTR));
-        int numColumns = Integer.parseInt(attributes.get(NUM_COL_ATTR));
-        double cellRatio = Double.parseDouble(attributes.getOrDefault(CELL_RATIO, DEFAULT_RATIO));
-        double emptyRatio = Double.parseDouble(attributes.getOrDefault(EMPTY_RATIO, DEFAULT_RATIO));
-        double cellRatio2 = Double.parseDouble(attributes.getOrDefault(CELL_RATIO2, "0"));
+        createSimulation(attributes, isReset);
         int speed = Integer.parseInt(attributes.get(FPS));
-        double threshold = Double.parseDouble(attributes.getOrDefault(THRESHOLD, DEFAULT_RATIO));
-        String type = attributes.get(TYPE);
-        int sharkRate = Integer.parseInt(attributes.getOrDefault(SHARK_RATE, DEFAULT_SHARK_RATE));
-        int fishRate = Integer.parseInt(attributes.getOrDefault(FISH_RATE, DEFAULT_FISH_RATE));
-        int maxHit = Integer.parseInt(attributes.getOrDefault(MAX_HIT, DEFAULT_FISH_RATE));
-        String defaultMap = attributes.getOrDefault(DEFAULT_SETUP, null);
-        System.out.println(defaultMap);
-        if(isReset){
-            mySimulation = getSimulation(numRows, numColumns,type, threshold, beginningStageMap, fishRate, sharkRate,maxHit);
-        }
-        else {
-            myMap = simulationMap(numRows, numColumns, cellRatio, cellRatio2, emptyRatio, defaultMap);
-            beginningStageMap = new HashMap<>(myMap);
-            mySimulation = getSimulation(numRows, numColumns, type, threshold, myMap, fishRate, sharkRate, maxHit);
-        }
-
         myView = new HexCellGridPane(gridPane, statsGraph);
         myView.create(attributes, mySimulation);
 
@@ -109,6 +90,31 @@ public class Controller {
             myTime.play();
         }
 
+    }
+
+    private void createSimulation(Map<String, String> attributes, boolean isReset) {
+        int numRows = Integer.parseInt(attributes.get(NUM_ROW_ATTR));
+        int numColumns = Integer.parseInt(attributes.get(NUM_COL_ATTR));
+        double cellRatio = Double.parseDouble(attributes.getOrDefault(CELL_RATIO, DEFAULT_RATIO));
+        double emptyRatio = Double.parseDouble(attributes.getOrDefault(EMPTY_RATIO, DEFAULT_RATIO));
+        double cellRatio2 = Double.parseDouble(attributes.getOrDefault(CELL_RATIO2, "0"));
+        double threshold = Double.parseDouble(attributes.getOrDefault(THRESHOLD, DEFAULT_RATIO));
+        String type = attributes.get(TYPE);
+        if(type == null || !VALID_TYPES.contains(type))
+            {throw new XMLException("invalid type in xml");}
+        int sharkRate = Integer.parseInt(attributes.getOrDefault(SHARK_RATE, DEFAULT_SHARK_RATE));
+        int fishRate = Integer.parseInt(attributes.getOrDefault(FISH_RATE, DEFAULT_FISH_RATE));
+        int maxHit = Integer.parseInt(attributes.getOrDefault(MAX_HIT, DEFAULT_FISH_RATE));
+        String defaultMap = attributes.getOrDefault(DEFAULT_SETUP, null);
+        System.out.println("defualtMap read:");
+        if(isReset){
+            mySimulation = getSimulation(numRows, numColumns,type, threshold, beginningStageMap, fishRate, sharkRate,maxHit);
+        }
+        else {
+            myMap = simulationMap(numRows, numColumns, cellRatio, cellRatio2, emptyRatio, defaultMap,getMaxState(type));
+            beginningStageMap = new HashMap<>(myMap);
+            mySimulation = getSimulation(numRows, numColumns, type, threshold, myMap, fishRate, sharkRate, maxHit);
+        }
     }
 
     public void update(Map<String, String> map){
@@ -190,11 +196,11 @@ public class Controller {
     }
 
 
-    private Map<Point, Integer> simulationMap(int numRows, int numColumns, double cellRatio, double cellRatio2, double emptyRatio, String defaultMap) {
+    private Map<Point, Integer> simulationMap(int numRows, int numColumns, double cellRatio, double cellRatio2, double emptyRatio, String defaultMap, int maxState) {
         Map<Point, Integer> initialState = new HashMap<>();
-        if (defaultMap!=null)
-            {initialState = getDefaultMap(defaultMap, numRows, numColumns);}
-        if (initialState!=null) return initialState;
+        if (defaultMap!=null && !defaultMap.isEmpty())
+            {initialState = getDefaultMap(defaultMap, numRows, numColumns, maxState);}
+        if (initialState!=null&&!initialState.isEmpty()) return initialState;
         Random r = new Random();
         for (int i = 0; i < numColumns; i++) {
             for (int j = 0; j < numRows; j++) {
@@ -208,7 +214,7 @@ public class Controller {
                 else if (level < emptyRatio+(1-emptyRatio)*cellRatio2)
                     state = 2;
                 else
-                    state = 3;
+                    state = maxState;
                 initialState.put(p, state);
             }
         }
@@ -216,7 +222,7 @@ public class Controller {
         return initialState;
     }
 
-    private Map<Point, Integer> getDefaultMap(String defaultMap, int numRows, int numColumns)
+    private Map<Point, Integer> getDefaultMap(String defaultMap, int numRows, int numColumns, int maxState)
     {
         String map = defaultMap.trim();
         String[] lines= map.split("\n");
@@ -225,16 +231,32 @@ public class Controller {
         Map<Point, Integer> returnMap = new HashMap<>();
         for (int i =0; i<lines.length;i++)
         {
-            System.out.println(lines[i].trim());
             String[] states = lines[i].trim().split(" ");
             if(states.length!=numColumns)
                 {return null;}
             for(int j = 0; j<numColumns; j++)
             {
-                returnMap.put(new Point(i,j),Integer.parseInt(states[j]));
+                int theValue = Integer.parseInt(states[j]);
+                if (theValue > maxState)
+                {throw new XMLException("Invalid initial State: %d; Maximum allowable: %d", theValue, maxState);}
+                returnMap.put(new Point(i,j),theValue);
             }
         }
         return returnMap;
+    }
+
+    private int getMaxState(String type){
+        switch (type){
+            case GAME_OF_LIFE:
+            case SEGREGATION:
+            case WATOR:
+            case FIRE:
+                return 2;
+            case RPS:
+                return 3;
+            default:
+                return 0;
+        }
     }
 
 }

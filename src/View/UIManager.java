@@ -1,6 +1,7 @@
 package View;
 
 import Controller.Controller;
+import Controller.XMLException;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -56,7 +57,14 @@ public class UIManager {
         //TODO: have to think about how to get around this line
 //        statsGraph = new StatsGraph(lineChart);
         controller = new Controller(gridPane, lineChart);
-        controller.start();
+        try
+        {
+            controller.start();
+        }
+        catch(XMLException e)
+        {
+            return;
+        }
     }
 
     // restrict the textfield to contain only numbers
