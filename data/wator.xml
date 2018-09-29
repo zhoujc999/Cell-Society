@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <data game="game">
+    <sides>4</sides>
     <type>wator</type>
     <threshold>0.5</threshold>
     <ratio1>.8</ratio1>
-    <ratio2>0.2</ratio2>
+    <occupiedRatio>0.2</occupiedRatio>
     <fishRate>1</fishRate>
     <sharkRate>10</sharkRate>
     <width>400</width>
     <length>600</length>
     <numRows>5</numRows>
     <numColumns>5</numColumns>
+    <defaultSetup>
+        1 0 2 1 0
+        0 1 2 1 1
+        2 1 1 0 0
+        2 2 2 1 1
+        1 0 0 0 1
+    </defaultSetup>
     <frames_per_sec>3</frames_per_sec>
 </data>

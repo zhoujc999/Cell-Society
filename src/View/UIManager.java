@@ -1,12 +1,9 @@
 package View;
 
-import Controller.Controller_API;
-import Model.Grid;
+import Controller.Controller;
 import javafx.fxml.FXML;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -44,7 +41,7 @@ public class UIManager {
     @FXML
     private NumberAxis yAxis;
 
-    private Controller_API controller;
+    private Controller controller;
     private static final int MAX_FPS = 30;
     private static final String DEFAULT_SIZE = "20";
     private static final int HUNDRED = 100;
@@ -58,7 +55,7 @@ public class UIManager {
         forceInputToBeNumeric(heightTextField);
         //TODO: have to think about how to get around this line
 //        statsGraph = new StatsGraph(lineChart);
-        controller = new Controller_API(gridPane, lineChart);
+        controller = new Controller(gridPane, lineChart);
         controller.start();
     }
 
@@ -82,9 +79,9 @@ public class UIManager {
             return;
         }
         Map<String, String> attributes = new HashMap<>();
-        attributes.put(Controller_API.NUM_ROW_ATTR, heightTextField.getText() );
-        attributes.put(Controller_API.NUM_COL_ATTR, widthTextField.getText() );
-        attributes.put(Controller_API.FPS, String.valueOf((int)((slider.getValue()/HUNDRED)*MAX_FPS)));
+        attributes.put(Controller.NUM_ROW_ATTR, heightTextField.getText() );
+        attributes.put(Controller.NUM_COL_ATTR, widthTextField.getText() );
+        attributes.put(Controller.FPS, String.valueOf((int)((slider.getValue()/HUNDRED)*MAX_FPS)));
         if(oldNumCols!=Integer.parseInt(widthTextField.getText())||oldNumRows!=Integer.parseInt(heightTextField.getText())){
             oldNumCols = Integer.parseInt(widthTextField.getText());
             oldNumRows = Integer.parseInt(heightTextField.getText());

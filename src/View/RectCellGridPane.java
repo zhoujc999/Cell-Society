@@ -1,7 +1,6 @@
 package View;
 
-import Controller.Controller_API;
-import Model.CellStates;
+import Controller.Controller;
 import Model.Point;
 import Model.Simulation;
 import javafx.scene.layout.Pane;
@@ -31,8 +30,8 @@ public class RectCellGridPane extends CellGridPane {
 
     @Override
     public void create(Map<String, String> attributes, Simulation initialSimulation) {
-        int numRows = Integer.parseInt(attributes.get(Controller_API.NUM_ROW_ATTR));
-        int numCols = Integer.parseInt(attributes.get(Controller_API.NUM_COL_ATTR));
+        int numRows = Integer.parseInt(attributes.get(Controller.NUM_ROW_ATTR));
+        int numCols = Integer.parseInt(attributes.get(Controller.NUM_COL_ATTR));
         initialize(numRows, numCols, initialSimulation);
     }
 
