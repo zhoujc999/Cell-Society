@@ -18,8 +18,6 @@ public class HexCellGridPane extends CellGridPane {
     private final static double COS30 = Math.sqrt(3) / 2;
     private Pane pane;
     private Polygon[][] grid;
-    private StatsGraph statsGraph;
-
 
     public HexCellGridPane(Pane pane, StatsGraph statsGraph){
         super(statsGraph);

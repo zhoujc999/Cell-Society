@@ -11,6 +11,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
+import java.util.ResourceBundle;
+
 public class Layout extends UIManager{
 
     public static int STARTING_COL = 5;
@@ -27,8 +29,16 @@ public class Layout extends UIManager{
     private static final int THIRD_COL = 2;
     private static final int FOURTH_COL = 3;
     private static final int FIFTH_COL = 4;
-
-
+    private static final String WidthButtonLabel = "WidthButtonLabel";
+    private static final String HeightButtonLabel = "HeightButtonLabel";
+    private static final String SpeedSliderLabel = "SpeedSliderLabel";
+    private static final String ApplyButtonLabel = "ApplyButtonLabel";
+    private static final String StartButtonLabel = "StartButtonLabel";
+    private static final String StopButtonLabel = "StopButtonLabel";
+    private static final String ResetButtonLabel = "ResetButtonLabel";
+    private static final String StepButtonLabel = "StepButtonLabel";
+    private static final String FileChooserButtonLabel = "FileChooserButtonLabel";
+    private static final String RemoveSimulationLabel = "RemoveSimulationLabel";
     private static final double TEXTFIELD_MAX_WIDTH = 50.0;
     private static final double SLIDER_MAX_WIDTH = 110.0;
     private static final int SLIDER_COLUMN_SPAN = 2;
@@ -37,6 +47,7 @@ public class Layout extends UIManager{
 
     private Controller_API controller;
     private GridPane layoutPane;
+    private ResourceBundle UILabels;
 
     private TextField widthTextField;
     private TextField heightTextField;
@@ -49,6 +60,8 @@ public class Layout extends UIManager{
 
     public Layout(GridPane gridPane){
         layoutPane = gridPane;
+        UILabels = ResourceBundle.getBundle("Resource.UILabel", AppLanguageManager.getCurrentLocale());
+
         addSimulationPane();
         addLabels();
         addInputFields();
@@ -70,14 +83,15 @@ public class Layout extends UIManager{
     }
 
     private void addLabels(){
-        Label widthLabel = new Label("Width:");
+//        Label widthLabel = new Label("Width:");
+        Label widthLabel = new Label(UILabels.getString(WidthButtonLabel));
         widthLabel.setMinWidth(LABEL_MIN_WIDTH);
         layoutPane.add(widthLabel, STARTING_COL+SECOND_COL, FIRST_ROW);
-        Label heightLabel = new Label("Height:");
+        Label heightLabel = new Label(UILabels.getString(HeightButtonLabel));
         heightLabel.setMinWidth(LABEL_MIN_WIDTH);
         layoutPane.add(heightLabel, STARTING_COL+FOURTH_COL, FIRST_ROW);
 
-        Label speedLabel = new Label("Speed");
+        Label speedLabel = new Label(UILabels.getString(SpeedSliderLabel));
         HBox hBox = new HBox(speedLabel);
         hBox.setAlignment(Pos.TOP_CENTER);
         layoutPane.add(hBox, STARTING_COL+SECOND_COL, SECOND_ROW);
@@ -86,14 +100,14 @@ public class Layout extends UIManager{
     private void addButtons(){
         addTimeLineRelatedAndCellShapeButtons();
 
-        Button apply = new Button("Apply");
+        Button apply = new Button(UILabels.getString(ApplyButtonLabel));
         apply.setOnAction(event -> handleApply());
         HBox hBox = new HBox(apply);
         hBox.setAlignment(Pos.TOP_CENTER);
         layoutPane.add(hBox, STARTING_COL+FIFTH_COL, SECOND_ROW);
 
-        Button filechooser = new Button("Choose a file...");
-        Button removeSimulation = new Button("Remove this simulation...");
+        Button filechooser = new Button(UILabels.getString(FileChooserButtonLabel));
+        Button removeSimulation = new Button(UILabels.getString(RemoveSimulationLabel));
         removeSimulation.setOnAction(event -> handleRemoveSimulation());
         HBox secondRowButtons = new HBox(filechooser, removeSimulation);
         secondRowButtons.setSpacing(HBOX_SPACING);
@@ -102,17 +116,17 @@ public class Layout extends UIManager{
     }
 
     private void addTimeLineRelatedAndCellShapeButtons(){
-        Button start = new Button("Start");
+        Button start = new Button(UILabels.getString(StartButtonLabel));
         start.setOnAction(event -> controller.resume());
-        Button stop = new Button("Stop");
+        Button stop = new Button(UILabels.getString(StopButtonLabel));
         stop.setOnAction(event -> controller.stop());
-        Button reset = new Button("Reset");
+        Button reset = new Button(UILabels.getString(ResetButtonLabel));
         reset.setOnAction(event -> controller.reset());
-        Button step = new Button("Step");
+        Button step = new Button(UILabels.getString(StepButtonLabel));
         step.setOnAction(event -> controller.animationStep());
         ComboBox dropdown = new ComboBox();
         dropdown.setItems(FXCollections.observableArrayList(
-                "Rectangle", "Hexagon"));
+                UILabels.getString("Rectangle"), UILabels.getString("Hexagon")));
         dropdown.getSelectionModel().selectFirst();
         HBox buttons = new HBox(start, stop, reset, step, dropdown);
         buttons.setSpacing(HBOX_SPACING);

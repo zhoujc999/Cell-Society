@@ -15,7 +15,7 @@
 <?import javafx.collections.FXCollections?>
 <GridPane fx:id="layoutGridPane" fx:controller="View.UIManager"
           xmlns:fx="http://javafx.com/fxml" alignment="CENTER" hgap="0" vgap="10"
-          gridLinesVisible="true">
+          gridLinesVisible="false">
     <padding><Insets/></padding>
 
     <HBox GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.rowSpan="2" >
@@ -58,19 +58,19 @@
         <!--<Button text="%FileChooserButtonLabel"-->
                 <!--onAction="#handleChooseAFileAction"/>-->
         <ComboBox fx:id="dropDownMenu" onAction="#changeCellShape">
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="Rectangle" />
-                    <String fx:value="Hexagon" />
-                </FXCollections>
-            </items>
+            <!--<items>-->
+                <!--<FXCollections fx:factory="observableArrayList">-->
+                    <!--&lt;!&ndash;<String fx:value="%Rectangle"/>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<String fx:value="%Hexagon" />&ndash;&gt;-->
+                <!--</FXCollections>-->
+            <!--</items>-->
         </ComboBox>
     </HBox>
 
     <HBox spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="3" alignment="CENTER">
         <Button text="%FileChooserButtonLabel"
                 onAction="#handleChooseAFileAction"/>
-        <Button text="Add new simulation..." onAction="#addNewSimulation"/>
+        <Button text="%NewSimulationLabel" onAction="#addNewSimulation"/>
     </HBox>
 
 

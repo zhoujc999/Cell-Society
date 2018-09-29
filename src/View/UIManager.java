@@ -2,10 +2,8 @@ package View;
 
 import Controller.Controller_API;
 import Model.Grid;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -16,6 +14,7 @@ import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 /*
     UIManager is a class that keeps track of all UI elements and handle their actions
@@ -47,6 +46,7 @@ public class UIManager {
     private NumberAxis yAxis;
 
     private Controller_API controller;
+    private ResourceBundle resourceBundle;
     private static final int MAX_FPS = 30;
     private static final String DEFAULT_SIZE = "20";
     private static final int HUNDRED = 100;
@@ -56,11 +56,10 @@ public class UIManager {
 
     // this method will be called automatically by the FXML loader
     public void initialize(){
+        resourceBundle = ResourceBundle.getBundle("Resource.UILabel", AppLanguageManager.getCurrentLocale());
         forceInputToBeNumeric(widthTextField);
         forceInputToBeNumeric(heightTextField);
-        dropDownMenu.getSelectionModel().selectFirst();
-        //TODO: have to think about how to get around this line
-//        statsGraph = new StatsGraph(lineChart);
+        initializeComboBox();
         controller = new Controller_API(gridPane, lineChart);
         controller.start();
     }
@@ -134,10 +133,16 @@ public class UIManager {
 
     private void showWarningDialog(){
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Required input field");
-        alert.setHeaderText("Don't leave the number input fields blank");
-        alert.setContentText("Please enter some values");
+        alert.setTitle(resourceBundle.getString("WarningTitle"));
+        alert.setHeaderText(resourceBundle.getString("WarningHeaderText"));
+        alert.setContentText(resourceBundle.getString("WarningContentText"));
         alert.showAndWait();
+    }
+
+    private void initializeComboBox(){
+        dropDownMenu.setItems(FXCollections.observableArrayList(
+                resourceBundle.getString("Rectangle"), resourceBundle.getString("Hexagon")));
+        dropDownMenu.getSelectionModel().selectFirst();
     }
 
     public void addNewSimulation(){
