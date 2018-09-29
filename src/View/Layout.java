@@ -34,7 +34,6 @@ public class Layout extends UIManager{
     private static final int SLIDER_COLUMN_SPAN = 2;
     private static final int SIMULATION_GRID_ROW_SPAN = 2;
     private static final double HBOX_SPACING = 10.0;
-    private static
 
     private Controller_API controller;
     private GridPane layoutPane;
