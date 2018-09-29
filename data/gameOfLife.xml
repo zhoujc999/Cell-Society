@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <data game="game">
+    <sides>4</sides>
     <type>gameOfLife</type>
     <ratio1>.1</ratio1>
-    <ratio2>0</ratio2>
+    <occupiedRatio>0</occupiedRatio>
     <width>400</width>
     <length>600</length>
     <numRows>5</numRows>

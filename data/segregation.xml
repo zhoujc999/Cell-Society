@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <data game="game">
+    <sides>4</sides>
     <type>segregation</type>
     <threshold>0.67</threshold>
     <ratio1>0.6</ratio1>
-    <ratio2>0.5</ratio2>
+    <occupiedRatio>0.5</occupiedRatio>
     <width>400</width>
     <length>600</length>
     <numRows>5</numRows>
     <numColumns>5</numColumns>
     <frames_per_sec>3</frames_per_sec>
+    <defaultSetup>
+        1 0 2 1 0
+        0 1 2 1 1
+        2 1 1 0 0
+        2 2 2 1 1
+        1 0 0 0 1
+    </defaultSetup>
 </data>
