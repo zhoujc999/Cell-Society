@@ -10,10 +10,13 @@
 
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.ComboBox?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
 <GridPane fx:id="layoutGridPane" fx:controller="View.UIManager"
-          xmlns:fx="http://javafx.com/fxml" alignment="CENTER" hgap="10" vgap="10"
-          gridLinesVisible="true">
-    <padding><Insets /></padding>
+          xmlns:fx="http://javafx.com/fxml" alignment="CENTER" hgap="0" vgap="10"
+          gridLinesVisible="false">
+    <padding><Insets/></padding>
 
     <HBox GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.rowSpan="2" >
         <Pane
@@ -52,11 +55,26 @@
         <Button text="%StopButtonLabel" onAction="#handleStopButtonAction"/>
         <Button text="%ResetButtonLabel" onAction="#handleResetButtonAction"/>
         <Button text="%StepButtonLabel" onAction="#handleStepButtonAction"/>
-        <Button text="%FileChooserButtonLabel"
-                onAction="#handleChooseAFileAction"/>
+        <!--<Button text="%FileChooserButtonLabel"-->
+                <!--onAction="#handleChooseAFileAction"/>-->
+        <ComboBox fx:id="dropDownMenu" onAction="#changeCellShape">
+            <!--<items>-->
+                <!--<FXCollections fx:factory="observableArrayList">-->
+                    <!--&lt;!&ndash;<String fx:value="%Rectangle"/>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<String fx:value="%Hexagon" />&ndash;&gt;-->
+                <!--</FXCollections>-->
+            <!--</items>-->
+        </ComboBox>
     </HBox>
 
-    <LineChart fx:id="lineChart" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="4"
+    <HBox spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="3" alignment="CENTER">
+        <Button text="%FileChooserButtonLabel"
+                onAction="#handleChooseAFileAction"/>
+        <Button text="%NewSimulationLabel" onAction="#addNewSimulation"/>
+    </HBox>
+
+
+    <LineChart fx:id="lineChart" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.columnSpan="4"
                maxHeight="100"  createSymbols="false" legendVisible="true">
         <xAxis>
             <NumberAxis fx:id="xAxis" side="BOTTOM" tickLabelsVisible="false" tickMarkVisible="false" minorTickVisible="false"/>
@@ -65,11 +83,6 @@
             <NumberAxis fx:id="yAxis" side="LEFT" />
         </yAxis>
     </LineChart>
-
-    <HBox GridPane.rowIndex="0" GridPane.columnIndex="5" GridPane.rowSpan="2" >
-        <Pane
-                fx:id="pane"/>
-    </HBox>
 
 </GridPane>
 

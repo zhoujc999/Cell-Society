@@ -49,10 +49,10 @@ public class Controller {
     public static final String FILE_CHOOSER_PROMPT = "Choose data file";
     private FileChooser myChooser = makeChooser(DATA_FILE_EXTENSION);
     private Timeline myTime;
-//    private RectCellGridPaneOld myView;
+    //    private RectCellGridPaneOld myView;
     private CellGridPane myView;
     private Simulation mySimulation;
-//    private GridPane gridPane;
+    //    private GridPane gridPane;
     private Pane gridPane;
     private Map<String, String> originalAttributes;
     private Map<Point, Integer> myMap;
@@ -60,22 +60,21 @@ public class Controller {
     private LineChart lineChart;
     private StatsGraph statsGraph;
 
-    public Controller(Pane gridPane, LineChart lineChart)
-    {
+    public Controller(Pane gridPane, LineChart lineChart) {
         this.gridPane = gridPane;
         this.lineChart = lineChart;
     }
 
-    public void start(){
+    public void start() {
         var dataFile = myChooser.showOpenDialog(null);
-
+//        System.out.println("Parsing begin.");
         XMLParser parser = new XMLParser(GAME_TYPE);
         Map<String, String> attributes = parser.getAttribute(dataFile);
         originalAttributes = attributes;
         setUp(attributes, false);
     }
 
-    public void setUp(Map<String, String> attributes, boolean isReset){
+    public void setUp(Map<String, String> attributes, boolean isReset) {
         //retrieve parameters needed to build a new Simulation
         createSimulation(attributes, isReset);
         int speed = Integer.parseInt(attributes.get(FPS));
@@ -117,19 +116,18 @@ public class Controller {
         }
     }
 
-    public void update(Map<String, String> map){
-        for(String s: map.keySet())
-        {
-            originalAttributes.put(s,map.get(s));
+    public void update(Map<String, String> map) {
+        for (String s : map.keySet()) {
+            originalAttributes.put(s, map.get(s));
         }
         statsGraph.clear();
         setUp(originalAttributes, false);
     }
 
-    public void updateFPS(int updatedFPS){
+    public void updateFPS(int updatedFPS) {
         myTime.stop();
         myTime.getKeyFrames().clear();
-        var frame = new KeyFrame(Duration.millis(FPS_DIVISION/(updatedFPS+SPEEDBUFF)),e->step());
+        var frame = new KeyFrame(Duration.millis(FPS_DIVISION / (updatedFPS + SPEEDBUFF)), e -> step());
         myTime.getKeyFrames().add(frame);
         myTime.play();
     }
@@ -142,7 +140,7 @@ public class Controller {
         myView.updateStatsGraph(mySimulation.getStatistics());
     }
 
-    public void animationStep(){
+    public void animationStep() {
         step();
         stop();
     }
@@ -170,26 +168,26 @@ public class Controller {
         return result;
     }
 
-    Simulation getSimulation(int numRows, int numCols, String type, double threshold, Map<Point, Integer> myMap, int fishRate, int sharkRate, int maxHit){
+    Simulation getSimulation(int numRows, int numCols, String type, double threshold, Map<Point, Integer> myMap, int fishRate, int sharkRate, int maxHit) {
         Simulation simulation = null;
-        switch (type){
+        switch (type) {
             case GAME_OF_LIFE:
-                simulation = new GameOfLifeSimulation(numRows,numCols,myMap);
+                simulation = new GameOfLifeSimulation(numRows, numCols, myMap);
                 statsGraph = new GameOfLifeStatsGraph(lineChart);
                 break;
             case SEGREGATION:
-                simulation = new SegregationSimulation(numRows,numCols,myMap, threshold);
+                simulation = new SegregationSimulation(numRows, numCols, myMap, threshold);
                 statsGraph = new SegregationStatsGraph(lineChart);
                 break;
             case FIRE:
-                simulation = new FireSimulation(numRows,numCols,myMap, threshold);
+                simulation = new FireSimulation(numRows, numCols, myMap, threshold);
                 statsGraph = new FireStatsGraph(lineChart);
                 break;
             case WATOR:
-                simulation = new WatorSimulation(numRows,numCols,myMap,fishRate,sharkRate);
+                simulation = new WatorSimulation(numRows, numCols, myMap, fishRate, sharkRate);
                 break;
             case RPS:
-                simulation = new RPSSimulation(numRows,numCols,myMap,maxHit);
+                simulation = new RPSSimulation(numRows, numCols, myMap, maxHit);
                 break;
         }
         return simulation;
@@ -217,10 +215,9 @@ public class Controller {
                     state = maxState;
                 initialState.put(p, state);
             }
-        }
 
-        return initialState;
-    }
+            return initialState;
+        }
 
     private Map<Point, Integer> getDefaultMap(String defaultMap, int numRows, int numColumns, int maxState)
     {
@@ -241,8 +238,10 @@ public class Controller {
                 {throw new XMLException("Invalid initial State: %d; Maximum allowable: %d", theValue, maxState);}
                 returnMap.put(new Point(i,j),theValue);
             }
+            return returnMap;
+
         }
-        return returnMap;
+
     }
 
     private int getMaxState(String type){
