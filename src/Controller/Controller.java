@@ -48,10 +48,10 @@ public class Controller {
     public static final String FILE_CHOOSER_PROMPT = "Choose data file";
     private FileChooser myChooser = makeChooser(DATA_FILE_EXTENSION);
     private Timeline myTime;
-//    private RectCellGridPaneOld myView;
+    //    private RectCellGridPaneOld myView;
     private CellGridPane myView;
     private Simulation mySimulation;
-//    private GridPane gridPane;
+    //    private GridPane gridPane;
     private Pane gridPane;
     private Map<String, String> originalAttributes;
     private Map<Point, Integer> myMap;
@@ -59,22 +59,21 @@ public class Controller {
     private LineChart lineChart;
     private StatsGraph statsGraph;
 
-    public Controller(Pane gridPane, LineChart lineChart)
-    {
+    public Controller(Pane gridPane, LineChart lineChart) {
         this.gridPane = gridPane;
         this.lineChart = lineChart;
     }
 
-    public void start(){
+    public void start() {
         var dataFile = myChooser.showOpenDialog(null);
-
+//        System.out.println("Parsing begin.");
         XMLParser parser = new XMLParser(GAME_TYPE);
         Map<String, String> attributes = parser.getAttribute(dataFile);
         originalAttributes = attributes;
         setUp(attributes, false);
     }
 
-    public void setUp(Map<String, String> attributes, boolean isReset){
+    public void setUp(Map<String, String> attributes, boolean isReset) {
         //retrieve parameters needed to build a new Simulation
         int numRows = Integer.parseInt(attributes.get(NUM_ROW_ATTR));
         int numColumns = Integer.parseInt(attributes.get(NUM_COL_ATTR));
@@ -89,20 +88,19 @@ public class Controller {
         int maxHit = Integer.parseInt(attributes.getOrDefault(MAX_HIT, DEFAULT_FISH_RATE));
         String defaultMap = attributes.getOrDefault(DEFAULT_SETUP, null);
         System.out.println(defaultMap);
-        if(isReset){
-            mySimulation = getSimulation(numRows, numColumns,type, threshold, beginningStageMap, fishRate, sharkRate,maxHit);
-        }
-        else {
+        if (isReset) {
+            mySimulation = getSimulation(numRows, numColumns, type, threshold, beginningStageMap, fishRate, sharkRate, maxHit);
+        } else {
             myMap = simulationMap(numRows, numColumns, cellRatio, cellRatio2, emptyRatio, defaultMap);
             beginningStageMap = new HashMap<>(myMap);
             mySimulation = getSimulation(numRows, numColumns, type, threshold, myMap, fishRate, sharkRate, maxHit);
         }
 
-        myView = new HexCellGridPane(gridPane, statsGraph);
+        myView = new RectCellGridPane(gridPane, statsGraph);
         myView.create(attributes, mySimulation);
 
-        if(myTime==null){
-            var frame = new KeyFrame(Duration.millis(FPS_DIVISION/(speed+SPEEDBUFF)),e->step());
+        if (myTime == null) {
+            var frame = new KeyFrame(Duration.millis(FPS_DIVISION / (speed + SPEEDBUFF)), e -> step());
             myTime = new Timeline();
             myTime.setCycleCount(Timeline.INDEFINITE);
             myTime.getKeyFrames().add(frame);
@@ -111,19 +109,18 @@ public class Controller {
 
     }
 
-    public void update(Map<String, String> map){
-        for(String s: map.keySet())
-        {
-            originalAttributes.put(s,map.get(s));
+    public void update(Map<String, String> map) {
+        for (String s : map.keySet()) {
+            originalAttributes.put(s, map.get(s));
         }
         statsGraph.clear();
         setUp(originalAttributes, false);
     }
 
-    public void updateFPS(int updatedFPS){
+    public void updateFPS(int updatedFPS) {
         myTime.stop();
         myTime.getKeyFrames().clear();
-        var frame = new KeyFrame(Duration.millis(FPS_DIVISION/(updatedFPS+SPEEDBUFF)),e->step());
+        var frame = new KeyFrame(Duration.millis(FPS_DIVISION / (updatedFPS + SPEEDBUFF)), e -> step());
         myTime.getKeyFrames().add(frame);
         myTime.play();
     }
@@ -136,7 +133,7 @@ public class Controller {
         myView.updateStatsGraph(mySimulation.getStatistics());
     }
 
-    public void animationStep(){
+    public void animationStep() {
         step();
         stop();
     }
@@ -164,26 +161,26 @@ public class Controller {
         return result;
     }
 
-    Simulation getSimulation(int numRows, int numCols, String type, double threshold, Map<Point, Integer> myMap, int fishRate, int sharkRate, int maxHit){
+    Simulation getSimulation(int numRows, int numCols, String type, double threshold, Map<Point, Integer> myMap, int fishRate, int sharkRate, int maxHit) {
         Simulation simulation = null;
-        switch (type){
+        switch (type) {
             case GAME_OF_LIFE:
-                simulation = new GameOfLifeSimulation(numRows,numCols,myMap);
+                simulation = new GameOfLifeSimulation(numRows, numCols, myMap);
                 statsGraph = new GameOfLifeStatsGraph(lineChart);
                 break;
             case SEGREGATION:
-                simulation = new SegregationSimulation(numRows,numCols,myMap, threshold);
+                simulation = new SegregationSimulation(numRows, numCols, myMap, threshold);
                 statsGraph = new SegregationStatsGraph(lineChart);
                 break;
             case FIRE:
-                simulation = new FireSimulation(numRows,numCols,myMap, threshold);
+                simulation = new FireSimulation(numRows, numCols, myMap, threshold);
                 statsGraph = new FireStatsGraph(lineChart);
                 break;
             case WATOR:
-                simulation = new WatorSimulation(numRows,numCols,myMap,fishRate,sharkRate);
+                simulation = new WatorSimulation(numRows, numCols, myMap, fishRate, sharkRate);
                 break;
             case RPS:
-                simulation = new RPSSimulation(numRows,numCols,myMap,maxHit);
+                simulation = new RPSSimulation(numRows, numCols, myMap, maxHit);
                 break;
         }
         return simulation;
@@ -191,50 +188,53 @@ public class Controller {
 
 
     private Map<Point, Integer> simulationMap(int numRows, int numColumns, double cellRatio, double cellRatio2, double emptyRatio, String defaultMap) {
-        Map<Point, Integer> initialState = new HashMap<>();
-        if (defaultMap!=null)
-            {initialState = getDefaultMap(defaultMap, numRows, numColumns);}
-        if (initialState!=null) return initialState;
-        Random r = new Random();
-        for (int i = 0; i < numColumns; i++) {
-            for (int j = 0; j < numRows; j++) {
-                Point p = new Point(i, j);
-                int state;
-                double level = r.nextDouble();
-                if (level < emptyRatio)
-                    state = 0;
-                else if (level < emptyRatio+(1-emptyRatio)*cellRatio)
-                    state = 1;
-                else if (level < emptyRatio+(1-emptyRatio)*cellRatio2)
-                    state = 2;
-                else
-                    state = 3;
-                initialState.put(p, state);
+            Map<Point, Integer> initialState = new HashMap<>();
+            if (defaultMap != null) {
+                initialState = getDefaultMap(defaultMap, numRows, numColumns);
             }
+            if (initialState != null) return initialState;
+            Random r = new Random();
+            for (int i = 0; i < numColumns; i++) {
+                for (int j = 0; j < numRows; j++) {
+                    Point p = new Point(i, j);
+                    int state;
+                    double level = r.nextDouble();
+                    if (level < emptyRatio)
+                        state = 0;
+                    else if (level < emptyRatio + (1 - emptyRatio) * cellRatio)
+                        state = 1;
+                    else if (level < emptyRatio + (1 - emptyRatio) * cellRatio2)
+                        state = 2;
+                    else
+                        state = 3;
+                    initialState.put(p, state);
+                }
+            }
+
+            return initialState;
         }
 
-        return initialState;
-    }
-
-    private Map<Point, Integer> getDefaultMap(String defaultMap, int numRows, int numColumns)
-    {
-        String map = defaultMap.trim();
-        String[] lines= map.split("\n");
-        if (lines.length!=numRows)
-            { return null; }
-        Map<Point, Integer> returnMap = new HashMap<>();
-        for (int i =0; i<lines.length;i++)
+        private Map<Point, Integer> getDefaultMap(String defaultMap,int numRows, int numColumns)
         {
-            System.out.println(lines[i].trim());
-            String[] states = lines[i].trim().split(" ");
-            if(states.length!=numColumns)
-                {return null;}
-            for(int j = 0; j<numColumns; j++)
-            {
-                returnMap.put(new Point(i,j),Integer.parseInt(states[j]));
+            String map = defaultMap.trim();
+            String[] lines = map.split("\n");
+            if (lines.length != numRows) {
+                return null;
             }
+            Map<Point, Integer> returnMap = new HashMap<>();
+            for (int i = 0; i < lines.length; i++) {
+                System.out.println(lines[i].trim());
+                String[] states = lines[i].trim().split(" ");
+                if (states.length != numColumns) {
+                    return null;
+                }
+                for (int j = 0; j < numColumns; j++) {
+                    returnMap.put(new Point(i, j), Integer.parseInt(states[j]));
+                }
+            }
+            return returnMap;
+
         }
-        return returnMap;
+
     }
 
-}
