@@ -5,7 +5,7 @@
     <ratio2>0</ratio2>
     <width>400</width>
     <length>600</length>
-    <numRows>5</numRows>
-    <numColumns>5</numColumns>
+    <numRows>20</numRows>
+    <numColumns>20</numColumns>
     <frames_per_sec>1</frames_per_sec>
 </data>

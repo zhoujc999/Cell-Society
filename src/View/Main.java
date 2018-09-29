@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
 public class Main extends Application {
 
     public static final String TITLE = "Cell Society";
-    public static final int WIDTH = 800;
+    public static final int WIDTH = 1200;
     public static final int HEIGHT = 800;
     public static final String FXML_FILE = "UI.fxml";
 

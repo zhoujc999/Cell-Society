@@ -63,7 +63,7 @@ public class Controller_API{
 
     public void start(){
         var dataFile = myChooser.showOpenDialog(null);
-
+//        System.out.println("Parsing begin.");
         XMLParser parser = new XMLParser(GAME_TYPE);
         Map<String, String> attributes = parser.getAttribute(dataFile);
         originalAttributes = attributes;
@@ -91,7 +91,7 @@ public class Controller_API{
             mySimulation = getSimulation(numRows, numColumns, type, threshold, myMap, fishRate, sharkRate);
         }
 
-        myView = new HexCellGridPane(gridPane, statsGraph);
+        myView = new RectCellGridPane(gridPane, statsGraph);
         myView.create(attributes, mySimulation);
 
         if(myTime==null){

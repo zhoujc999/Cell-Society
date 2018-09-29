@@ -20,9 +20,6 @@ public class HexCellGridPane extends CellGridPane {
     private Polygon[][] grid;
     private StatsGraph statsGraph;
 
-//    public HexCellGridPane(Pane pane){
-//        this.pane = pane;
-//    }
 
     public HexCellGridPane(Pane pane, StatsGraph statsGraph){
         super(statsGraph);
@@ -42,30 +39,6 @@ public class HexCellGridPane extends CellGridPane {
         hex.setStroke(Color.BLACK);
         return hex;
     }
-
-
-//    public void createEasy(int numRows, int numCols){
-//        double radius = MAX_GRID_WIDTH / (1.5 * numCols);
-//        double dY = radius * COS30;
-//        int counter = 0;
-//
-//        grid = new Polygon[numRows*numCols];
-//
-//        for (int r = 0; r < numRows; r++) {
-//            double offsetY  = 2 * dY * r + radius;
-//            for (int c = 0; c < numCols; c++) {
-//                Polygon hex = createCell(
-//                        1.5 * radius * c + radius,
-//                        (c & 1) == 0 ? offsetY : offsetY + dY,
-//                        radius,
-//                        Color.PINK);
-//
-//                pane.getChildren().add(hex);
-//                grid[counter] = hex;
-//                counter++;
-//            }
-//        }
-//    }
 
     @Override
     public void create(Map<String, String> attributes, Simulation initialSimulation) {

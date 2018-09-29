@@ -3,6 +3,8 @@ package View;
 import Controller.Controller_API;
 import Model.Grid;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -10,10 +12,10 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 /*
     UIManager is a class that keeps track of all UI elements and handle their actions
@@ -35,8 +37,6 @@ public class UIManager {
     private Slider slider;
     @FXML
     private Pane gridPane;
-    @FXML
-    private Pane pane;
     @FXML
     private LineChart lineChart;
     @FXML
@@ -66,7 +66,7 @@ public class UIManager {
     }
 
     // restrict the textfield to contain only numbers
-    private void forceInputToBeNumeric(TextField tf) {
+    protected void forceInputToBeNumeric(TextField tf) {
         tf.textProperty().addListener((observable, oldValue, newValue) -> {
                     if (!newValue.matches("\\d*")) {
                         tf.setText(newValue.replaceAll("[^\\d]", ""));
@@ -81,6 +81,10 @@ public class UIManager {
 
     // you can get the updated value from the user input fields from this method
     public void handleApplyButtonAction(){
+        handleApplyButtonAction(heightTextField, widthTextField, slider, controller, gridPane);
+    }
+
+    public void handleApplyButtonAction(TextField heightTextField, TextField widthTextField, Slider slider, Controller_API controller, Pane gridPane){
         if(heightTextField.getText().length()==0||widthTextField.getText().length()==0){
             showWarningDialog();
             return;
@@ -133,11 +137,11 @@ public class UIManager {
         alert.setTitle("Required input field");
         alert.setHeaderText("Don't leave the number input fields blank");
         alert.setContentText("Please enter some values");
+        alert.showAndWait();
+    }
 
-//        if (result.get() == ButtonType.OK){
-//            Animal currentAnimal = (Animal) ButtonCell.this.getTableView().getItems().get(ButtonCell.this.getIndex());
-//            data.remove(currentAnimal);
-//        }
+    public void addNewSimulation(){
+        Layout l = new Layout(layoutGridPane);
     }
 
 }
