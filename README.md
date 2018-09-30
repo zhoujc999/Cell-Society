@@ -31,11 +31,15 @@ Interesting data files:
     
 Features implemented: 
 
+* Simulation
+    1. Allow a variety of grid location shapes(Square, Hexagon)
+    2. Allow a variety of grid edge types(finite, toroidal)
+    3. Implement additional simulations(Rock, Papers and Scissors)
+
 * Configuration
     1. Implement error checking for incorrect file data
     2. Allow simulations initial configuration to be set by randomly based on probability/concentration distributions
     3. Allow users to save the current state of the simulation as an XML configuration file
-
 
 * Visualization
     1. Display a graph of the populations of all of the "kinds" of cells over the time of the simulation
@@ -61,13 +65,12 @@ Extra credit:
 
 4. Not only can you add new simulation, you can also remove the added simulation if necessary;
 
-
-   Text input fields only 
+5. Auto-check input: You can only enter numerical values into the text input fields. Other characters entered
+will be automatically trim.
 
 ### Notes
 
-* Note that the program supports adding as many simulation as you like. However,
-
+* Note that the program supports adding as many simulation as you like. However, due to 
 
 * When you first run the application, the simulation area may be empty or already completed. 
 This is because the simulation has already occurred before it got rendered on the screen before

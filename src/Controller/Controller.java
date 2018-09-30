@@ -216,6 +216,7 @@ public class Controller {
                 break;
             case RPS:
                 simulation = new RPSSimulation(numRows, numCols, myMap, maxHit);
+                statsGraph = new RPSStatsGraph(lineChart);
                 break;
         }
         return simulation;

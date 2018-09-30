@@ -90,7 +90,7 @@ public class RPSSimulation extends Simulation {
                 numWhite++;
             }
 
-            view.put(entry.getKey(), entry.getValue().currentState);
+            view.put(entry.getKey(), entry.getValue().currentState.ordinal());
         }
         statistics.put(CellStates.RPSStates.BLUE, numBlue);
         statistics.put(CellStates.RPSStates.GREEN, numGreen);

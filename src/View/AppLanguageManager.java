@@ -4,6 +4,10 @@ import javafx.scene.control.ChoiceDialog;
 
 import java.util.*;
 
+/*
+    @author: xp19
+ */
+
 public class AppLanguageManager {
 
     private static final String[] langChoices = {"English", "Simplified Chinese"};
