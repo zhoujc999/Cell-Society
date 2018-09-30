@@ -129,7 +129,18 @@ public class UIManager {
     }
 
     public void changeCellShape(){
-        System.out.println(dropDownMenu.getSelectionModel().getSelectedItem().toString());
+        System.out.println();
+        String sides = new String();
+        switch(dropDownMenu.getSelectionModel().getSelectedItem().toString()){
+            case "Rectangle":
+                sides = "4";
+                break;
+            case "Hexagon":
+                sides = "6";
+        }
+        Map<String, String> attributes = getNewAttribute(heightTextField, widthTextField, slider);
+        attributes.put(Controller.SIDES, sides);
+        controller.update(attributes);
 //        controller.changeCellShape(dropDownMenu.getSelectionModel().getSelectedItem().toString());
     }
 
