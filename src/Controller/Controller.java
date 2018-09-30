@@ -45,6 +45,7 @@ public class Controller {
     public static final String FIRE = "fire";
     public static final String SHARK_RATE = "sharkRate";
     public static final String MAX_HIT = "maxHit";
+    public static final String SIDES = "sides";
     public static final String DEFAULT_SHARK_RATE = "5";
     public static final String FISH_RATE = "fishRate";
     public static final String DEFAULT_FISH_RATE = "50";
@@ -110,6 +111,7 @@ public class Controller {
         int sharkRate = Integer.parseInt(attributes.getOrDefault(SHARK_RATE, DEFAULT_SHARK_RATE));
         int fishRate = Integer.parseInt(attributes.getOrDefault(FISH_RATE, DEFAULT_FISH_RATE));
         int maxHit = Integer.parseInt(attributes.getOrDefault(MAX_HIT, DEFAULT_FISH_RATE));
+        int sizes = Integer.parseInt(attributes.getOrDefault(SIDES, "4"));
         String defaultMap = attributes.getOrDefault(DEFAULT_SETUP, null);
         if(isReset){
             mySimulation = getSimulation(numRows, numColumns,type, threshold, beginningStageMap, fishRate, sharkRate,maxHit);
