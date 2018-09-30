@@ -12,19 +12,23 @@ import java.util.ResourceBundle;
 public class Main extends Application {
 
     public static final String TITLE = "Cell Society";
-    public static final int WIDTH = 800;
+    public static final int WIDTH = 1200;
     public static final int HEIGHT = 800;
     public static final String FXML_FILE = "UI.fxml";
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        ResourceBundle bundle = ResourceBundle.getBundle("Resource.UILabel");
+        AppLanguageManager m = new AppLanguageManager();
+        ResourceBundle bundle = ResourceBundle.getBundle("Resource.UILabel", AppLanguageManager.getCurrentLocale());
+
+
         Parent root = FXMLLoader.load(getClass().getResource(FXML_FILE), bundle);
 
         primaryStage.setTitle(TITLE);
         Scene scene = new Scene(root, WIDTH, HEIGHT);
         primaryStage.setScene(scene);
         primaryStage.show();
+
     }
 
     public static void main(String[] args) {

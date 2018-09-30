@@ -11,8 +11,8 @@ import java.util.Map;
 
 public abstract class CellGridPane {
 
-    double MAX_GRID_WIDTH = 400.0;
-    double MAX_GRID_HEIGHT = 400.0;
+    double MAX_GRID_WIDTH = 350.0;
+    double MAX_GRID_HEIGHT = 350.0;
     StatsGraph statsGraph;
 
     protected CellGridPane(StatsGraph statsGraph){

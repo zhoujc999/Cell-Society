@@ -9,11 +9,17 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.collections.FXCollections;
+
+import javafx.scene.control.*;
+
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 /*
     UIManager is a class that keeps track of all UI elements and handle their actions
@@ -36,15 +42,17 @@ public class UIManager {
     @FXML
     private Pane gridPane;
     @FXML
-    private Pane pane;
-    @FXML
     private LineChart lineChart;
+    @FXML
+    private ComboBox dropDownMenu;
     @FXML
     private NumberAxis xAxis;
     @FXML
     private NumberAxis yAxis;
 
+
     private Controller controller;
+    private ResourceBundle resourceBundle;
     private static final int MAX_FPS = 30;
     private static final String DEFAULT_SIZE = "20";
     private static final int HUNDRED = 100;
@@ -54,10 +62,10 @@ public class UIManager {
 
     // this method will be called automatically by the FXML loader
     public void initialize(){
+        resourceBundle = ResourceBundle.getBundle("Resource.UILabel", AppLanguageManager.getCurrentLocale());
         forceInputToBeNumeric(widthTextField);
         forceInputToBeNumeric(heightTextField);
-        //TODO: have to think about how to get around this line
-//        statsGraph = new StatsGraph(lineChart);
+        initializeComboBox();
         controller = new Controller(gridPane, lineChart);
         try
         {
@@ -70,7 +78,7 @@ public class UIManager {
     }
 
     // restrict the textfield to contain only numbers
-    private void forceInputToBeNumeric(TextField tf) {
+    protected void forceInputToBeNumeric(TextField tf) {
         tf.textProperty().addListener((observable, oldValue, newValue) -> {
                     if (!newValue.matches("\\d*")) {
                         tf.setText(newValue.replaceAll("[^\\d]", ""));
@@ -88,7 +96,12 @@ public class UIManager {
 
     // you can get the updated value from the user input fields from this method
     public void handleApplyButtonAction(){
+        handleApplyButtonAction(heightTextField, widthTextField, slider, controller, gridPane);
+    }
+
+    public void handleApplyButtonAction(TextField heightTextField, TextField widthTextField, Slider slider, Controller controller, Pane gridPane){
         if(heightTextField.getText().length()==0||widthTextField.getText().length()==0){
+            showWarningDialog();
             return;
         }
         Map<String, String> attributes = new HashMap<>();
@@ -105,6 +118,11 @@ public class UIManager {
             oldFPS = (int)((slider.getValue()/HUNDRED)*MAX_FPS);
             controller.updateFPS((int)((slider.getValue()/HUNDRED)*MAX_FPS));
         }
+    }
+
+    public void changeCellShape(){
+        System.out.println(dropDownMenu.getSelectionModel().getSelectedItem().toString());
+//        controller.changeCellShape(dropDownMenu.getSelectionModel().getSelectedItem().toString());
     }
 
     public void handleStartButtonAction(){
@@ -129,17 +147,33 @@ public class UIManager {
         else return s;
     }
 
-    public void showError(String s){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Error: "+ s +"\nDo you" +
+    public void showError(String s) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Error: " + s + "\nDo you" +
                 "want to choose another configuration file?", ButtonType.NO, ButtonType.YES);
         alert.showAndWait();
-        if(alert.getResult() == ButtonType.YES){
+        if (alert.getResult() == ButtonType.YES) {
             controller.start();
-        }
-        else
-        {
+        } else {
             return;
         }
+    }
+
+    private void showWarningDialog(){
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(resourceBundle.getString("WarningTitle"));
+        alert.setHeaderText(resourceBundle.getString("WarningHeaderText"));
+        alert.setContentText(resourceBundle.getString("WarningContentText"));
+        alert.showAndWait();
+    }
+
+    private void initializeComboBox(){
+        dropDownMenu.setItems(FXCollections.observableArrayList(
+                resourceBundle.getString("Rectangle"), resourceBundle.getString("Hexagon")));
+        dropDownMenu.getSelectionModel().selectFirst();
+    }
+
+    public void addNewSimulation(){
+        Layout l = new Layout(layoutGridPane);
     }
 
 }
