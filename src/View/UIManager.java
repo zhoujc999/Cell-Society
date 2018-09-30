@@ -17,6 +17,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -73,7 +74,7 @@ public class UIManager {
         }
         catch(XMLException e)
         {
-            showError(e.getMessage());
+            showXMLError(e.getMessage());
         }
     }
 
@@ -90,7 +91,7 @@ public class UIManager {
     public void handleChooseAFileAction(){
         try{controller.start();}
         catch (XMLException e){
-            showError(e.getMessage());
+            showXMLError(e.getMessage());
         }
     }
 
@@ -100,14 +101,8 @@ public class UIManager {
     }
 
     public void handleApplyButtonAction(TextField heightTextField, TextField widthTextField, Slider slider, Controller controller, Pane gridPane){
-        if(heightTextField.getText().length()==0||widthTextField.getText().length()==0){
-            showWarningDialog();
-            return;
-        }
-        Map<String, String> attributes = new HashMap<>();
-        attributes.put(Controller.NUM_ROW_ATTR, heightTextField.getText() );
-        attributes.put(Controller.NUM_COL_ATTR, widthTextField.getText() );
-        attributes.put(Controller.FPS, String.valueOf((int)((slider.getValue()/HUNDRED)*MAX_FPS)));
+        Map<String, String> attributes = getNewAttribute(heightTextField, widthTextField, slider);
+        if (attributes == null) return;
         if(oldNumCols!=Integer.parseInt(widthTextField.getText())||oldNumRows!=Integer.parseInt(heightTextField.getText())){
             oldNumCols = Integer.parseInt(widthTextField.getText());
             oldNumRows = Integer.parseInt(heightTextField.getText());
@@ -118,6 +113,18 @@ public class UIManager {
             oldFPS = (int)((slider.getValue()/HUNDRED)*MAX_FPS);
             controller.updateFPS((int)((slider.getValue()/HUNDRED)*MAX_FPS));
         }
+    }
+
+    private Map<String, String> getNewAttribute(TextField heightTextField, TextField widthTextField, Slider slider) {
+        if(heightTextField.getText().length()==0||widthTextField.getText().length()==0){
+            showWarningDialog();
+            return null;
+        }
+        Map<String, String> attributes = new HashMap<>();
+        attributes.put(Controller.NUM_ROW_ATTR, heightTextField.getText() );
+        attributes.put(Controller.NUM_COL_ATTR, widthTextField.getText() );
+        attributes.put(Controller.FPS, String.valueOf((int)((slider.getValue()/HUNDRED)*MAX_FPS)));
+        return attributes;
     }
 
     public void changeCellShape(){
@@ -147,7 +154,7 @@ public class UIManager {
         else return s;
     }
 
-    public void showError(String s) {
+    public void showXMLError(String s) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Error: " + s + "\nDo you" +
                 "want to choose another configuration file?", ButtonType.NO, ButtonType.YES);
         alert.showAndWait();
@@ -175,5 +182,16 @@ public class UIManager {
     public void addNewSimulation(){
         Layout l = new Layout(layoutGridPane);
     }
+
+    public void handleSave(TextField heightTextField, TextField widthTextField, Slider slider, Controller controller, Pane gridPane){
+        Map<String, String> attributes = getNewAttribute(heightTextField, widthTextField, slider);
+        try{controller.saveConfig(attributes);}
+        catch (IOException e){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION,"IOException: "+ e.getMessage(),
+                    ButtonType.OK);
+            alert.showAndWait();
+        }
+    }
+
 
 }
