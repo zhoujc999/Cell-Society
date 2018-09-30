@@ -21,13 +21,14 @@ Hours Spent: around 120 hours
 
 ### Running the Program
 
-View.Main class: 
+* View.Main class: used as the main class
 
-Data files needed: 
-
-Interesting data files:
-    fire.xml:
-    fireDefault.xml:
+* Data files needed:
+  * An xml for initial configuration
+    
+* Interesting data files:
+    * fire.xml: a fire simulation setup without an initial map
+    * fireDefault.xml: a fire simulation setup with an invalid initial map
     
 Features implemented: 
 
@@ -50,9 +51,12 @@ Features implemented:
     UI control. We made this decision because it gives users maximum amount of flexibility over what they 
     want to do with simulations. We also )
 
-Assumptions or Simplifications:
-    
+* Assumptions or Simplifications:
+    * The user will start with an XML file, or knows how to create an XML file.
+    * The user knows what each simulation mode means
+    * The user can understand initial XML configurations easily
 Known Bugs:
+    * If the size of the grid is only 1*1 (which is a very unlikely case), the program will output a bug.
 
 Extra credit:
 
