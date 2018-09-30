@@ -7,10 +7,7 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import View.*;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Array;
 import java.util.*;
 
@@ -78,6 +75,7 @@ public class Controller {
         XMLParser parser = new XMLParser(GAME_TYPE);
         Map<String, String> attributes = parser.getAttribute(dataFile);
         originalAttributes = attributes;
+        System.out.println(originalAttributes);
         setUp(attributes, false);
     }
 
@@ -136,19 +134,28 @@ public class Controller {
         Map<String, String> toSave = new HashMap<>(originalAttributes);
         FileChooser chooser = new FileChooser();
         chooser.setTitle("Please choose the directory to save ur config");
+        chooser.getExtensionFilters().setAll(new FileChooser.ExtensionFilter("text file ",DATA_FILE_EXTENSION));
         chooser.setInitialDirectory(new File(System.getProperty("user.dir")));
-        File selectedFile = chooser.showOpenDialog(gridPane.getScene().getWindow());
-
-        FileWriter fstream = new FileWriter(selectedFile.getName());
-        BufferedWriter out = new BufferedWriter(fstream);
-
-        for (String s : originalAttributes.keySet()) {
-            out.write("<"+s+">");
-            out.write(originalAttributes.get(s));
-            out.write("</"+s+">");
+        File selectedFile = null;
+        while (selectedFile == null){
+            selectedFile = chooser.showSaveDialog(null);
         }
-        out.write("</data>");
-        out.close();
+        createAndWrite(selectedFile);
+    }
+
+    private void createAndWrite(File selectedFile) throws FileNotFoundException {
+        PrintWriter cout= new PrintWriter(selectedFile);
+        cout.println(XMLHEADING);
+        System.out.println(originalAttributes);
+        for (String s : originalAttributes.keySet()) {
+            if(originalAttributes.get(s)== null||originalAttributes.get(s).trim().isEmpty())
+            {continue;}
+            cout.print("<"+s+">");
+            cout.print(originalAttributes.get(s));
+            cout.println("</"+s+">");
+        }
+        cout.println("</data>");
+        cout.close();
     }
 
     public void updateFPS(int updatedFPS) {

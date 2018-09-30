@@ -186,7 +186,11 @@ public class UIManager {
 
     private void handleSave(TextField heightTextField, TextField widthTextField, Slider slider, Controller controller, Pane gridPane){
         Map<String, String> attributes = getNewAttribute(heightTextField, widthTextField, slider);
-        try{controller.saveConfig(attributes);}
+        try{controller.saveConfig(attributes);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION,"Configuration saved",
+                    ButtonType.OK);
+            alert.showAndWait();
+        }
         catch (IOException e){
             Alert alert = new Alert(Alert.AlertType.INFORMATION,"IOException: "+ e.getMessage(),
                     ButtonType.OK);
