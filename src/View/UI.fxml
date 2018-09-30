@@ -58,12 +58,6 @@
         <!--<Button text="%FileChooserButtonLabel"-->
                 <!--onAction="#handleChooseAFileAction"/>-->
         <ComboBox fx:id="dropDownMenu" onAction="#changeCellShape">
-            <!--<items>-->
-                <!--<FXCollections fx:factory="observableArrayList">-->
-                    <!--&lt;!&ndash;<String fx:value="%Rectangle"/>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<String fx:value="%Hexagon" />&ndash;&gt;-->
-                <!--</FXCollections>-->
-            <!--</items>-->
         </ComboBox>
     </HBox>
 
@@ -71,6 +65,7 @@
         <Button text="%FileChooserButtonLabel"
                 onAction="#handleChooseAFileAction"/>
         <Button text="%NewSimulationLabel" onAction="#addNewSimulation"/>
+        <Button text="%SaveButtonLabel"/>
     </HBox>
 
 

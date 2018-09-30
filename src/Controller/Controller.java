@@ -199,6 +199,7 @@ public class Controller {
             initialState = getDefaultMap(defaultMap, numRows, numColumns, maxState);
         }
         if (initialState != null && !initialState.isEmpty()) return initialState;
+        else initialState = new HashMap<>();
         Random r = new Random();
         for (int i = 0; i < numColumns; i++) {
             for (int j = 0; j < numRows; j++) {
