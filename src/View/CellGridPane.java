@@ -26,14 +26,17 @@ public abstract class CellGridPane {
     public void render(Map<Point, Integer> updatedMap, Shape[][] grid){
         for(Point p: updatedMap.keySet()){
             if(updatedMap.get(p) == 0){
-                grid[p.getY()][p.getX()].setFill(Color.BLUE);
+                grid[p.getY()][p.getX()].setFill(Color.WHITE);
             }
             else if(updatedMap.get(p) == 1){
                 grid[p.getY()][p.getX()].setFill(Color.PINK);
             }
-            else
+            else if(updatedMap.get(p) ==2)
             {
-                grid[p.getY()][p.getX()].setFill(Color.WHITE);
+                grid[p.getY()][p.getX()].setFill(Color.BLUE);
+            }
+            else{
+                grid[p.getY()][p.getX()].setFill(Color.ORANGE);
             }
         }
     }

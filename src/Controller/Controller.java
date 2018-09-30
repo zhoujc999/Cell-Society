@@ -106,7 +106,6 @@ public class Controller {
         int fishRate = Integer.parseInt(attributes.getOrDefault(FISH_RATE, DEFAULT_FISH_RATE));
         int maxHit = Integer.parseInt(attributes.getOrDefault(MAX_HIT, DEFAULT_FISH_RATE));
         String defaultMap = attributes.getOrDefault(DEFAULT_SETUP, null);
-        System.out.println("defualtMap read:");
         if(isReset){
             mySimulation = getSimulation(numRows, numColumns,type, threshold, beginningStageMap, fishRate, sharkRate,maxHit);
         }
@@ -218,7 +217,6 @@ public class Controller {
                 initialState.put(p, state);
             }
         }
-
         return initialState;
     }
 

@@ -5,6 +5,8 @@ import Controller.XMLException;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -63,7 +65,7 @@ public class UIManager {
         }
         catch(XMLException e)
         {
-            return;
+            showError(e.getMessage());
         }
     }
 
@@ -78,7 +80,10 @@ public class UIManager {
 
     // you can get the file chosen from this method
     public void handleChooseAFileAction(){
-        controller.start();
+        try{controller.start();}
+        catch (XMLException e){
+            showError(e.getMessage());
+        }
     }
 
     // you can get the updated value from the user input fields from this method
@@ -122,6 +127,19 @@ public class UIManager {
     private String getOrDefaultValue(String s){
         if(s.length()==0) return DEFAULT_SIZE;
         else return s;
+    }
+
+    public void showError(String s){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Error: "+ s +"\nDo you" +
+                "want to choose another configuration file?", ButtonType.NO, ButtonType.YES);
+        alert.showAndWait();
+        if(alert.getResult() == ButtonType.YES){
+            controller.start();
+        }
+        else
+        {
+            return;
+        }
     }
 
 }
