@@ -1,6 +1,8 @@
 package Model;//package Model;
 
 
+import java.util.ArrayList;
+
 /**
  * Abstract representation of a Segregation Cell.
  *
@@ -13,8 +15,8 @@ public class SegregationCell extends Cell {
     private double satisfactionThreshold;
     private boolean satisfied;
 
-    public SegregationCell(Point position, SegregationGrid grid, CellStates.SegregationStates state, double satisfactionThreshold) {
-        super(position, grid,state);
+    public SegregationCell(Point position, SegregationGrid grid, CellStates.SegregationStates state, Directions.NoOfNeighbors gridConfig, double satisfactionThreshold) {
+        super(position, grid, state, gridConfig);
         this.satisfactionThreshold = satisfactionThreshold;
         this.satisfied = true;
     }
@@ -45,8 +47,9 @@ public class SegregationCell extends Cell {
             int numRedNeighbors = 0;
             int numBlueNeighbors = 0;
             Point neighborPosition;
-            for (Directions.EightDirections direction : Directions.EightDirections.values()) {
-                neighborPosition = getPosition().add(direction.getDirection());
+            ArrayList<Point> neighborConfig = Directions.getshape(gridConfig);
+            for (Point direction : neighborConfig) {
+                neighborPosition = getPosition().add(direction);
                 if (!grid.outOfBounds(neighborPosition)) {
                     SegregationCell neighbor = (SegregationCell) grid.getCell(neighborPosition);
                     if (neighbor.currentState == CellStates.SegregationStates.RED) {

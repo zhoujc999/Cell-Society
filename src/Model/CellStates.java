@@ -8,6 +8,8 @@ package Model;
 
 public class CellStates {
 
+
+
     public enum GameOfLifeStates {
         EMPTY,
         LIVE,

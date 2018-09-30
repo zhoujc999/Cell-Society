@@ -9,8 +9,8 @@ public class RPSCell extends Cell {
     private int nextHitCount;
     private boolean firstHit;
 
-    public RPSCell(Point position, RPSGrid grid, CellStates.RPSStates state, int maxHit) {
-        super(position, grid, state);
+    public RPSCell(Point position, RPSGrid grid, CellStates.RPSStates state, Directions.NoOfNeighbors gridConfig, int maxHit) {
+        super(position, grid, state, gridConfig);
         this.maxHit = maxHit;
         this.currentHitCount = 0;
         this.nextHitCount = 0;
@@ -20,8 +20,9 @@ public class RPSCell extends Cell {
     protected void initializeNeighbors() {
         neighbors.clear();
         Point neighborPosition;
-        for (Directions.EightDirections direction : Directions.EightDirections.values()) {
-            neighborPosition = getPosition().add(direction.getDirection());
+        ArrayList<Point> neighborConfig = Directions.getshape(gridConfig);
+        for (Point direction : neighborConfig) {
+            neighborPosition = getPosition().add(direction);
             if (!grid.outOfBounds(neighborPosition)) {
                 neighbors.add((RPSCell) grid.getCell(neighborPosition));
             }
@@ -35,6 +36,11 @@ public class RPSCell extends Cell {
         firstHit = false;
     }
 
+    protected void decreaseHitCount() {
+        if (currentHitCount > 0) {
+            nextHitCount--;
+        }
+    }
 
     protected boolean isDead() {
         return currentHitCount == maxHit;
@@ -47,10 +53,6 @@ public class RPSCell extends Cell {
     protected void setNextHitCount(int count) {
         this.nextHitCount = count;
     }
-//
-//    protected int getMaxLife() {
-//        return maxHit;
-//    }
 
     protected void setMaxHit(int maxHit) {
         this.maxHit = maxHit;
@@ -103,7 +105,7 @@ public class RPSCell extends Cell {
         if (cell.isDead()) {
             cell.setNextState(getCurrentState());
             cell.setNextHitCount(getCurrentHitCount());
-            nextHitCount--;
+            decreaseHitCount();
         }
     }
 

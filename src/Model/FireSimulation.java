@@ -17,9 +17,9 @@ public class FireSimulation extends Simulation {
     private static final boolean COLUMN_WRAP = false;
     private double probCatchFire;
 
-    public FireSimulation(int numRows, int numColumns, Map<Point, Integer> initialState, double proCatchFire) {
+    public FireSimulation(int numRows, int numColumns, Map<Point, Integer> initialState, int noOfSides, double proCatchFire) {
 
-        super(numRows, numColumns, initialState);
+        super(numRows, numColumns, initialState, noOfSides);
         this.probCatchFire = proCatchFire;
         initializeCellsProbability();
         render();
@@ -38,7 +38,7 @@ public class FireSimulation extends Simulation {
             if (grid.getMatrix().get(position) != null) {
                 throw new IllegalArgumentException("InitialState Duplicate Point Error");
             }
-            FireCell cell = new FireCell(position, (FireGrid) grid, CellStates.FireStates.fromInt((int) entry.getValue()), probCatchFire);
+            FireCell cell = new FireCell(position, (FireGrid) grid, CellStates.FireStates.fromInt((int) entry.getValue()), gridConfig, probCatchFire);
             super.grid.getMatrix().put(position, cell);
         }
     }

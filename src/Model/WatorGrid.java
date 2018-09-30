@@ -10,14 +10,14 @@ package Model;//package Model;//package Model;
 
 public class WatorGrid extends Grid {
 
-    public WatorGrid(int numRows, int numColumns, boolean rowWrap, boolean columnWrap) {
-        super(numRows, numColumns, rowWrap, columnWrap);
+    public WatorGrid(int numRows, int numColumns, boolean rowWrap, boolean columnWrap, Directions.NoOfNeighbors gridConfig) {
+        super(numRows, numColumns, rowWrap, columnWrap, gridConfig);
     }
 
     public void changeNeighborState(Point position, CellStates.WatorStates outcome) {
         int fishTurnsToBreed = ((WatorCell) getCell(position)).getFishTurnsToBreed();
         int sharkTurnsToBreed = ((WatorCell) getCell(position)).getSharkTurnsToBreed();
-        setCell(position, new WatorCell(position, this, outcome, fishTurnsToBreed, sharkTurnsToBreed));
+        setCell(position, new WatorCell(position, this, outcome, gridConfig, fishTurnsToBreed, sharkTurnsToBreed));
         ((WatorCell) getCell(position)).initializeNeighbors();
         ((WatorCell) getCell(position)).initializeNeighborsNeighbors();
     }

@@ -10,8 +10,8 @@ public class RPSSimulation extends Simulation {
 
     private int maxHit;
 
-    public RPSSimulation(int numRows, int numColumns, Map<Point, Integer> initialState, int maxHit) {
-        super(numRows, numColumns, initialState);
+    public RPSSimulation(int numRows, int numColumns, Map<Point, Integer> initialState, int noOfSides, int maxHit) {
+        super(numRows, numColumns, initialState, noOfSides);
         initializeAllNeighbors();
         this.maxHit = maxHit;
         initializeMaxHit();
@@ -29,7 +29,7 @@ public class RPSSimulation extends Simulation {
             if (grid.getMatrix().get(position) != null) {
                 throw new IllegalArgumentException("InitialState Duplicate Point Error");
             }
-            RPSCell cell = new RPSCell(position, (RPSGrid) grid, CellStates.RPSStates.fromInt((int) entry.getValue()), maxHit);
+            RPSCell cell = new RPSCell(position, (RPSGrid) grid, CellStates.RPSStates.fromInt((int) entry.getValue()), gridConfig, maxHit);
             super.grid.getMatrix().put(position, cell);
         }
     }

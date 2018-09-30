@@ -19,6 +19,7 @@ public abstract class Grid {
     protected int numColumns;
     protected boolean rowWrap;
     protected boolean columnWrap;
+    protected Directions.NoOfNeighbors gridConfig;
 
     protected Random random;
     
@@ -30,12 +31,13 @@ public abstract class Grid {
      * @param rowWrap does the rows wrap around
      * @param columnWrap does the columns wrap around
      */
-    protected Grid(int numRows, int numColumns, boolean rowWrap, boolean columnWrap) {
+    protected Grid(int numRows, int numColumns, boolean rowWrap, boolean columnWrap, Directions.NoOfNeighbors gridConfig) {
         this.matrix = new HashMap<>();
         this.numRows = numRows;
-        this.numColumns = numColumns;
         this.rowWrap = rowWrap;
+        this.numColumns = numColumns;
         this.columnWrap = columnWrap;
+        this.gridConfig = gridConfig;
         this.random = new Random();
     }
 
@@ -61,39 +63,44 @@ public abstract class Grid {
         int remainder = row % numRows;
         if (row < 0 && remainder < 0) {
             return numRows + remainder;
-        } else if (row > 0) {
+        }
+        else if (row > 0) {
             return remainder;
-        } else {
+        }
+        else {
             return 0;
         }
     }
 
     private int gridColumnWrap(int column) {
         int remainder = column % numColumns;
+
         if (column < 0 && remainder < 0) {
             return numColumns + remainder;
-        } else if (column > 0) {
+        }
+        else if (column > 0) {
             return remainder;
-        } else {
+        }
+        else {
             return 0;
         }
     }
 
+
+
     /**
      *@return true if x, y is out of bounds
      */
-    protected boolean outOfBounds(int x, int y) {
-        if (!rowWrap && (y < 0 || y >= numRows)) {
-            return true;
-        }
-        if (!columnWrap && (x < 0 || x >= numColumns)) {
-            return true;
-        }
-        return false;
+    protected boolean outOfXBounds(int x) {
+        return (!columnWrap && (x < 0 || x >= numColumns));
+    }
+
+    protected boolean outOfYBounds(int y) {
+        return (!rowWrap && (y < 0 || y >= numRows));
     }
 
     protected boolean outOfBounds(Point position) {
-        return outOfBounds(position.getX(), position.getY());
+        return outOfXBounds(position.getX()) && outOfYBounds(position.getY());
     }
 
     /**

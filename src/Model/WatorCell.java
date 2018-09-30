@@ -18,8 +18,8 @@ public class WatorCell extends Cell {
     private int sharkTurnsToBreed;
     private int turn;
 
-    public WatorCell(Point position, WatorGrid grid, CellStates.WatorStates state, int fishTurnsToBreed, int sharkTurnsToBreed) {
-        super(position, grid, state);
+    public WatorCell(Point position, WatorGrid grid, CellStates.WatorStates state, Directions.NoOfNeighbors gridConfig, int fishTurnsToBreed, int sharkTurnsToBreed) {
+        super(position, grid, state, gridConfig);
         this.fishNeighborPositions = new ArrayList<>();
         this.emptyNeighborPositions = new ArrayList<>();
         this.fishTurnsToBreed = fishTurnsToBreed;
@@ -51,8 +51,9 @@ public class WatorCell extends Cell {
         fishNeighborPositions.clear();
         emptyNeighborPositions.clear();
         Point neighborPosition;
-        for (Directions.FourDirections direction : Directions.FourDirections.values()) {
-            neighborPosition = position.add(direction.getDirection());
+        ArrayList<Point> neighborConfig = Directions.getshape(gridConfig);
+        for (Point direction : neighborConfig) {
+            neighborPosition = getPosition().add(direction);
             if (!grid.outOfBounds(neighborPosition)) {
                 if (grid.getCell(neighborPosition).getNextState() == CellStates.WatorStates.EMPTY) {
                     emptyNeighborPositions.add(neighborPosition);
@@ -67,8 +68,9 @@ public class WatorCell extends Cell {
 
     protected void initializeNeighborsNeighbors() {
         Point neighborPosition;
-        for (Directions.FourDirections direction : Directions.FourDirections.values()) {
-            neighborPosition = position.add(direction.getDirection());
+        ArrayList<Point> neighborConfig = Directions.getshape(gridConfig);
+        for (Point direction : neighborConfig) {
+            neighborPosition = getPosition().add(direction);
             if (!grid.outOfBounds(neighborPosition)) {
                 ((WatorCell) grid.getCell(neighborPosition)).initializeNeighbors();
             }

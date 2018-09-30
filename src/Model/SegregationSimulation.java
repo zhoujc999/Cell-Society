@@ -20,8 +20,8 @@ public class SegregationSimulation extends Simulation {
     private double satisfactionThreshold;
     private int numEmptyCells;
 
-    public SegregationSimulation(int numRows, int numColumns, Map<Point, Integer> initialState, double threshold) {
-        super(numRows, numColumns, initialState);
+    public SegregationSimulation(int numRows, int numColumns, Map<Point, Integer> initialState, int noOfSides, double threshold) {
+        super(numRows, numColumns, initialState, noOfSides);
         this.satisfactionThreshold = threshold;
         initializeCellsThreshold();
         render();
@@ -47,7 +47,7 @@ public class SegregationSimulation extends Simulation {
                 ((SegregationGrid) this.grid).addEmptyPosition(position);
                 numEmptyCells++;
             }
-            SegregationCell cell = new SegregationCell(position, (SegregationGrid) grid, state, satisfactionThreshold);
+            SegregationCell cell = new SegregationCell(position, (SegregationGrid) grid, state, gridConfig, satisfactionThreshold);
             grid.getMatrix().put(position, cell);
         }
     }
