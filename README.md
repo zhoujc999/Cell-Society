@@ -26,7 +26,9 @@ View.Main class:
 Data files needed: 
 
 Interesting data files:
-
+    fire.xml:
+    fireDefault.xml:
+    
 Features implemented: 
 
 * Configuration
@@ -45,7 +47,7 @@ Features implemented:
     want to do with simulations. We also )
 
 Assumptions or Simplifications:
-
+    
 Known Bugs:
 
 Extra credit:
@@ -63,6 +65,10 @@ Extra credit:
    Text input fields only 
 
 ### Notes
+
+* Note that the program supports adding as many simulation as you like. However,
+
+
 * When you first run the application, the simulation area may be empty or already completed. 
 This is because the simulation has already occurred before it got rendered on the screen before
 Just press reset button to see its simulation.
@@ -72,7 +78,7 @@ to be effective
 
 * Pressing the reset button will reset the simulation to its 
 initial state and pause it. So, you have to either press start 
-or step to continue the simulation. 
+or step to continue the simulation again. 
 
 
 ### Impressions
