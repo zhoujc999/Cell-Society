@@ -1,5 +1,6 @@
 package View;
 
+import Model.CellStates;
 import Model.Point;
 import Model.Simulation;
 import javafx.scene.paint.Color;
