@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.ArrayList;
+
 /**
  * Abstract representation of a GameOfLife Cell.
  *
@@ -9,8 +11,8 @@ package Model;
 
 public class GameOfLifeCell extends Cell {
 
-    public GameOfLifeCell(Point position, GameOfLifeGrid grid, CellStates.GameOfLifeStates state) {
-        super(position, grid, state);
+    public GameOfLifeCell(Point position, GameOfLifeGrid grid, CellStates.GameOfLifeStates state, Directions.NoOfNeighbors gridConfig) {
+        super(position, grid, state, gridConfig);
     }
 
 
@@ -21,8 +23,9 @@ public class GameOfLifeCell extends Cell {
     protected void calculateNextState() {
         int numOfLiveNeighbors = 0;
         Point neighborPosition;
-        for (Directions.EightDirections direction : Directions.EightDirections.values()) {
-            neighborPosition = getPosition().add(direction.getDirection());
+        ArrayList<Point> neighborConfig = Directions.getshape(gridConfig);
+        for (Point direction : neighborConfig) {
+            neighborPosition = getPosition().add(direction);
             if (!grid.outOfBounds(neighborPosition)) {
                 if (grid.getCell(neighborPosition).getCurrentState() == CellStates.GameOfLifeStates.LIVE) {
                     numOfLiveNeighbors++;
