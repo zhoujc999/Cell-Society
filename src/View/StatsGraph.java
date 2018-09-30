@@ -1,6 +1,5 @@
 package View;
 
-import Model.CellStates;
 import javafx.scene.chart.LineChart;
 
 import java.util.Map;
