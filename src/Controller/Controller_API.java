@@ -174,6 +174,7 @@ public class Controller_API{
                 break;
             case WATOR:
                 simulation = new WatorSimulation(numRows,numCols,myMap,fishRate,sharkRate);
+                statsGraph = new WatorStatsGraph(lineChart);
                 break;
         }
         return simulation;

@@ -49,11 +49,18 @@ Assumptions or Simplifications:
 Known Bugs:
 
 Extra credit:
-    Our program supports multiple languages: english and simplified chinese;
-    Warning dialogs will appear if user enter invalid output or if the data file they choose 
-    does not follow the specified format;
-    You can change the size of the grid dynamically through the width and height input field;
-    Text input fields only 
+
+1. Our program supports multiple languages: english and simplified chinese
+    
+2. Warning dialogs will appear if user enters invalid output or if the data file they choose 
+    does not follow the specified format
+    
+3. You can change the size of the grid dynamically through the width and height input field;
+
+4. Not only can you add new simulation, you can also remove the added simulation if necessary;
+
+
+   Text input fields only 
 
 ### Notes
 * When you first run the application, the simulation area may be empty or already completed. 
