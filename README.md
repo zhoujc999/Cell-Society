@@ -14,10 +14,12 @@ Finish Date: September 30, 2018
 Hours Spent: around 120 hours
 
 ### Primary Roles
-
+Jingchao is responsible for implementing all simulation models. 
+Arthur is responsible for implementing the Controller and everything related to XML.
+Xi is responsible for implementing UI view. 
 
 ### Resources Used
-
+We primarily used StackOverflow and JavaFX official documentation.
 
 ### Running the Program
 
@@ -55,8 +57,11 @@ Features implemented:
     * The user will start with an XML file, or knows how to create an XML file.
     * The user knows what each simulation mode means
     * The user can understand initial XML configurations easily
+    
+    
 Known Bugs:
-    * If the size of the grid is only 1*1 (which is a very unlikely case), the program will output a bug.
+   * If the size of the grid is only 1*1 (which is a very unlikely case), the program will output a bug.
+
 
 Extra credit:
 
@@ -70,11 +75,13 @@ Extra credit:
 4. Not only can you add new simulation, you can also remove the added simulation if necessary;
 
 5. Auto-check input: You can only enter numerical values into the text input fields. Other characters entered
-will be automatically trim.
+will be automatically trimmed.
 
 ### Notes
 
 * Note that the program supports adding as many simulation as you like. However, due to 
+
+* If you open 
 
 * When you first run the application, the simulation area may be empty or already completed. 
 This is because the simulation has already occurred before it got rendered on the screen before
@@ -90,3 +97,4 @@ or step to continue the simulation again.
 
 ### Impressions
 
+Xi Pu: 

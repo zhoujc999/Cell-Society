@@ -59,20 +59,26 @@ public class Layout extends UIManager{
     private NumberAxis yAxis;
 
     public Layout(GridPane gridPane){
-        layoutPane = gridPane;
-        UILabels = ResourceBundle.getBundle("Resource.UILabel", AppLanguageManager.getCurrentLocale());
 
-        addSimulationPane();
-        addLabels();
-        addInputFields();
-        addButtons();
-        addLineChart();
-        forceInputToBeNumeric(widthTextField);
-        forceInputToBeNumeric(heightTextField);
+        if(STARTING_COL<=5){
+            layoutPane = gridPane;
+            UILabels = ResourceBundle.getBundle("Resource.UILabel", AppLanguageManager.getCurrentLocale());
 
-        controller = new Controller(pane, lineChart);
-        controller.start();
-        STARTING_COL += SIMULATION_COLUMN_SPACE;
+            addSimulationPane();
+            addLabels();
+            addInputFields();
+            addButtons();
+            addLineChart();
+            forceInputToBeNumeric(widthTextField);
+            forceInputToBeNumeric(heightTextField);
+
+            controller = new Controller(pane, lineChart);
+            controller.start();
+            STARTING_COL += SIMULATION_COLUMN_SPACE;
+        }
+        else{
+
+        }
     }
 
     private void addSimulationPane(){
@@ -106,10 +112,13 @@ public class Layout extends UIManager{
         hBox.setAlignment(Pos.TOP_CENTER);
         layoutPane.add(hBox, STARTING_COL+FIFTH_COL, SECOND_ROW);
 
-        Button filechooser = new Button(UILabels.getString(FileChooserButtonLabel));
+//        Button filechooser = new Button(UILabels.getString(FileChooserButtonLabel));
+//        filechooser.setOnAction(event -> );
         Button removeSimulation = new Button(UILabels.getString(RemoveSimulationLabel));
         removeSimulation.setOnAction(event -> handleRemoveSimulation());
-        HBox secondRowButtons = new HBox(filechooser, removeSimulation);
+//        Button saveButton = new Button(UILabels.getString("SaveButtonLabel"));
+//        saveButton.setOnAction(event -> handleSaveButton() );
+        HBox secondRowButtons = new HBox(removeSimulation);
         secondRowButtons.setSpacing(HBOX_SPACING);
         secondRowButtons.setAlignment(Pos.CENTER);
         layoutPane.add(secondRowButtons, STARTING_COL, FOURTH_ROW);
@@ -180,5 +189,13 @@ public class Layout extends UIManager{
     private void handleApply(){
         super.handleApplyButtonAction(heightTextField, widthTextField, slider, controller, pane);
     }
+
+//    private void handleSaveButton(){
+//        super.handleSave(heightTextField, widthTextField, slider, controller, pane);
+//    }
+
+//    private void addTooManySimulationWarning(){
+//
+//    }
 
 }

@@ -195,7 +195,7 @@ public class UIManager {
         Layout l = new Layout(layoutGridPane);
     }
 
-    private void handleSave(TextField heightTextField, TextField widthTextField, Slider slider, Controller controller, Pane gridPane){
+    public void handleSave(TextField heightTextField, TextField widthTextField, Slider slider, Controller controller, Pane gridPane){
         Map<String, String> attributes = getNewAttribute(heightTextField, widthTextField, slider);
         try{controller.saveConfig(attributes);}
         catch (IOException e){
