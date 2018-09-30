@@ -3,9 +3,14 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.chart.LineChart;
 import javafx.scene.layout.Pane;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import View.*;
+
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.*;
 
@@ -44,6 +49,7 @@ public class Controller {
     public static final String FISH_RATE = "fishRate";
     public static final String DEFAULT_FISH_RATE = "50";
     public static final String DEFAULT_SETUP = "defaultSetup";
+    public static final String XMLHEADING = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n <data game=\"game\">";
     public static final HashSet<String> VALID_TYPES = new HashSet<>(Arrays.asList(FIRE,WATOR,RPS, GAME_OF_LIFE,SEGREGATION));
 
     public static final String FILE_CHOOSER_PROMPT = "Choose data file";
@@ -121,6 +127,26 @@ public class Controller {
         }
         statsGraph.clear();
         setUp(originalAttributes, false);
+    }
+
+    public void saveConfig (Map<String, String> config) throws IOException
+    {
+        Map<String, String> toSave = new HashMap<>(originalAttributes);
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Please choose the directory to save ur config");
+        chooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+        File selectedFile = chooser.showOpenDialog(gridPane.getScene().getWindow());
+
+        FileWriter fstream = new FileWriter(selectedFile.getName());
+        BufferedWriter out = new BufferedWriter(fstream);
+
+        for (String s : originalAttributes.keySet()) {
+            out.write("<"+s+">");
+            out.write(originalAttributes.get(s));
+            out.write("</"+s+">");
+        }
+        out.write("</data>");
+        out.close();
     }
 
     public void updateFPS(int updatedFPS) {
