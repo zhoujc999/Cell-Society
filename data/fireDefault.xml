@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<data game="game">
+    <sides>4</sides>
+    <type>fire</type>
+    <threshold>0.9</threshold>
+    <ratio1>.5</ratio1>
+    <occupiedRatio>0.1</occupiedRatio>
+    <width>400</width>
+    <length>600</length>
+    <numRows>5</numRows>
+    <numColumns>5</numColumns>
+    <frames_per_sec>3</frames_per_sec>
+</data>
