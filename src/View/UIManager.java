@@ -2,6 +2,7 @@ package View;
 
 import Controller.Controller;
 import Controller.XMLException;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -183,7 +184,7 @@ public class UIManager {
         Layout l = new Layout(layoutGridPane);
     }
 
-    public void handleSave(TextField heightTextField, TextField widthTextField, Slider slider, Controller controller, Pane gridPane){
+    private void handleSave(TextField heightTextField, TextField widthTextField, Slider slider, Controller controller, Pane gridPane){
         Map<String, String> attributes = getNewAttribute(heightTextField, widthTextField, slider);
         try{controller.saveConfig(attributes);}
         catch (IOException e){
@@ -194,4 +195,7 @@ public class UIManager {
     }
 
 
+    public void handleSave() {
+        handleSave(heightTextField, widthTextField, slider, controller, gridPane);
+    }
 }

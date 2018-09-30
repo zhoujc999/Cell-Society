@@ -65,7 +65,8 @@
         <Button text="%FileChooserButtonLabel"
                 onAction="#handleChooseAFileAction"/>
         <Button text="%NewSimulationLabel" onAction="#addNewSimulation"/>
-        <Button text="%SaveButtonLabel"/>
+        <Button text="%SaveButtonLabel" onAction="#handleSave"/>
+
     </HBox>
 
 
