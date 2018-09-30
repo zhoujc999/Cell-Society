@@ -9,6 +9,7 @@ package Model;
 public class CellStates {
 
     public enum GameOfLifeStates {
+        EMPTY,
         LIVE,
         DEAD;
         private static GameOfLifeStates[] cachedValues = null;
@@ -21,9 +22,9 @@ public class CellStates {
     }
 
     public enum SegregationStates {
+        EMPTY,
         RED,
-        BLUE,
-        EMPTY;
+        BLUE;
         private static SegregationStates[] cachedValues = null;
         public static SegregationStates fromInt(int i) {
             if(SegregationStates.cachedValues == null) {
@@ -40,9 +41,9 @@ public class CellStates {
     }
 
     public enum FireStates {
+        EMPTY,
         TREE,
-        BURNING,
-        EMPTY;
+        BURNING;
         private static FireStates [] cachedValues = null;
         public static FireStates fromInt(int i) {
             if(FireStates.cachedValues == null) {
@@ -53,9 +54,9 @@ public class CellStates {
     }
 
     public enum WatorStates {
+        EMPTY,
         FISH,
-        SHARK,
-        EMPTY;
+        SHARK;
         private static WatorStates [] cachedValues = null;
         public static WatorStates fromInt(int i) {
             if(WatorStates.cachedValues == null) {

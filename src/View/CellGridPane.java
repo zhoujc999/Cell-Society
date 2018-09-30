@@ -4,7 +4,6 @@ import Model.CellStates;
 import Model.Point;
 import Model.Simulation;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
 import java.util.Map;
