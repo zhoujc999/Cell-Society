@@ -15,6 +15,7 @@ import java.util.Random;
 public abstract class Cell {
     protected Point position;
     protected Grid grid;
+    protected Directions.NoOfNeighbors gridConfig;
     protected Enum currentState;
     protected Enum nextState;
     protected Random random;
@@ -24,9 +25,10 @@ public abstract class Cell {
      * @param position
      * @param state
      */
-    protected Cell(Point position, Grid grid, Enum state) {
+    protected Cell(Point position, Grid grid, Enum state, Directions.NoOfNeighbors gridConfig) {
         this.position = position;
         this.grid = grid;
+        this.gridConfig = gridConfig;
         this.currentState = state;
         this.nextState = state;
         this.random = new Random();
@@ -82,4 +84,5 @@ public abstract class Cell {
     public String toString() {
         return "Cell" +  " @ " + position;
     }
+
 }

@@ -10,8 +10,8 @@ public class RPSSimulation extends Simulation {
 
     private int maxHit;
 
-    public RPSSimulation(int numRows, int numColumns, Map<Point, Integer> initialState, int maxHit) {
-        super(numRows, numColumns, initialState);
+    public RPSSimulation(int numRows, int numColumns, Map<Point, Integer> initialState, int noOfSides, int maxHit) {
+        super(numRows, numColumns, initialState, noOfSides);
         initializeAllNeighbors();
         this.maxHit = maxHit;
         initializeMaxHit();
@@ -20,7 +20,7 @@ public class RPSSimulation extends Simulation {
 
 
     protected void initializeGrid() {
-        this.grid = new RPSGrid(numRows, numColumns, ROW_WRAP, COLUMN_WRAP);
+        this.grid = new RPSGrid(numRows, numColumns, ROW_WRAP, COLUMN_WRAP, gridConfig);
     }
 
     protected void initializeCells(Map<Point, Integer> initialParam) {
@@ -29,7 +29,7 @@ public class RPSSimulation extends Simulation {
             if (grid.getMatrix().get(position) != null) {
                 throw new IllegalArgumentException("InitialState Duplicate Point Error");
             }
-            RPSCell cell = new RPSCell(position, (RPSGrid) grid, CellStates.RPSStates.fromInt((int) entry.getValue()), maxHit);
+            RPSCell cell = new RPSCell(position, (RPSGrid) grid, CellStates.RPSStates.fromInt((int) entry.getValue()), gridConfig, maxHit);
             super.grid.getMatrix().put(position, cell);
         }
     }
@@ -90,7 +90,7 @@ public class RPSSimulation extends Simulation {
                 numWhite++;
             }
 
-            view.put(entry.getKey(), entry.getValue().currentState);
+            view.put(entry.getKey(), entry.getValue().currentState.ordinal());
         }
         statistics.put(CellStates.RPSStates.BLUE, numBlue);
         statistics.put(CellStates.RPSStates.GREEN, numGreen);

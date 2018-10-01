@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.ArrayList;
+
 /**
  * Abstract representation of directions. Includes method that returns the direction vector.
  *
@@ -8,6 +10,48 @@ package Model;
 
 
 public class Directions {
+
+    public static ArrayList<Point> getshape(NoOfNeighbors n) {
+        ArrayList<Point> points = new ArrayList<>();
+        switch (n) {
+            case THREE:
+                for (Directions.ThreeDirections directions : ThreeDirections.values()) {
+                    points.add(directions.getDirection());
+                }
+                break;
+            case FOUR:
+                for (Directions.FourDirections directions : FourDirections.values()) {
+                    points.add(directions.getDirection());
+                }
+                break;
+            case SIX:
+                for (Directions.SixDirections directions : SixDirections.values()) {
+                    points.add(directions.getDirection());
+                }
+                break;
+            case EIGHT:
+                for (Directions.EightDirections directions : EightDirections.values()) {
+                    points.add(directions.getDirection());
+                }
+                break;
+            case TWELVE:
+                for (Directions.TwelveDirections directions : TwelveDirections.values()) {
+                    points.add(directions.getDirection());
+                }
+                break;
+
+        }
+        return points;
+    }
+
+    enum NoOfNeighbors {
+        THREE,
+        FOUR,
+        SIX,
+        EIGHT,
+        TWELVE;
+    }
+
     public enum EightDirections {
         NW (-1, -1),
         N (0, -1),

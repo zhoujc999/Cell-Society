@@ -19,8 +19,8 @@ public class WatorSimulation extends Simulation {
     private int fishTurnsToBreed;
     private int sharkTurnsToBreed;
 
-    public WatorSimulation(int numRows, int numColumns, Map<Point, Integer> initialState, int fishTurnsToBreed, int sharkTurnsToBreed) {
-        super(numRows, numColumns, initialState);
+    public WatorSimulation(int numRows, int numColumns, Map<Point, Integer> initialState, int noOfSides, int fishTurnsToBreed, int sharkTurnsToBreed) {
+        super(numRows, numColumns, initialState, noOfSides);
         this.fishTurnsToBreed = fishTurnsToBreed;
         this.sharkTurnsToBreed = sharkTurnsToBreed;
         initializeAllNeighbors();
@@ -29,7 +29,7 @@ public class WatorSimulation extends Simulation {
     }
 
     protected void initializeGrid() {
-        this.grid = new WatorGrid(numRows, numColumns, ROW_WRAP, COLUMN_WRAP);
+        this.grid = new WatorGrid(numRows, numColumns, ROW_WRAP, COLUMN_WRAP, gridConfig);
     }
 
     protected void initializeCells(Map<Point, Integer> initialParam) {
@@ -39,7 +39,7 @@ public class WatorSimulation extends Simulation {
                 throw new IllegalArgumentException("InitialState Duplicate Point Error");
             }
             CellStates.WatorStates state = CellStates.WatorStates.fromInt((int) entry.getValue());
-            WatorCell cell = new WatorCell(position, (WatorGrid) grid, state, fishTurnsToBreed, sharkTurnsToBreed);
+            WatorCell cell = new WatorCell(position, (WatorGrid) grid, state, gridConfig, fishTurnsToBreed, sharkTurnsToBreed);
             grid.getMatrix().put(position, cell);
         }
     }

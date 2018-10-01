@@ -219,9 +219,11 @@ public class Controller {
                 break;
             case WATOR:
                 simulation = new WatorSimulation(numRows, numCols, myMap, fishRate, sharkRate);
+                statsGraph = new WatorStatsGraph(lineChart);
                 break;
             case RPS:
                 simulation = new RPSSimulation(numRows, numCols, myMap, maxHit);
+                statsGraph = new RPSStatsGraph(lineChart);
                 break;
         }
         return simulation;

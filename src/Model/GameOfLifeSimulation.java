@@ -16,8 +16,8 @@ public class GameOfLifeSimulation extends Simulation {
     private static final boolean COLUMN_WRAP = false;
 
 
-    public GameOfLifeSimulation(int numRows, int numColumns, Map<Point, Integer> initialState) {
-        super(numRows, numColumns, initialState);
+    public GameOfLifeSimulation(int numRows, int numColumns, Map<Point, Integer> initialState, int noOfSides) {
+        super(numRows, numColumns, initialState, noOfSides);
         render();
     }
 
@@ -25,7 +25,7 @@ public class GameOfLifeSimulation extends Simulation {
 
 
     protected void initializeGrid() {
-        this.grid = new GameOfLifeGrid(numRows, numColumns, ROW_WRAP, COLUMN_WRAP);
+        this.grid = new GameOfLifeGrid(numRows, numColumns, ROW_WRAP, COLUMN_WRAP, gridConfig);
     }
 
     /**
@@ -37,7 +37,7 @@ public class GameOfLifeSimulation extends Simulation {
             if (grid.getMatrix().get(position) != null) {
                 throw new IllegalArgumentException("InitialState - Duplicate Points Error");
             }
-            GameOfLifeCell cell = new GameOfLifeCell(position, (GameOfLifeGrid) grid, CellStates.GameOfLifeStates.fromInt((int) entry.getValue()));
+            GameOfLifeCell cell = new GameOfLifeCell(position, (GameOfLifeGrid) grid, CellStates.GameOfLifeStates.fromInt((int) entry.getValue()), gridConfig);
             grid.getMatrix().put(position, cell);
         }
     }
