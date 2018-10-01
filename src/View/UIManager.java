@@ -212,9 +212,14 @@ public class UIManager {
         Layout l = new Layout(layoutGridPane);
     }
 
+
     public void handleSave(TextField heightTextField, TextField widthTextField, Slider slider, Controller controller){
         Map<String, String> attributes = getNewAttribute(heightTextField, widthTextField, slider, resourceBundle);
-        try{controller.saveConfig(attributes);}
+        try{controller.saveConfig(attributes);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION,"Configuration saved",
+                    ButtonType.OK);
+            alert.showAndWait();
+        }
         catch (IOException e){
             Alert alert = new Alert(Alert.AlertType.INFORMATION,"IOException: "+ e.getMessage(),
                     ButtonType.OK);
