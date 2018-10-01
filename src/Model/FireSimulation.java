@@ -26,7 +26,7 @@ public class FireSimulation extends Simulation {
     }
 
     protected void initializeGrid() {
-        this.grid = new FireGrid(numRows, numColumns, ROW_WRAP, COLUMN_WRAP);
+        this.grid = new FireGrid(numRows, numColumns, ROW_WRAP, COLUMN_WRAP, gridConfig);
     }
 
     /**

@@ -20,7 +20,7 @@ public class RPSSimulation extends Simulation {
 
 
     protected void initializeGrid() {
-        this.grid = new RPSGrid(numRows, numColumns, ROW_WRAP, COLUMN_WRAP);
+        this.grid = new RPSGrid(numRows, numColumns, ROW_WRAP, COLUMN_WRAP, gridConfig);
     }
 
     protected void initializeCells(Map<Point, Integer> initialParam) {

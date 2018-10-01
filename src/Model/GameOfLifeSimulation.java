@@ -25,7 +25,7 @@ public class GameOfLifeSimulation extends Simulation {
 
 
     protected void initializeGrid() {
-        this.grid = new GameOfLifeGrid(numRows, numColumns, ROW_WRAP, COLUMN_WRAP);
+        this.grid = new GameOfLifeGrid(numRows, numColumns, ROW_WRAP, COLUMN_WRAP, gridConfig);
     }
 
     /**
