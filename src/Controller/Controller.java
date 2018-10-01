@@ -7,10 +7,7 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import View.*;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Array;
 import java.util.*;
 
@@ -78,6 +75,7 @@ public class Controller {
         XMLParser parser = new XMLParser(GAME_TYPE);
         Map<String, String> attributes = parser.getAttribute(dataFile);
         originalAttributes = attributes;
+        System.out.println(originalAttributes);
         setUp(attributes, false);
     }
 
@@ -111,15 +109,15 @@ public class Controller {
         int sharkRate = Integer.parseInt(attributes.getOrDefault(SHARK_RATE, DEFAULT_SHARK_RATE));
         int fishRate = Integer.parseInt(attributes.getOrDefault(FISH_RATE, DEFAULT_FISH_RATE));
         int maxHit = Integer.parseInt(attributes.getOrDefault(MAX_HIT, DEFAULT_FISH_RATE));
-        int sizes = Integer.parseInt(attributes.getOrDefault(SIDES, "4"));
+        int sides = Integer.parseInt(attributes.getOrDefault(SIDES, "4"));
         String defaultMap = attributes.getOrDefault(DEFAULT_SETUP, null);
         if(isReset){
-            mySimulation = getSimulation(numRows, numColumns,type, threshold, beginningStageMap, fishRate, sharkRate,maxHit);
+            mySimulation = getSimulation(numRows, numColumns,type, threshold, beginningStageMap, fishRate, sharkRate,maxHit,sides);
         }
         else {
             myMap = simulationMap(numRows, numColumns, cellRatio, cellRatio2, emptyRatio, defaultMap,getMaxState(type));
             beginningStageMap = new HashMap<>(myMap);
-            mySimulation = getSimulation(numRows, numColumns, type, threshold, myMap, fishRate, sharkRate, maxHit);
+            mySimulation = getSimulation(numRows, numColumns, type, threshold, myMap, fishRate, sharkRate, maxHit, sides);
         }
     }
 
@@ -136,19 +134,28 @@ public class Controller {
         Map<String, String> toSave = new HashMap<>(originalAttributes);
         FileChooser chooser = new FileChooser();
         chooser.setTitle("Please choose the directory to save ur config");
+        chooser.getExtensionFilters().setAll(new FileChooser.ExtensionFilter("text file ",DATA_FILE_EXTENSION));
         chooser.setInitialDirectory(new File(System.getProperty("user.dir")));
-        File selectedFile = chooser.showOpenDialog(gridPane.getScene().getWindow());
-
-        FileWriter fstream = new FileWriter(selectedFile.getName());
-        BufferedWriter out = new BufferedWriter(fstream);
-
-        for (String s : originalAttributes.keySet()) {
-            out.write("<"+s+">");
-            out.write(originalAttributes.get(s));
-            out.write("</"+s+">");
+        File selectedFile = null;
+        while (selectedFile == null){
+            selectedFile = chooser.showSaveDialog(null);
         }
-        out.write("</data>");
-        out.close();
+        createAndWrite(selectedFile);
+    }
+
+    private void createAndWrite(File selectedFile) throws FileNotFoundException {
+        PrintWriter cout= new PrintWriter(selectedFile);
+        cout.println(XMLHEADING);
+        System.out.println(originalAttributes);
+        for (String s : originalAttributes.keySet()) {
+            if(originalAttributes.get(s)== null||originalAttributes.get(s).trim().isEmpty())
+            {continue;}
+            cout.print("<"+s+">");
+            cout.print(originalAttributes.get(s));
+            cout.println("</"+s+">");
+        }
+        cout.println("</data>");
+        cout.close();
     }
 
     public void updateFPS(int updatedFPS) {
@@ -195,27 +202,27 @@ public class Controller {
         return result;
     }
 
-    Simulation getSimulation(int numRows, int numCols, String type, double threshold, Map<Point, Integer> myMap, int fishRate, int sharkRate, int maxHit) {
+    Simulation getSimulation(int numRows, int numCols, String type, double threshold, Map<Point, Integer> myMap, int fishRate, int sharkRate, int maxHit, int sides) {
         Simulation simulation = null;
         switch (type) {
             case GAME_OF_LIFE:
-                simulation = new GameOfLifeSimulation(numRows, numCols, myMap);
+                simulation = new GameOfLifeSimulation(numRows, numCols, myMap,sides);
                 statsGraph = new GameOfLifeStatsGraph(lineChart);
                 break;
             case SEGREGATION:
-                simulation = new SegregationSimulation(numRows, numCols, myMap, threshold);
+                simulation = new SegregationSimulation(numRows, numCols, myMap, sides, threshold);
                 statsGraph = new SegregationStatsGraph(lineChart);
                 break;
             case FIRE:
-                simulation = new FireSimulation(numRows, numCols, myMap, threshold);
+                simulation = new FireSimulation(numRows, numCols, myMap,sides, threshold);
                 statsGraph = new FireStatsGraph(lineChart);
                 break;
             case WATOR:
-                simulation = new WatorSimulation(numRows, numCols, myMap, fishRate, sharkRate);
+                simulation = new WatorSimulation(numRows, numCols, myMap, sides, fishRate, sharkRate);
                 statsGraph = new WatorStatsGraph(lineChart);
                 break;
             case RPS:
-                simulation = new RPSSimulation(numRows, numCols, myMap, maxHit);
+                simulation = new RPSSimulation(numRows, numCols, myMap,sides, maxHit);
                 statsGraph = new RPSStatsGraph(lineChart);
                 break;
         }

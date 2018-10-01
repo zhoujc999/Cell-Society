@@ -46,6 +46,7 @@ public class XMLParser {
         }
         var result = new HashMap<String, String>();
         NodeList nodes= root.getChildNodes();
+
         for(int i = 0; i<nodes.getLength(); i++)
         {
             result.put(nodes.item(i).getNodeName(),nodes.item(i).getTextContent());
