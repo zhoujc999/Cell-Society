@@ -138,13 +138,13 @@ public class UIManager {
     }
 
     public void changeCellShape(ComboBox dropDown, Controller controller, TextField heightTextField, TextField widthTextField, Slider slider, ResourceBundle resourceBundle){
-//        System.out.println();
+        System.out.println(dropDown.getSelectionModel().getSelectedIndex());
         String sides = new String();
-        switch(dropDown.getSelectionModel().getSelectedItem().toString()){
-            case "Rectangle":
+        switch(dropDown.getSelectionModel().getSelectedIndex()){
+            case 0:
                 sides = "4";
                 break;
-            case "Hexagon":
+            case 1:
                 sides = "6";
         }
         Map<String, String> attributes = getNewAttribute(heightTextField, widthTextField, slider, resourceBundle);
