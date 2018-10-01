@@ -29,7 +29,7 @@ public class SegregationSimulation extends Simulation {
 
 
     protected void initializeGrid() {
-        this.grid = new SegregationGrid(numRows, numColumns, ROW_WRAP, COLUMN_WRAP);
+        this.grid = new SegregationGrid(numRows, numColumns, ROW_WRAP, COLUMN_WRAP, gridConfig);
     }
 
     /**
