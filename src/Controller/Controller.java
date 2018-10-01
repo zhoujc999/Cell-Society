@@ -85,7 +85,15 @@ public class Controller {
         //retrieve parameters needed to build a new Simulation
         createSimulation(attributes, isReset);
         int speed = Integer.parseInt(attributes.get(FPS));
-        myView = new HexCellGridPane(gridPane, statsGraph);
+        int sides = Integer.parseInt(attributes.getOrDefault(SIDES, "4"));
+        switch(sides){
+            case 4:
+                myView = new RectCellGridPane(gridPane, statsGraph);
+                break;
+            case 6:
+                myView = new HexCellGridPane(gridPane, statsGraph);
+        }
+//        myView = new HexCellGridPane(gridPane, statsGraph);
         myView.create(attributes, mySimulation);
 
         if(myTime==null){
@@ -111,15 +119,15 @@ public class Controller {
         int sharkRate = Integer.parseInt(attributes.getOrDefault(SHARK_RATE, DEFAULT_SHARK_RATE));
         int fishRate = Integer.parseInt(attributes.getOrDefault(FISH_RATE, DEFAULT_FISH_RATE));
         int maxHit = Integer.parseInt(attributes.getOrDefault(MAX_HIT, DEFAULT_FISH_RATE));
-        int sizes = Integer.parseInt(attributes.getOrDefault(SIDES, "4"));
+        int sides = Integer.parseInt(attributes.getOrDefault(SIDES, "4"));
         String defaultMap = attributes.getOrDefault(DEFAULT_SETUP, null);
         if(isReset){
-            mySimulation = getSimulation(numRows, numColumns,type, threshold, beginningStageMap, fishRate, sharkRate,maxHit);
+            mySimulation = getSimulation(numRows, numColumns,type, threshold, beginningStageMap, fishRate, sharkRate,maxHit, sides);
         }
         else {
             myMap = simulationMap(numRows, numColumns, cellRatio, cellRatio2, emptyRatio, defaultMap,getMaxState(type));
             beginningStageMap = new HashMap<>(myMap);
-            mySimulation = getSimulation(numRows, numColumns, type, threshold, myMap, fishRate, sharkRate, maxHit);
+            mySimulation = getSimulation(numRows, numColumns, type, threshold, myMap, fishRate, sharkRate, maxHit, sides);
         }
     }
 
@@ -195,27 +203,27 @@ public class Controller {
         return result;
     }
 
-    Simulation getSimulation(int numRows, int numCols, String type, double threshold, Map<Point, Integer> myMap, int fishRate, int sharkRate, int maxHit) {
+    Simulation getSimulation(int numRows, int numCols, String type, double threshold, Map<Point, Integer> myMap, int fishRate, int sharkRate, int maxHit, int sides) {
         Simulation simulation = null;
         switch (type) {
             case GAME_OF_LIFE:
-                simulation = new GameOfLifeSimulation(numRows, numCols, myMap);
+                simulation = new GameOfLifeSimulation(numRows, numCols, myMap,sides);
                 statsGraph = new GameOfLifeStatsGraph(lineChart);
                 break;
             case SEGREGATION:
-                simulation = new SegregationSimulation(numRows, numCols, myMap, threshold);
+                simulation = new SegregationSimulation(numRows, numCols, myMap,sides,threshold);
                 statsGraph = new SegregationStatsGraph(lineChart);
                 break;
             case FIRE:
-                simulation = new FireSimulation(numRows, numCols, myMap, threshold);
+                simulation = new FireSimulation(numRows, numCols, myMap,sides,threshold);
                 statsGraph = new FireStatsGraph(lineChart);
                 break;
             case WATOR:
-                simulation = new WatorSimulation(numRows, numCols, myMap, fishRate, sharkRate);
+                simulation = new WatorSimulation(numRows, numCols, myMap, sides,fishRate,sharkRate);
                 statsGraph = new WatorStatsGraph(lineChart);
                 break;
             case RPS:
-                simulation = new RPSSimulation(numRows, numCols, myMap, maxHit);
+                simulation = new RPSSimulation(numRows, numCols, myMap, sides,maxHit);
                 statsGraph = new RPSStatsGraph(lineChart);
                 break;
         }

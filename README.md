@@ -79,9 +79,8 @@ will be automatically trimmed.
 
 ### Notes
 
-* Note that the program supports adding as many simulation as you like. However, due to 
-
-* If you open 
+* Note that the program supports adding as many simulation as you like. However, due to aesthetic
+design concern, you are not allowed to add more than two simulations as everything will be squeezed together.
 
 * When you first run the application, the simulation area may be empty or already completed. 
 This is because the simulation has already occurred before it got rendered on the screen before
@@ -97,4 +96,5 @@ or step to continue the simulation again.
 
 ### Impressions
 
-Xi Pu: 
+Xi Pu: The project really encourages us to apply the design knowledge into developing more flexible 
+code. I feel like the resources files than explain the rule of simulation can be more clear. 

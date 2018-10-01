@@ -134,6 +134,7 @@ public class Layout extends UIManager{
         Button step = new Button(UILabels.getString(StepButtonLabel));
         step.setOnAction(event -> controller.animationStep());
         ComboBox dropdown = new ComboBox();
+        dropdown.setOnAction(event -> super.changeCellShape(dropdown, controller, heightTextField, widthTextField, slider, UILabels));
         dropdown.setItems(FXCollections.observableArrayList(
                 UILabels.getString("Rectangle"), UILabels.getString("Hexagon")));
         dropdown.getSelectionModel().selectFirst();

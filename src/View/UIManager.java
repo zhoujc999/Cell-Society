@@ -58,6 +58,7 @@ public class UIManager {
     private static final int MAX_FPS = 30;
     private static final String DEFAULT_SIZE = "20";
     private static final int HUNDRED = 100;
+
     private int oldNumRows;
     private int oldNumCols;
     private int oldFPS;
@@ -102,7 +103,11 @@ public class UIManager {
     }
 
     public void handleApplyButtonAction(TextField heightTextField, TextField widthTextField, Slider slider, Controller controller, Pane gridPane){
-        Map<String, String> attributes = getNewAttribute(heightTextField, widthTextField, slider);
+//        if(heightTextField.getText().length()==0||widthTextField.getText().length()==0){
+//            showWarningDialog();
+//            return;
+//        }
+        Map<String, String> attributes = getNewAttribute(heightTextField, widthTextField, slider, resourceBundle);
         if (attributes == null) return;
         if(oldNumCols!=Integer.parseInt(widthTextField.getText())||oldNumRows!=Integer.parseInt(heightTextField.getText())){
             oldNumCols = Integer.parseInt(widthTextField.getText());
@@ -116,9 +121,9 @@ public class UIManager {
         }
     }
 
-    private Map<String, String> getNewAttribute(TextField heightTextField, TextField widthTextField, Slider slider) {
+    private Map<String, String> getNewAttribute(TextField heightTextField, TextField widthTextField, Slider slider, ResourceBundle resourceBundle) {
         if(heightTextField.getText().length()==0||widthTextField.getText().length()==0){
-            showWarningDialog();
+            showWarningDialog(resourceBundle);
             return null;
         }
         Map<String, String> attributes = new HashMap<>();
@@ -129,20 +134,27 @@ public class UIManager {
     }
 
     public void changeCellShape(){
-        System.out.println();
+        changeCellShape(dropDownMenu, controller, heightTextField, widthTextField, slider, resourceBundle);
+    }
+
+    public void changeCellShape(ComboBox dropDown, Controller controller, TextField heightTextField, TextField widthTextField, Slider slider, ResourceBundle resourceBundle){
+//        System.out.println();
         String sides = new String();
-        switch(dropDownMenu.getSelectionModel().getSelectedItem().toString()){
+        switch(dropDown.getSelectionModel().getSelectedItem().toString()){
             case "Rectangle":
                 sides = "4";
                 break;
             case "Hexagon":
                 sides = "6";
         }
-        Map<String, String> attributes = getNewAttribute(heightTextField, widthTextField, slider);
-        attributes.put(Controller.SIDES, sides);
-        controller.update(attributes);
-//        controller.changeCellShape(dropDownMenu.getSelectionModel().getSelectedItem().toString());
+        Map<String, String> attributes = getNewAttribute(heightTextField, widthTextField, slider, resourceBundle);
+        if(attributes!=null){
+            attributes.put(Controller.SIDES, sides);
+            controller.update(attributes);
+        }
+
     }
+
 
     public void handleStartButtonAction(){
         controller.resume();
@@ -178,12 +190,17 @@ public class UIManager {
     }
 
     private void showWarningDialog(){
+        showWarningDialog(resourceBundle);
+    }
+
+    public void showWarningDialog(ResourceBundle resourceBundle){
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(resourceBundle.getString("WarningTitle"));
         alert.setHeaderText(resourceBundle.getString("WarningHeaderText"));
         alert.setContentText(resourceBundle.getString("WarningContentText"));
         alert.showAndWait();
     }
+
 
     private void initializeComboBox(){
         dropDownMenu.setItems(FXCollections.observableArrayList(
@@ -195,8 +212,8 @@ public class UIManager {
         Layout l = new Layout(layoutGridPane);
     }
 
-    public void handleSave(TextField heightTextField, TextField widthTextField, Slider slider, Controller controller, Pane gridPane){
-        Map<String, String> attributes = getNewAttribute(heightTextField, widthTextField, slider);
+    public void handleSave(TextField heightTextField, TextField widthTextField, Slider slider, Controller controller){
+        Map<String, String> attributes = getNewAttribute(heightTextField, widthTextField, slider, resourceBundle);
         try{controller.saveConfig(attributes);}
         catch (IOException e){
             Alert alert = new Alert(Alert.AlertType.INFORMATION,"IOException: "+ e.getMessage(),
@@ -207,6 +224,6 @@ public class UIManager {
 
 
     public void handleSave() {
-        handleSave(heightTextField, widthTextField, slider, controller, gridPane);
+        handleSave(heightTextField, widthTextField, slider, controller);
     }
 }
