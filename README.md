@@ -96,5 +96,7 @@ or step to continue the simulation again.
 
 ### Impressions
 
-Xi Pu: The project really encourages us to apply the design knowledge into developing more flexible 
-code. I feel like the resources files than explain the rule of simulation can be more clear. 
+Xi Pu: Overall, I think the project is well designed. It really encourages us to apply the design knowledge into developing more flexible 
+and extensible code. I feel like the resources files than explain the rule of simulation can be more clear. Also, 
+I think it will be really helpful to see a sample program demo so that we can really get a sense of
+what kind of program are we going to make.
