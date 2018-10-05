@@ -6,9 +6,9 @@ import java.util.Random;
 
 
 /**
- * Abstract representation of a Grid. Grid is a class that contains a map from a cartesian coordinate to a Cell.
+ * Abstract representation of a Grid.
+ * Grid is a class that contains a map from a cartesian coordinate to a Cell.
  * It has additional methods to support various kinds of grids.
- *
  * @author jz192
  */
 

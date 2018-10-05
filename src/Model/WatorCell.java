@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Abstract representation of a Wa-Tor Cell.
- *
+ * Subclass of Cell.
  * @author jz192
  */
 
@@ -18,7 +18,7 @@ public class WatorCell extends Cell {
     private int sharkTurnsToBreed;
     private int turn;
 
-    public WatorCell(Point position, WatorGrid grid, CellStates.WatorStates state, Directions.NoOfNeighbors gridConfig, int fishTurnsToBreed, int sharkTurnsToBreed) {
+    protected WatorCell(Point position, WatorGrid grid, CellStates.WatorStates state, Directions.NoOfNeighbors gridConfig, int fishTurnsToBreed, int sharkTurnsToBreed) {
         super(position, grid, state, gridConfig);
         this.fishNeighborPositions = new ArrayList<>();
         this.emptyNeighborPositions = new ArrayList<>();
@@ -51,7 +51,7 @@ public class WatorCell extends Cell {
         fishNeighborPositions.clear();
         emptyNeighborPositions.clear();
         Point neighborPosition;
-        ArrayList<Point> neighborConfig = Directions.getshape(gridConfig);
+        ArrayList<Point> neighborConfig = Directions.getShape(gridConfig);
         for (Point direction : neighborConfig) {
             neighborPosition = getPosition().add(direction);
             if (!grid.outOfBounds(neighborPosition)) {
@@ -68,7 +68,7 @@ public class WatorCell extends Cell {
 
     protected void initializeNeighborsNeighbors() {
         Point neighborPosition;
-        ArrayList<Point> neighborConfig = Directions.getshape(gridConfig);
+        ArrayList<Point> neighborConfig = Directions.getShape(gridConfig);
         for (Point direction : neighborConfig) {
             neighborPosition = getPosition().add(direction);
             if (!grid.outOfBounds(neighborPosition)) {
@@ -78,7 +78,7 @@ public class WatorCell extends Cell {
     }
 
     @Override
-    public void calculateNextState() {
+    protected void calculateNextState() {
         WatorGrid g = (WatorGrid) this.grid;
         switch ((CellStates.WatorStates) currentState) {
             case SHARK:

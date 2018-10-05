@@ -4,14 +4,19 @@ import java.util.ArrayList;
 
 /**
  * Abstract representation of directions. Includes method that returns the direction vector.
- *
+ * This Class is used to get the position of the neighbours by defining all the possible locations of neighbors in an enum.
  * @author jz192
  */
 
 
 public class Directions {
 
-    public static ArrayList<Point> getshape(NoOfNeighbors n) {
+    /**
+     * This method returns a list of points of neighbor cells based on the enum passed in.
+     * @param n
+     * @return ArrayList of Points
+     */
+    public static final ArrayList<Point> getShape(NoOfNeighbors n) {
         ArrayList<Point> points = new ArrayList<>();
         switch (n) {
             case THREE:

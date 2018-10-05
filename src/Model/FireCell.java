@@ -2,7 +2,7 @@ package Model;//package Model;
 
 /**
  * Abstract representation of a Fire Cell.
- *
+ * A subclass of Cell.
  * @author jz192
  */
 
@@ -10,7 +10,7 @@ package Model;//package Model;
 
 public class FireCell extends Cell {
     private double probCatchFire;
-    public FireCell(Point position, FireGrid grid, CellStates.FireStates state, Directions.NoOfNeighbors gridConfig, double probCatchFire) {
+    protected FireCell(Point position, FireGrid grid, CellStates.FireStates state, Directions.NoOfNeighbors gridConfig, double probCatchFire) {
         super(position, grid, state, gridConfig);
         this.probCatchFire = probCatchFire;
     }

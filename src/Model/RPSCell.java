@@ -2,6 +2,14 @@ package Model;
 
 import java.util.ArrayList;
 
+/**
+ * Abstract representation of a RPS Cell.
+ * A subclass of Cell.
+ * @author jz192
+ */
+
+
+
 public class RPSCell extends Cell {
     private ArrayList<RPSCell> neighbors;
     private int maxHit;
@@ -9,7 +17,7 @@ public class RPSCell extends Cell {
     private int nextHitCount;
     private boolean firstHit;
 
-    public RPSCell(Point position, RPSGrid grid, CellStates.RPSStates state, Directions.NoOfNeighbors gridConfig, int maxHit) {
+    protected RPSCell(Point position, RPSGrid grid, CellStates.RPSStates state, Directions.NoOfNeighbors gridConfig, int maxHit) {
         super(position, grid, state, gridConfig);
         this.maxHit = maxHit;
         this.currentHitCount = 0;
@@ -20,7 +28,7 @@ public class RPSCell extends Cell {
     protected void initializeNeighbors() {
         neighbors.clear();
         Point neighborPosition;
-        ArrayList<Point> neighborConfig = Directions.getshape(gridConfig);
+        ArrayList<Point> neighborConfig = Directions.getShape(gridConfig);
         for (Point direction : neighborConfig) {
             neighborPosition = getPosition().add(direction);
             if (!grid.outOfBounds(neighborPosition)) {
@@ -59,7 +67,7 @@ public class RPSCell extends Cell {
     }
 
     @Override
-    public void calculateNextState() {
+    protected void calculateNextState() {
         RPSCell neighbor = neighbors.get(random.nextInt(neighbors.size()));
         switch ((CellStates.RPSStates) currentState) {
             case RED:

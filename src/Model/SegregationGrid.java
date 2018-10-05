@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Abstract representation of a grid for segregation simulation.
- *
+ * Subclass of Grid.
  * @author jz192
  */
 
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class SegregationGrid extends Grid {
     private ArrayList<Point> emptyPositions;
 
-    public SegregationGrid(int numRows, int numColumns, boolean rowWrap, boolean columnWrap, Directions.NoOfNeighbors gridConfig) {
+    protected SegregationGrid(int numRows, int numColumns, boolean rowWrap, boolean columnWrap, Directions.NoOfNeighbors gridConfig) {
         super(numRows, numColumns, rowWrap, columnWrap, gridConfig);
         emptyPositions = new ArrayList<>();
     }

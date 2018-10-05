@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 /**
  * Abstract representation of a Segregation Cell.
- *
+ * Subclass of Cell.
  * @author jz192
  */
 
@@ -15,26 +15,26 @@ public class SegregationCell extends Cell {
     private double satisfactionThreshold;
     private boolean satisfied;
 
-    public SegregationCell(Point position, SegregationGrid grid, CellStates.SegregationStates state, Directions.NoOfNeighbors gridConfig, double satisfactionThreshold) {
+    protected SegregationCell(Point position, SegregationGrid grid, CellStates.SegregationStates state, Directions.NoOfNeighbors gridConfig, double satisfactionThreshold) {
         super(position, grid, state, gridConfig);
         this.satisfactionThreshold = satisfactionThreshold;
         this.satisfied = true;
     }
 
 
-    public void setSatisfactionThreshold(double satisfactionThreshold) {
+    protected void setSatisfactionThreshold(double satisfactionThreshold) {
         this.satisfactionThreshold = satisfactionThreshold;
     }
 
-    public double getSatisfactionThreshold() {
+    protected double getSatisfactionThreshold() {
         return satisfactionThreshold;
     }
 
-    public void setSatisfed(boolean satisfied) {
+    protected void setSatisfed(boolean satisfied) {
         this.satisfied = satisfied;
     }
 
-    public boolean isSatisfied() {
+    protected boolean isSatisfied() {
         return satisfied;
     }
 
@@ -42,12 +42,12 @@ public class SegregationCell extends Cell {
 
 
     @Override
-    public void calculateNextState() {
+    protected void calculateNextState() {
         if (getCurrentState() != CellStates.SegregationStates.EMPTY) {
             int numRedNeighbors = 0;
             int numBlueNeighbors = 0;
             Point neighborPosition;
-            ArrayList<Point> neighborConfig = Directions.getshape(gridConfig);
+            ArrayList<Point> neighborConfig = Directions.getShape(gridConfig);
             for (Point direction : neighborConfig) {
                 neighborPosition = getPosition().add(direction);
                 if (!grid.outOfBounds(neighborPosition)) {

@@ -4,12 +4,27 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Abstract representation of a Rock Paper Scissors Simulation
+ * Subclass of Simulation
+ * @author jz192
+ */
+
 public class RPSSimulation extends Simulation {
     private static final boolean ROW_WRAP = false;
     private static final boolean COLUMN_WRAP = false;
 
     private int maxHit;
 
+    /**
+     * GameOfLife simulation creates an instance of this simulation.
+     * @param initialState a map of points to cell states
+     * @param noOfSides shape of cell
+     * @param numColumns number of columns for the grid
+     * @param numRows number of rows for the grid
+     * @param maxHit maximum number of hits before a cell dies
+     * Subclass of Simulation.
+     */
     public RPSSimulation(int numRows, int numColumns, Map<Point, Integer> initialState, int noOfSides, int maxHit) {
         super(numRows, numColumns, initialState, noOfSides);
         initializeAllNeighbors();

@@ -5,8 +5,9 @@ import java.util.Map;
 import java.util.Random;
 
 /**
- * Abstract representation of a Simulation
- *
+ * Abstract representation of a Simulation.
+ * It receives a map of points to initial states and instantiates the collection of cells onto the grid.
+ * Throws Exception when the number of points given in initialState mismatches the number of rows * number of columns.
  * @author jz192
  */
 
@@ -58,7 +59,8 @@ public abstract class Simulation {
 
 
     /**
-     * call this method at every time-step to update and evolve the model
+     * Call this method at every time-step to update and evolve the model.
+     * This method updates the view and the statistics of the simulations.
      */
     public abstract void step();
 
@@ -72,10 +74,16 @@ public abstract class Simulation {
     protected abstract void initializeStatistics();
 
 
+    /**
+     * Call this method to receive a a map of points to the current cell state.
+     */
     public Map getView() {
         return view;
     }
 
+    /**
+     * Call this method to receive a a map of cell states to the number of cells in that state.
+     */
     public Map getStatistics() {
         return statistics;
     }

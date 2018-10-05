@@ -6,9 +6,9 @@ import java.util.Random;
 
 /**
  * Abstract representation of a Cell. Includes the minimum methods a Cell has to implement.
- * position is where the cell is located in the grid.
- * neighbors are the adjacent (as defined in problem) Cells
- * currentState and nextState are wrapped in enum classes
+ * Position is where the cell is located in the grid.
+ * Neighbors are the adjacent (as defined in problem) Cells
+ * CurrentState and nextState are wrapped in enum classes
  * @author jz192
  */
 
@@ -21,7 +21,7 @@ public abstract class Cell {
     protected Random random;
 
     /**
-     * Constructor for Model
+     * Constructor for Cell Model
      * @param position
      * @param state
      */
@@ -34,11 +34,6 @@ public abstract class Cell {
         this.random = new Random();
     }
 
-
-    /**
-     *
-     * @return the cell's neighbours
-     */
 
 
 
@@ -80,6 +75,10 @@ public abstract class Cell {
     protected abstract void updateState();
 
 
+    /**
+     * Returns the string representation of the cell, which includes the position
+     * @return string representation
+     */
     @Override
     public String toString() {
         return "Cell" +  " @ " + position;

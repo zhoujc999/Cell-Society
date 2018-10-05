@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 /**
  * Abstract representation of a GameOfLife Cell.
- *
+ * Subclass of Cell.
  * @author jz192
  */
 
 
 public class GameOfLifeCell extends Cell {
 
-    public GameOfLifeCell(Point position, GameOfLifeGrid grid, CellStates.GameOfLifeStates state, Directions.NoOfNeighbors gridConfig) {
+    protected GameOfLifeCell(Point position, GameOfLifeGrid grid, CellStates.GameOfLifeStates state, Directions.NoOfNeighbors gridConfig) {
         super(position, grid, state, gridConfig);
     }
 
@@ -23,7 +23,7 @@ public class GameOfLifeCell extends Cell {
     protected void calculateNextState() {
         int numOfLiveNeighbors = 0;
         Point neighborPosition;
-        ArrayList<Point> neighborConfig = Directions.getshape(gridConfig);
+        ArrayList<Point> neighborConfig = Directions.getShape(gridConfig);
         for (Point direction : neighborConfig) {
             neighborPosition = getPosition().add(direction);
             if (!grid.outOfBounds(neighborPosition)) {

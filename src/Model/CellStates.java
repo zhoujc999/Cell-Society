@@ -1,20 +1,30 @@
 package Model;
 
 /**
- * Abstract representation of a cell state.
- *
+ * Abstract representation of cell states.
+ * This class is contains the enums for all the cell states of the variants of cellular automaton.
+ * It has dependency on Cell.
  * @author jz192
  */
 
 public class CellStates {
 
-
-
+    /**
+     * Enum for the cell states for game of life.
+     * Includes a method that sets the state with an integer
+     *
+     */
     public enum GameOfLifeStates {
         EMPTY,
         LIVE,
         DEAD;
         private static GameOfLifeStates[] cachedValues = null;
+
+        /**
+         * @param i
+         * @return gameOfLifeStates
+         *
+         */
         public static GameOfLifeStates fromInt(int i) {
             if(GameOfLifeStates.cachedValues == null) {
                 GameOfLifeStates.cachedValues = GameOfLifeStates.values();

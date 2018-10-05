@@ -6,7 +6,7 @@ import java.util.Map;
 
 /**
  * Abstract representation of the Segregation Simulation
- *
+ * Subclass of Simulation
  * @author jz192
  */
 
@@ -20,6 +20,15 @@ public class SegregationSimulation extends Simulation {
     private double satisfactionThreshold;
     private int numEmptyCells;
 
+    /**
+     * GameOfLife simulation creates an instance of this simulation.
+     * @param initialState a map of points to cell states
+     * @param noOfSides shape of cell
+     * @param numColumns number of columns for the grid
+     * @param numRows number of rows for the grid
+     * @param threshold the threshold before the cells would move
+     * Subclass of Simulation.
+     */
     public SegregationSimulation(int numRows, int numColumns, Map<Point, Integer> initialState, int noOfSides, double threshold) {
         super(numRows, numColumns, initialState, noOfSides);
         this.satisfactionThreshold = threshold;

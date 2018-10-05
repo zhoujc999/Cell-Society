@@ -5,17 +5,27 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Fire Simulation instantiates the grid and cells from the input map. It returns the state of the simulation through <code> render()</code> and <code>getView()</code>
- *
- *
+ * Fire Simulation instantiates the grid and cells from the input map.
+ * It returns the state of the simulation through <code> render()</code> and <code>getView()</code>
+ * Subclass of Simulation.
  * @author jz192
  */
 
 public class FireSimulation extends Simulation {
-    //    No wrap arounds for Game of Life
+    //    No wrap around for Game of Life
     private static final boolean ROW_WRAP = false;
     private static final boolean COLUMN_WRAP = false;
     private double probCatchFire;
+
+    /**
+     * FireSimulation creates an instance of this simulation.
+     * @param initialState a map of points to cell states
+     * @param noOfSides shape of cell
+     * @param numColumns number of columns for the grid
+     * @param numRows number of rows for the grid
+     * @param proCatchFire probability of the trees catching fire
+     * Subclass of Simulation.
+     */
 
     public FireSimulation(int numRows, int numColumns, Map<Point, Integer> initialState, int noOfSides, double proCatchFire) {
 

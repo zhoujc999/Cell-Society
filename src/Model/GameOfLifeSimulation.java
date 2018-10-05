@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  * Abstract representation of the Game of Life Simulation
- *
+ * Subclass of Simulation.
  * @author jz192
  */
 
@@ -15,7 +15,14 @@ public class GameOfLifeSimulation extends Simulation {
     private static final boolean ROW_WRAP = false;
     private static final boolean COLUMN_WRAP = false;
 
-
+    /**
+     * GameOfLife simulation creates an instance of this simulation.
+     * @param initialState a map of points to cell states
+     * @param noOfSides shape of cell
+     * @param numColumns number of columns for the grid
+     * @param numRows number of rows for the grid
+     * Subclass of Simulation.
+     */
     public GameOfLifeSimulation(int numRows, int numColumns, Map<Point, Integer> initialState, int noOfSides) {
         super(numRows, numColumns, initialState, noOfSides);
         render();

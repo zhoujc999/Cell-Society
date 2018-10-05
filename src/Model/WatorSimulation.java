@@ -7,7 +7,7 @@ import java.util.Map;
 
 /**
  * Abstract representation of the Wa-Tor Simulation.
- *
+ * Subclass of Simulation
  * @author jz192
  */
 
@@ -19,6 +19,16 @@ public class WatorSimulation extends Simulation {
     private int fishTurnsToBreed;
     private int sharkTurnsToBreed;
 
+    /**
+     * GameOfLife simulation creates an instance of this simulation.
+     * @param initialState a map of points to cell states
+     * @param noOfSides shape of cell
+     * @param numColumns number of columns for the grid
+     * @param numRows number of rows for the grid
+     * @param fishTurnsToBreed number of turns before the fish breeds
+     * @param sharkTurnsToBreed number of turns before the shark breeds.
+     * Subclass of Simulation.
+     */
     public WatorSimulation(int numRows, int numColumns, Map<Point, Integer> initialState, int noOfSides, int fishTurnsToBreed, int sharkTurnsToBreed) {
         super(numRows, numColumns, initialState, noOfSides);
         this.fishTurnsToBreed = fishTurnsToBreed;
@@ -75,7 +85,7 @@ public class WatorSimulation extends Simulation {
         render();
     }
 
-    public void render() {
+    protected void render() {
         int numFish = 0;
         int numShark = 0;
         int numEmpty = 0;
