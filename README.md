@@ -1,4 +1,4 @@
-cell society
+Cell Society
 ====
 
 This project implements a cellular automata simulator.
